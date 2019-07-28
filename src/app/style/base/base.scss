@@ -1,0 +1,29 @@
+@import "variables";
+body {
+	font-family: $font-family;
+	font-size: $font-size;
+	font-weight: $font-weight;
+	line-height: $line-height;
+	color: $white;
+	display: flex;           // Исправляем баг в IE для min-height and flexbox (flex-direction:column)
+	flex-direction: column;  // и прижимаем footer в IE 10-11
+	margin: 0;
+	min-height: 100%;
+	word-break: break-word;
+	text-align: left;
+	background-color: $body-bg;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale
+}
+
+a {
+	color: rgba($white, 0.5);
+	
+	&:hover {
+		color: $white;
+	}
+}
+
+a:hover {
+	text-decoration: underline;
+}

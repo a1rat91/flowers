@@ -1,0 +1,28 @@
+// Цвета
+$white: #ffffff;
+$grey: #ccc;
+$black: #000;
+$text-color: $black;
+$body-bg: #3B181E;
+$colorLink: $white;
+
+// Базовая стили
+$font-family: 'SFUIDisplay', sans-serif;
+$font-size: 18px;
+$line-height: 1.4;
+$color: $white;
+$font-weight: 400;
+
+// Ширины
+$screen-xs:                   0;
+$screen-sm:                   480px;
+$screen-md:                   768px;
+$screen-lg:                   992px;
+$screen-xl:                   1200px;
+$screen-xxl:                  1800px;
+
+// Разное
+$border-radius:               3px;
+$opacity:                     0.7;
+$transition-time:             0.3s;
+$shadow:                      0 4px 2px -2px rgba(0, 0, 0, 0.3);

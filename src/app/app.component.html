@@ -1,0 +1,25 @@
+<div class="page__inner">
+  <div class="page__content">
+    <app-header></app-header>
+    
+    <div class="container">
+      <div fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
+        <div class="section">
+          <div class="some-title">Some section1</div>
+        </div>
+        <div class="section">
+          <div class="some-title">Some section2</div>
+        </div>
+        <div class="section">
+          <div class="some-title">Some section3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.page__content -->
+  <div class="page__footer-wraper">
+    <app-footer></app-footer>
+  </div>
+  <!-- /.page__footer-wraper -->
+</div>
+<!-- /.page__inner -->
