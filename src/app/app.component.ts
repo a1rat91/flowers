@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {TweenMax, TimelineMax, CSSRulePlugin} from 'gsap';
-
+import {TweenMax, TimelineMax, Linear} from 'gsap';
+// import * as gsap from 'gsap';
+// import Linear = gsap.Linear;
 
 @Component({
     selector: 'app-root',
@@ -11,9 +12,7 @@ export class AppComponent implements OnInit {
     config: any;
     fullpage_api: any;
 
-
     ngOnInit() {
-
     }
 
     constructor() {
@@ -38,7 +37,7 @@ export class AppComponent implements OnInit {
                 const animationLine = new TimelineMax();﻿﻿﻿
                 let title = document.querySelectorAll('.some-title');
                 animationLine
-                    .to(title[destination.index], 2, {delay: 0, x: 100, y: 0}, 0);
+                    .to(title[destination.index], 2, {delay: 0, x: 100, y: 0, ease: Linear.easeInOut}, 0);
             }
         };
     }
