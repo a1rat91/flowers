@@ -10,6 +10,7 @@ import { SwiperComponent } from './components/swiper/swiper.component';
 import {AppRoutingModule} from './app-routing.module';
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {FlowerPageComponent} from './components/flower-page/flower-page.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import {FlowerPageComponent} from './components/flower-page/flower-page.componen
     MainPageComponent,
     FlowerPageComponent,
     SwiperComponent,
+    NotFoundComponent,
 
   ],
   imports: [
