@@ -2,6 +2,12 @@
 .header {
 	position: relative;
 	z-index: 1;
+  
+  &__menu {
+    .active a {
+      color: #ffffff;
+    }
+  }
 
 	&__inner {
 		width: 100%;

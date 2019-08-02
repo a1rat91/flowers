@@ -8,7 +8,16 @@
 			</div>
 			<!-- /.header__col -->
 			<div class="header__col header__col_right">
-				
+        <ul class="header__menu">
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+          ><a routerLink="/" class="active">Главная</a></li>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+          ><a [routerLink]="'/flower'">Услуга</a></li>
+        </ul>
 				
 				<div class="header__burger"></div>
 			</div>
