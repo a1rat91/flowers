@@ -1,0 +1,8 @@
+<a (click)="switchBurger()" routerLink="navigation" class="burger" *ngIf="!burgerOpen else unset" [ngClass]="{'burger_close': burgerOpen}">
+  <span>123</span>
+</a>
+<ng-template #unset>
+  <a (click)="switchBurger()" routerLink="/" class="burger" [ngClass]="{'burger_close': burgerOpen}">
+    <span>456</span>
+  </a>
+</ng-template>

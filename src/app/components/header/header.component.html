@@ -1,31 +1,18 @@
 <header class="header">
-	<div class="header__inner">
-		<div class="header__row">
-			<div class="header__col">
-				
-				<app-logo></app-logo>
-			
-			</div>
-			<!-- /.header__col -->
-			<div class="header__col header__col_right">
-        <ul class="header__menu">
-          <li
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}"
-          ><a routerLink="/" class="active">Главная</a></li>
-          <li
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}"
-          ><a [routerLink]="'/flower'">Услуга</a></li>
-        </ul>
-				
-				<div class="header__burger"></div>
-			</div>
-			<!-- /.header__col -->
-		</div>
-		<!-- /.header__row -->
-		
-	</div>
-	<!-- /.header__inner -->
+  <div class="header__inner">
+    <div class="header__row">
+      <div class="header__col">
+        <app-logo routerLink="/"></app-logo>
+      </div>
+      <!-- /.header__col -->
+      <div class="header__col header__col_right">
+        <app-burger></app-burger>
+      </div>
+      <!-- /.header__col -->
+    </div>
+    <!-- /.header__row -->
+  
+  </div>
+  <!-- /.header__inner -->
 </header>
 <!-- /.header -->

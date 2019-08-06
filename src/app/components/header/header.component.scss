@@ -1,13 +1,7 @@
-@import "../../style/base/variables";
+@import "../../../assets/style/base/variables";
 .header {
 	position: relative;
 	z-index: 1;
-  
-  &__menu {
-    .active a {
-      color: #ffffff;
-    }
-  }
 
 	&__inner {
 		width: 100%;
@@ -31,6 +25,7 @@
 			align-items: center;
 		}
 	}
+ 
 	@media (max-width: $screen-md) {
 		padding: 0 56px 0 16px;
 		position: fixed;
