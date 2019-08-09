@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {AngularFullpageModule} from '@fullpage/angular-fullpage';
 
 import {AppComponent} from './app.component';
+import { FlowersService } from './flowers.service';
 import {AppRoutingModule} from './app-routing.module';
 import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
@@ -12,7 +13,6 @@ import {MainPageComponent} from './components/main-page/main-page.component';
 import {FlowerPageComponent} from './components/flower-page/flower-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { BurgerComponent } from './components/burger/burger.component';
 
 
 @NgModule({
@@ -26,7 +26,6 @@ import { BurgerComponent } from './components/burger/burger.component';
     SwiperComponent,
     NotFoundComponent,
     NavigationComponent,
-    BurgerComponent,
 
   ],
   imports: [
@@ -35,7 +34,7 @@ import { BurgerComponent } from './components/burger/burger.component';
     AppRoutingModule,
 
   ],
-  providers: [],
+  providers: [FlowersService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,7 +1,7 @@
-<div class="page__inner">
+<div class="page__inner" [ngClass]="{'navigation_active': menuOpen}">
   <div class="page__content">
-    <app-header></app-header>
-    
+    <app-header (burgerStateChanged)="changeMenuState($event)"></app-header>
+    <app-navigation (navClosed)="setNavClosed($event)"></app-navigation>
     <div class="container">
       <router-outlet></router-outlet>
     </div>
