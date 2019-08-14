@@ -1,4 +1,5 @@
-<div class="navigation">
+<div class="navigation" [ngClass]="{'navigation_active': navState}">
+  <app-logo></app-logo>
   <ul class="navigation__menu">
     <li class="navigation__item"
         *ngFor="let flower of flowers"

@@ -1,22 +1,17 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss', './header-burger.component.scss']
 })
-export class HeaderComponent implements OnInit {
-  @Output() burgerStateChanged: EventEmitter<any> = new EventEmitter<any>();
-
-  burgerOpen = true;
-  @Input() isMenuOpen: boolean;
-
-  ngOnInit() {
-  }
+export class HeaderComponent {
+  @Input() burger;
+  @Output() burgerState = new EventEmitter<boolean>();
 
   openNav() {
-    this.burgerOpen = !this.burgerOpen;
-    this.burgerStateChanged.emit(!this.burgerOpen);
+    this.burger = !this.burger;
+    this.burgerState.emit(this.burger);
   }
 
  }

@@ -13,6 +13,7 @@ import {MainPageComponent} from './components/main-page/main-page.component';
 import {FlowerPageComponent} from './components/flower-page/flower-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AngularFullpageModule,
     AppRoutingModule,
 

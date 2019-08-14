@@ -11,7 +11,7 @@
   pointer-events: none;
   opacity: 0;
   
-  &_active & {
+  &_active {
     background: $body-bg;
     pointer-events: all;
     z-index: 10;
