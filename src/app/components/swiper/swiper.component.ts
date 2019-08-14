@@ -18,12 +18,17 @@ export class SwiperComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.mySwiper = new Swiper('.swiper-container', {
-      pagination: '.swiper-pagination',
-      paginationClickable: true,
-      nextButton: '.swiper-button-next',
-      prevButton: '.swiper-button-prev',
-      autoplay: 3000,
-      spaceBetween: 30
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'bullets',
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        autoplay: {
+            delay: 10000,
+        }
     });
   }
 }
