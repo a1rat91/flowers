@@ -1,12 +1,12 @@
-<div class="navigation" [ngClass]="{'navigation_active': navState}">
-  <app-logo></app-logo>
+<div class="navigation" [ngClass]="{'navigation_active': navigation}">
+  <app-logo routerLink="/" (click)="closeNav()"></app-logo>
   <ul class="navigation__menu">
     <li class="navigation__item"
         *ngFor="let flower of flowers"
         routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}"
-    >
-      <a (click)="closeMenuEvent()" [routerLink]="['/flowers', flower.id]">
+        [routerLinkActiveOptions]="{exact: true}">
+      <a (click)="closeNav()"
+         [routerLink]="['/flowers', flower.id]">
         Услуга {{flower.id}}
       </a>
     </li>

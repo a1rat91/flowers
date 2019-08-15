@@ -1,5 +1,6 @@
-import {Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, ViewEncapsulation} from '@angular/core';
-import {FlowersService} from '../../flowers.service';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {FlowersService} from '../../services/flowers.service';
+import {NavService} from '../../services/nav.service';
 
 @Component({
   selector: 'app-navigation',
@@ -8,20 +9,23 @@ import {FlowersService} from '../../flowers.service';
   encapsulation: ViewEncapsulation.None
 })
 export class NavigationComponent implements OnInit {
-  @Input() navState: boolean;
-  @Input() burger;
-  @Output() burgerState = new EventEmitter<boolean>();
-  constructor(private flowersService: FlowersService) {}
-
+  navigation: boolean;
+  burger: boolean;
   public flowers = [];
-  public closeMenu = false;
+
+  constructor(
+    private flowersService: FlowersService,
+    private nav: NavService
+  ) {}
 
   ngOnInit() {
     this.flowers = this.flowersService.flowers;
+    this.nav.currentNavigationState.subscribe(navigation => this.navigation = navigation);
+    this.nav.currentBurgerState.subscribe(burger => this.burger = burger);
   }
 
-  closeMenuEvent(){
-    this.navState = !this.navState;
-    this.burgerState.emit(this.burger);
+  closeNav() {
+    this.nav.changeBurgerState(!this.burger);
+    this.nav.changeNavigationState(!this.navigation);
   }
 }

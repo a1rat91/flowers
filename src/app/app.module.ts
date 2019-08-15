@@ -3,7 +3,8 @@ import {NgModule} from '@angular/core';
 import {AngularFullpageModule} from '@fullpage/angular-fullpage';
 
 import {AppComponent} from './app.component';
-import { FlowersService } from './flowers.service';
+import { FlowersService } from './services/flowers.service';
+import { NavService } from './services/nav.service';
 import {AppRoutingModule} from './app-routing.module';
 import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
@@ -13,7 +14,6 @@ import {MainPageComponent} from './components/main-page/main-page.component';
 import {FlowerPageComponent} from './components/flower-page/flower-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -31,12 +31,11 @@ import {FormsModule} from "@angular/forms";
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     AngularFullpageModule,
     AppRoutingModule,
 
   ],
-  providers: [FlowersService],
+  providers: [FlowersService, NavService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

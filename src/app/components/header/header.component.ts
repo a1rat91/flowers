@@ -1,17 +1,26 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {NavService} from '../../services/nav.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss', './header-burger.component.scss']
 })
-export class HeaderComponent {
-  @Input() burger;
-  @Output() burgerState = new EventEmitter<boolean>();
+export class HeaderComponent implements OnInit {
 
-  openNav() {
-    this.burger = !this.burger;
-    this.burgerState.emit(this.burger);
+  navigation: boolean;
+  burger: boolean;
+
+  constructor(private nav: NavService) {
   }
 
+  ngOnInit() {
+    this.nav.currentNavigationState.subscribe(navigation => this.navigation = navigation);
+    this.nav.currentBurgerState.subscribe(burger => this.burger = burger);
+  }
+
+  openNav() {
+    this.nav.changeBurgerState(!this.burger);
+    this.nav.changeNavigationState(!this.navigation);
+  }
  }
