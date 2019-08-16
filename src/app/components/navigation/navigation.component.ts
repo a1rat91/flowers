@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FlowersService} from '../../services/flowers.service';
-import {NavService} from '../../services/nav.service';
+import {NavigationService} from '../../services/navigation.service';
 
 @Component({
   selector: 'app-navigation',
@@ -15,7 +15,7 @@ export class NavigationComponent implements OnInit {
 
   constructor(
     private flowersService: FlowersService,
-    private nav: NavService
+    private nav: NavigationService
   ) {}
 
   ngOnInit() {

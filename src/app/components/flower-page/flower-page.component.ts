@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-flower-page',
@@ -14,5 +14,11 @@ export class FlowerPageComponent implements OnInit  {
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
+    this.id = this.route.snapshot.params['title'];
+    this.id = this.route.snapshot.params['text'];
+
+    this.route.params.subscribe((params: Params) => {
+      this.id = this.route.snapshot.params['id'];
+    });
   }
 }

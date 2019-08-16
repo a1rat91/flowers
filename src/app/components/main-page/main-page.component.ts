@@ -1,31 +1,30 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {TweenMax, TimelineMax, Linear} from 'gsap';
-// import * as gsap from 'gsap';
-// import Linear = gsap.Linear;
+import {Component, DoCheck, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {TweenMax, TimelineMax} from 'gsap';
+import * as gsap from 'gsap';
+import Linear = gsap.Linear;
+import {NavigationService} from '../../services/navigation.service';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
-    encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None
 })
 export class MainPageComponent implements OnInit {
+
   config: any;
   fullpage_api: any;
 
-  ngOnInit() {
-  }
+  // TODO Отключать fullpage при открытой навигации
+  navigation: boolean;
 
-  constructor() {
-
+  constructor(private nav: NavigationService) {
     this.config = {
       licenseKey: 'OPEN-SOURCE-GPLV3-LICENSE',
-      anchors: ['firstPage', 'secondPage', 'thirdPage', 'fourthPage', 'lastPage'],
+      anchors: ['firstSection', 'secondSection', 'lastSection'],
       menu: '#menu',
-
-      // fullpage callbacks
       afterResize: () => {
-        console.log("After resize");
+        // console.log("After resize");
       },
       onLeave: (origin, destination, direction) => {
         // animationReset
@@ -36,8 +35,11 @@ export class MainPageComponent implements OnInit {
     };
   }
 
+  ngOnInit() {
+    this.nav.currentNavigationState.subscribe(navigation => this.navigation = navigation);
+  }
+
   getRef(fullPageRef) {
     this.fullpage_api = fullPageRef;
   }
-
 }

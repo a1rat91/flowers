@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 
 @Injectable()
-export class NavService {
+export class NavigationService {
   private navigationSource = new BehaviorSubject<boolean>(false);
   private burgerSource = new BehaviorSubject<boolean>(false);
   currentNavigationState = this.navigationSource.asObservable();

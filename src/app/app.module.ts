@@ -4,7 +4,7 @@ import {AngularFullpageModule} from '@fullpage/angular-fullpage';
 
 import {AppComponent} from './app.component';
 import { FlowersService } from './services/flowers.service';
-import { NavService } from './services/nav.service';
+import { NavigationService } from './services/navigation.service';
 import {AppRoutingModule} from './app-routing.module';
 import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
@@ -35,7 +35,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     AppRoutingModule,
 
   ],
-  providers: [FlowersService, NavService],
+  providers: [FlowersService, NavigationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

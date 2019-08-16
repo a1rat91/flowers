@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {NavService} from '../../services/nav.service';
+import {NavigationService} from '../../services/navigation.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
   navigation: boolean;
   burger: boolean;
 
-  constructor(private nav: NavService) {
+  constructor(private nav: NavigationService) {
   }
 
   ngOnInit() {
