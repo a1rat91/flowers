@@ -35,7 +35,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     AppRoutingModule,
 
   ],
-  providers: [FlowersService, NavigationService],
+  providers: [NavigationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
+import {Page, FlowersService} from '../../services/flowers.service';
 
 @Component({
   selector: 'app-flower-page',
@@ -10,15 +11,14 @@ export class FlowerPageComponent implements OnInit  {
   @Output() menuClosed: EventEmitter<any> = new EventEmitter<any>();
   id: string;
 
-  constructor(private route: ActivatedRoute) { }
+  page: Page;
+
+  constructor(private route: ActivatedRoute,
+              private flowersService: FlowersService) { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.params['id'];
-    this.id = this.route.snapshot.params['title'];
-    this.id = this.route.snapshot.params['text'];
-
     this.route.params.subscribe((params: Params) => {
-      this.id = this.route.snapshot.params['id'];
+      this.page = this.flowersService.getById(+params.id);
     });
   }
 }
