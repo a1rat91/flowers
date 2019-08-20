@@ -1,0 +1,29 @@
+
+.slider {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+  
+  .pagination {
+    position: relative;
+    z-index: 100000;
+  }
+  
+  canvas {
+    width: 100%;
+    z-index: 2;
+    position: relative;
+    min-height: 1000px;
+  }
+  
+  img {
+    //position: absolute;
+    //opacity: 0;
+    height: 500px;
+    width: 500px;
+  }
+}
+
+

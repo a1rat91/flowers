@@ -21,6 +21,7 @@
     "@angular/router": "~8.1.0",
     "@fullpage/angular-fullpage": "0.0.14",
     "@types/gsap": "^1.20.2",
+    "angular-imagesloaded": "^1.0.0",
     "gsap": "^2.1.3",
     "hover-effect": "^1.0.5",
     "three": "^0.107.0",

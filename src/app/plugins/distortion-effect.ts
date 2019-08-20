@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import {TweenMax, Expo} from 'gsap';
+import {TweenLite, Expo} from 'gsap';
 
-export const DistortionEffect = function(opts) {
+export const DistortionEffect = opts => {
   const vertex = `
         varying vec2 vUv;
         void main() {
@@ -12,113 +12,78 @@ export const DistortionEffect = function(opts) {
 
   const fragment = `
         varying vec2 vUv;
-
-        uniform sampler2D texture;
-        uniform sampler2D texture2;
-        uniform sampler2D disp;
-
-        // uniform float time;
-        // uniform float _rot;
+        uniform sampler2D currentImage;
+        uniform sampler2D nextImage;
         uniform float dispFactor;
-        uniform float effectFactor;
-
-        // vec2 rotate(vec2 v, float a) {
-        //  float s = sin(a);
-        //  float c = cos(a);
-        //  mat2 m = mat2(c, -s, s, c);
-        //  return m * v;
-        // }
-
         void main() {
-
             vec2 uv = vUv;
-
-            // uv -= 0.5;
-            // vec2 rotUV = rotate(uv, _rot);
-            // uv += 0.5;
-
-            vec4 disp = texture2D(disp, uv);
-
-            vec2 distortedPosition = vec2(uv.x + dispFactor * (disp.r*effectFactor), uv.y);
-            vec2 distortedPosition2 = vec2(uv.x - (1.0 - dispFactor) * (disp.r*effectFactor), uv.y);
-
-            vec4 _texture = texture2D(texture, distortedPosition);
-            vec4 _texture2 = texture2D(texture2, distortedPosition2);
-
-            vec4 finalTexture = mix(_texture, _texture2, dispFactor);
-
+            vec4 _currentImage;
+            vec4 _nextImage;
+            float intensity = 0.3;
+            vec4 orig1 = texture2D(currentImage, uv);
+            vec4 orig2 = texture2D(nextImage, uv);
+            _currentImage = texture2D(currentImage, vec2(uv.x, uv.y + dispFactor * (orig2 * intensity)));
+            _nextImage = texture2D(nextImage, vec2(uv.x, uv.y + (1.0 - dispFactor) * (orig1 * intensity)));
+            vec4 finalTexture = mix(_currentImage, _nextImage, dispFactor);
             gl_FragColor = finalTexture;
-            // gl_FragColor = disp;
         }
     `;
 
-  const parent = opts.parent || console.warn('no parent');
-  const dispImage = opts.displacementImage || console.warn('displacement image missing');
-  const image1 = opts.image1 || console.warn('first image missing');
-  const image2 = opts.image2 || console.warn('second image missing');
-  // const images = opts.images || console.warn('images missing');
-  const intensity = opts.intensity || 1;
-  const speedIn = opts.speedIn || 1.6;
-  const speedOut = opts.speedOut || 1.2;
-  const userHover = (opts.hover === undefined) ? true : opts.hover;
-  const easing = opts.easing || Expo.easeOut;
-  const btnNext = document.querySelector(opts.btnNext) || document.querySelector('#distortion-next');
-  const btnPrev = document.querySelector(opts.btnPrev) || document.querySelector('#distortion-prev');
+  let images = opts.images, image, sliderImages = [];
+  const canvasWidth = images[0].clientWidth;
+  const canvasHeight = images[0].clientHeight;
+  const parent = opts.parent;
+  const renderWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+  const renderHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-  const mobileAndTabletcheck = () => {
-    let check = false;
-    (a => {if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) { check = true; }})(navigator.userAgent || navigator.vendor);
-    return check;
-  };
+  let renderW, renderH;
+
+  if (renderWidth > canvasWidth) {
+    renderW = renderWidth;
+  } else {
+    renderW = canvasWidth;
+  }
+
+  renderH = canvasHeight;
+
+  const renderer = new THREE.WebGLRenderer({
+    antialias: false,
+  });
+
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x23272A, 1.0);
+  renderer.setSize(renderW, renderH);
+  parent.appendChild(renderer.domElement);
+
+  const loader = new THREE.TextureLoader();
+  loader.crossOrigin = 'anonymous';
+
+  images.forEach((img) => {
+    image = loader.load(img.getAttribute('src') + '?v=' + Date.now());
+    image.magFilter = image.minFilter = THREE.LinearFilter;
+    image.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    sliderImages.push(image);
+  });
 
   const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x23272A);
   const camera = new THREE.OrthographicCamera(
-    parent.offsetWidth / -2,
-    parent.offsetWidth / 2,
-    parent.offsetHeight / 2,
-    parent.offsetHeight / -2,
+    renderWidth / -2,
+    renderWidth / 2,
+    renderHeight / 2,
+    renderHeight / -2,
     1,
     1000
   );
 
   camera.position.z = 1;
 
-  const renderer = new THREE.WebGLRenderer({
-    antialias: false,
-    // alpha: true
-  });
-
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setClearColor(0xffffff, 0.0);
-  renderer.setSize(parent.offsetWidth, parent.offsetHeight);
-  parent.appendChild(renderer.domElement);
-
-  // const addToGPU = function(t) {
-  //     renderer.setTexture2D(t, 0);
-  // };
-
-  const loader = new THREE.TextureLoader();
-  loader.crossOrigin = '';
-  const texture1 = loader.load(image1);
-  const texture2 = loader.load(image2);
-  const disp = loader.load(dispImage);
-  disp.wrapS = disp.wrapT = THREE.RepeatWrapping;
-
-  texture1.magFilter = texture2.magFilter = THREE.LinearFilter;
-  texture1.minFilter = texture2.minFilter = THREE.LinearFilter;
-
-  texture1.anisotropy = renderer.capabilities.getMaxAnisotropy();
-  texture2.anisotropy = renderer.capabilities.getMaxAnisotropy();
-
   const mat = new THREE.ShaderMaterial({
     uniforms: {
-      effectFactor: { type: 'f', value: intensity },
-      dispFactor: { type: 'f', value: 0.0 },
-      texture: { type: 't', value: texture1 },
-      texture2: { type: 't', value: texture2 },
-      disp: { type: 't', value: disp }
+      dispFactor: {type: 'f', value: 0.0},
+      currentImage: {type: 't', value: sliderImages[0]},
+      nextImage: {type: 't', value: sliderImages[1]},
     },
-
     vertexShader: vertex,
     fragmentShader: fragment,
     transparent: true,
@@ -131,52 +96,103 @@ export const DistortionEffect = function(opts) {
     1
   );
   const object = new THREE.Mesh(geometry, mat);
+  object.position.set(0, 0, 0);
   scene.add(object);
 
   const addEvents = () => {
-    let evtIn = 'mouseenter';
-    let evtOut = 'mouseleave';
-    if (mobileAndTabletcheck()) {
-      evtIn = 'touchstart';
-      evtOut = 'touchend';
-    }
-    parent.addEventListener(evtIn, e => {
-      TweenMax.to(mat.uniforms.dispFactor, speedIn, {
-        value: 1,
-        ease: easing
+    const pagButtons = Array.from(document.getElementById('pagination').querySelectorAll('button'));
+    let isAnimating = false;
+
+    pagButtons.forEach((el) => {
+
+      el.addEventListener('click', function() {
+
+        if (!isAnimating) {
+
+          isAnimating = true;
+
+          document.getElementById('pagination').querySelectorAll('.active')[0].className = '';
+          this.className = 'active';
+
+          const slideId = parseInt(this.dataset.slide, 10);
+
+          mat.uniforms.nextImage.value = sliderImages[slideId];
+          // mat.uniforms.nextImage.needsUpdate = true;
+
+          TweenLite.to(mat.uniforms.dispFactor, 1, {
+            value: 1,
+            ease: 'Expo.easeInOut',
+            onComplete() {
+              mat.uniforms.currentImage.value = sliderImages[slideId];
+              // mat.uniforms.currentImage.needsUpdate = true;
+              mat.uniforms.dispFactor.value = 0.0;
+              isAnimating = false;
+            }
+          });
+
+          // const slideTitleEl = document.getElementById('slide-title');
+          // const slideStatusEl = document.getElementById('slide-status');
+          // const nextSlideTitle = document.querySelectorAll(`[data-slide-title="${slideId}"]`)[0].innerHTML;
+          // const nextSlideStatus = document.querySelectorAll(`[data-slide-status="${slideId}"]`)[0].innerHTML;
+
+          // TweenLite.fromTo(slideTitleEl, 0.5,
+          //   {
+          //     autoAlpha: 1,
+          //     filter: 'blur(0px)',
+          //     y: 0
+          //   },
+          //   {
+          //     autoAlpha: 0,
+          //     filter: 'blur(10px)',
+          //     y: 20,
+          //     ease: 'Expo.easeIn',
+          //     onComplete() {
+          //       slideTitleEl.innerHTML = nextSlideTitle;
+          //
+          //       TweenLite.to(slideTitleEl, 0.5, {
+          //         autoAlpha: 1,
+          //         filter: 'blur(0px)',
+          //         y: 0,
+          //       });
+          //     }
+          //   });
+          //
+          // TweenLite.fromTo(slideStatusEl, 0.5,
+          //   {
+          //     autoAlpha: 1,
+          //     filter: 'blur(0px)',
+          //     y: 0
+          //   },
+          //   {
+          //     autoAlpha: 0,
+          //     filter: 'blur(10px)',
+          //     y: 20,
+          //     ease: 'Expo.easeIn',
+          //     onComplete() {
+          //       slideStatusEl.innerHTML = nextSlideStatus;
+          //
+          //       TweenLite.to(slideStatusEl, 0.5, {
+          //         autoAlpha: 1,
+          //         filter: 'blur(0px)',
+          //         y: 0,
+          //         delay: 0.1,
+          //       });
+          //     }
+          //   });
+
+        }
+
       });
+
     });
 
-    parent.addEventListener(evtOut, e => {
-      TweenMax.to(mat.uniforms.dispFactor, speedOut, {
-        value: 0,
-        ease: easing
-      });
-    });
   };
 
-  if (userHover) {
-    addEvents();
-  }
+  addEvents();
 
   window.addEventListener('resize', e => {
-    renderer.setSize(parent.offsetWidth, parent.offsetHeight);
+    renderer.setSize(renderW, renderH);
   });
-
-
-  this.next = () => {
-    TweenMax.to(mat.uniforms.dispFactor, speedIn, {
-      value: 1,
-      ease: easing
-    });
-  };
-
-  this.previous = () => {
-    TweenMax.to(mat.uniforms.dispFactor, speedOut, {
-      value: 0,
-      ease: easing
-    });
-  };
 
   const animate = () => {
     requestAnimationFrame(animate);
@@ -184,8 +200,5 @@ export const DistortionEffect = function(opts) {
     renderer.render(scene, camera);
   };
   animate();
-
-  btnNext.addEventListener('click', (e: Event) => this.next());
-  btnPrev.addEventListener('click', (e: Event) => this.previous());
 };
 
