@@ -6,6 +6,11 @@
   &__left,
   &__right {
     width: 50%;
+    overflow: hidden;
+  }
+  
+  &__left {
+    margin-top: -140px;
   }
 }
 .slider {
@@ -23,13 +28,19 @@
   canvas {
     width: 100%;
     z-index: 100000;
-    //position: absolute;
-    top: 0;
-    left: 0;
+    //position: absolute; нельзя
   }
   
   img {
     display: none;
+    
+    //&:first-child {
+    //  display: block;
+    //  width: 100%;
+    //  height: auto;
+    //  position: absolute;
+    //  z-index: -1;
+    //}
   }
 }
 

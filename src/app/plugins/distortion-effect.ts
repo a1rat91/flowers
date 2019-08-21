@@ -33,7 +33,7 @@ export const DistortionEffect = opts => {
     let image;
     let sliderImages = [];
     const canvasWidth = images[0].parentNode.clientWidth;
-    const canvasHeight = images[0].parentNode.clientWidth * 1.085;
+    const canvasHeight = document.documentElement.clientHeight;
     const parent = opts.parent;
     // const renderWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     // const renderHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
