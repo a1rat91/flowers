@@ -1,19 +1,30 @@
-<h1>Детальное отображение услуги {{page.id}}</h1>
-<h2>{{page.title}}</h2>
-<p>{{page.text}}</p>
-<!-- Div to draw the effect -->
-<div class="wrap">
-<div class="slider" #slider>
-  <img src="/assets/images/Img1.jpg">
-  <img src="./assets/images/Img2.jpg">
-  <img src="./assets/images/Img3.jpg">
-  <img src="./assets/images/Img4.jpg">
-  <div id="pagination" class="pagination">
-    <button class="active" data-slide="0">1</button>
-    <button data-slide="1" class="">2</button>
-    <button data-slide="2" class="">3</button>
-    <button data-slide="3" class="">4</button>
+<div class="flower-page">
+  <div class="flower-page__container">
+    <div class="flower-page__left">
+      <div class="slider" #distortionSlider>
+        <img src="/assets/images/flower-1.jpg">
+        <img src="./assets/images/flower-2.jpg">
+        <img src="./assets/images/flower-3.jpg">
+        <img src="./assets/images/flower-4.jpg">
+        <img src="./assets/images/flower-5.jpg">
+        <img src="./assets/images/flower-6.jpg">
+        <img src="./assets/images/flower-7.jpg">
+      </div>
+    </div>
+    <div class="flower-page__right">
+      <h1>Детальное отображение услуги {{page.id}}</h1>
+      <h2>{{page.title}}</h2>
+      <p>{{page.text}}</p>
+      <!-- Div to draw the effect -->
+      <div id="pagination" class="pagination">
+        <button class="active" data-slide="0">1</button>
+        <button data-slide="1" class="">2</button>
+        <button data-slide="2" class="">3</button>
+        <button data-slide="3" class="">4</button>
+        <button data-slide="4" class="">5</button>
+        <button data-slide="5" class="">6</button>
+        <button data-slide="6" class="">7</button>
+      </div>
+    </div>
   </div>
 </div>
-</div>
-
