@@ -14,9 +14,8 @@ import {DistortionEffect} from '../../plugins/distortion-effect';
     styleUrls: ['./flower-page.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class FlowerPageComponent implements OnInit, AfterViewInit {
+export class FlowerPageComponent implements OnInit {
     @Output() menuClosed: EventEmitter<any> = new EventEmitter<any>();
-    @ViewChild('distortionSlider', {static: true}) distortionSlider: ElementRef;
     id: string;
 
     page: Page;
@@ -28,16 +27,6 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
             this.page = this.flowersService.getById(+params.id);
-        });
-    }
-
-    ngAfterViewInit() {
-
-        const el = this.distortionSlider.nativeElement;
-        const imgs = Array.from(el.querySelectorAll('img'));
-        const myAnimation = DistortionEffect({
-            parent: el,
-            images: imgs
         });
     }
 }
