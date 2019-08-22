@@ -6,7 +6,7 @@ import {NotFoundComponent} from './components/not-found/not-found.component';
 
 const appRoutes: Routes = [
   {path: '', component: MainPageComponent},
-  {path: 'flowers/:id', component: FlowerPageComponent},
+  {path: 'flowers/:id', component: FlowerPageComponent, loadChildren: './components/flower-page/flower-page.module#FlowerPageModule'},
   {path: 'not-found', component: NotFoundComponent},
   {path: '**', redirectTo: '/not-found'},
 ];

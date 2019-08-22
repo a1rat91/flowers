@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {TweenLite, Expo} from 'gsap';
 
-export const DistortionEffect = opts => {
+export const DistortionSliderPlugin = opts => {
     const vertex = `
         varying vec2 vUv;
         void main() {
@@ -98,19 +98,20 @@ export const DistortionEffect = opts => {
     scene.add(object);
 
     const addEvents = () => {
-        const pagButtons = Array.from(document.getElementById('pagination').querySelectorAll('button'));
+        const pagButtons = Array.from(document.getElementById('js-slider-pagination').querySelectorAll('.slider-pagination__item'));
         let isAnimating = false;
 
         pagButtons.forEach((el) => {
 
-            el.addEventListener('click', function() {
+            el.addEventListener('click', function(e) {
+                e.preventDefault();
 
                 if (!isAnimating) {
 
                     isAnimating = true;
 
-                    document.getElementById('pagination').querySelectorAll('.active')[0].className = '';
-                    this.className = 'active';
+                    document.getElementById('js-slider-pagination').querySelectorAll('.active')[0].className = 'slider-pagination__item';
+                    this.className = 'slider-pagination__item active';
 
                     const slideId = parseInt(this.dataset.slide, 10);
 

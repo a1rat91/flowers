@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {DistortionEffect} from "../../plugins/distortion-effect";
+import {DistortionSliderPlugin} from './distortion-slider-plugin';
 
 @Component({
   selector: 'app-distortion-slider',
@@ -18,7 +18,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit {
 
     const el = this.distortionSlider.nativeElement;
     const imgs = Array.from(el.querySelectorAll('img'));
-    const myAnimation = DistortionEffect({
+    const myAnimation = DistortionSliderPlugin({
       parent: el,
       images: imgs
     });

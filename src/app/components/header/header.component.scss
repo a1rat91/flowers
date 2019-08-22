@@ -2,6 +2,7 @@
 .header {
 	position: relative;
 	z-index: 100;
+	height: $header-height;
 
 	&__inner {
 		width: 100%;

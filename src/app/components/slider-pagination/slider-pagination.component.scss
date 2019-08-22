@@ -1,0 +1,21 @@
+.slider-pagination {
+	&__list {
+		display: flex;
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+	}
+	
+	&__item {
+		padding: 10px;
+		border: 1px solid #ffffff;
+		margin-right: 4px;
+		cursor: pointer;
+		
+		&.active {
+			background: #ffffff;
+			color: #000000;
+			user-select: none;
+		}
+	}
+}

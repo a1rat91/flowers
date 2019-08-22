@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Page, FlowersService} from '../../services/flowers.service';
-import {DistortionEffect} from '../../plugins/distortion-effect';
+import {DistortionSliderPlugin} from '../distortion-slider/distortion-slider-plugin';
 
 // import {imagesLoaded} from 'imagesLoaded';
 

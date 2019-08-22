@@ -11,7 +11,7 @@ import { SwiperComponent } from './components/swiper/swiper.component';
 import {MainPageComponent} from './components/main-page/main-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import {FlowerPageModule} from './components/flower-page/flower-page.module';
+import {FlowerPageModule} from './components/flower-page/flower-page.module'; //TODO перенести в app-routing.module
 import {SharedModule} from './shared/shared.module';
 
 
@@ -30,7 +30,7 @@ import {SharedModule} from './shared/shared.module';
     BrowserModule,
     AngularFullpageModule,
     AppRoutingModule,
-    FlowerPageModule,
+    FlowerPageModule,//TODO перенести в app-routing.module
     SharedModule
   ],
   providers: [NavigationService, ],
