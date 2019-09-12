@@ -1,10 +1,12 @@
 <div fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
   <div class="section">
-    <div class="some-title">{{!navigation}}</div>
-    <app-swiper></app-swiper>
+    <app-magic-bg></app-magic-bg>
   </div>
   <div class="section">
-    <div class="some-title">Some section2</div>
+    <div class="some-title">
+      <div class="some-title">{{!navigation}}</div>
+      <app-swiper></app-swiper>
+    </div>
   </div>
   <div class="section fp-auto-height">
     <div class="some-title">Some section3</div>

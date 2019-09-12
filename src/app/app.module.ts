@@ -13,6 +13,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import {FlowerPageModule} from './components/flower-page/flower-page.module';
 import {SharedModule} from './shared/shared.module';
+import { MagicBgComponent } from './components/magic-bg/magic-bg.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {SharedModule} from './shared/shared.module';
     SwiperComponent,
     NotFoundComponent,
     NavigationComponent,
+    MagicBgComponent,
   ],
   imports: [
     BrowserModule,
