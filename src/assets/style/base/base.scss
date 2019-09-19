@@ -13,7 +13,8 @@ body {
 	text-align: left;
 	background-color: $body-bg;
 	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale
+	-moz-osx-font-smoothing: grayscale;
+	//overflow: hidden;
 }
 
 a {

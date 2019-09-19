@@ -13,7 +13,7 @@ import {NavigationService} from '../../services/navigation.service';
 export class MainPageComponent implements OnInit {
 
   config: any;
-  fullpage_api: any;
+  // fullpage_api: any;
 
   // TODO Отключать fullpage при открытой навигации
   navigation: boolean;
@@ -40,6 +40,6 @@ export class MainPageComponent implements OnInit {
   }
 
   getRef(fullPageRef) {
-    this.fullpage_api = fullPageRef;
+    // this.fullpage_api = fullPageRef;
   }
 }

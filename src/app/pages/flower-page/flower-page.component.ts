@@ -1,12 +1,13 @@
 import {
-    AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild,
+    Component,
+    EventEmitter,
+    OnInit,
+    Output,
     ViewEncapsulation
 } from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Page, FlowersService} from '../../services/flowers.service';
-import {DistortionSliderPlugin} from '../distortion-slider/distortion-slider-plugin';
-
-// import {imagesLoaded} from 'imagesLoaded';
+import {DistortionSliderPlugin} from '../../shared/plugins/distortion-slider/distortion-slider-plugin';
 
 @Component({
     selector: 'app-flower-page',
