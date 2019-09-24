@@ -1,0 +1,27 @@
+<nav class="navbar">
+	<a routerLink="/">
+		<h1>
+			Flowers Admin
+		</h1>
+	</a>
+	<ul *ngIf="auth.isAuthenticated()">
+		<li routerLinkActive="active">
+			<a [routerLink]="['/admin', 'dashboard']">
+				Главная
+			</a>
+		</li>
+		<li routerLinkActive="active">
+			<a [routerLink]="['/admin', 'create']">
+				Создать
+			</a>
+		</li>
+		<li>
+			<a href="#" (click)="logout($event)">
+				Выйти
+			</a>
+		</li>
+	</ul>
+</nav>
+<div class="container">
+	<router-outlet></router-outlet>
+</div>

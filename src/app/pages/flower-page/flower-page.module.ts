@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {FlowerPageComponent} from './flower-page.component';
 import {DistortionSliderComponent} from '../../components/distortion-slider/distortion-slider.component';
-import {SliderPaginationComponent} from '../../shared/slider-pagination/slider-pagination.component';
+import {SliderPaginationComponent} from '../../shared/components/slider-pagination/slider-pagination.component';
 import {RouterModule} from '@angular/router';
 import {LazyLoadImageModule} from 'ng-lazyload-image';
 

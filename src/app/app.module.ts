@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, Provider} from '@angular/core';
 import {AngularFullpageModule} from '@fullpage/angular-fullpage';
 import {LazyLoadImageModule} from 'ng-lazyload-image';
 
@@ -15,12 +15,22 @@ import {AppComponent} from './app.component';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
-import {LogoComponent} from './shared/logo/logo.component';
+import {LogoComponent} from './shared/components/logo/logo.component';
 import { Fake3dModule } from './components/fake3d/public-api';
+import {MainLayoutComponent} from './shared/components/main-layout/main-layout.component';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {AuthInterceptor} from './shared/auth.interceptor';
+
+const INTERCEPTOR_PROVIDER: Provider = {
+    provide: HTTP_INTERCEPTORS,
+    multi: true,
+    useClass: AuthInterceptor
+}
 
 @NgModule({
     declarations: [
         AppComponent,
+        MainLayoutComponent,
         MainPageComponent,
         NotFoundComponent,
         NavigationComponent,
@@ -34,9 +44,9 @@ import { Fake3dModule } from './components/fake3d/public-api';
         LazyLoadImageModule,
         AppRoutingModule,
         SharedModule,
-        Fake3dModule
+        Fake3dModule,
     ],
-    providers: [NavigationService],
+    providers: [NavigationService, INTERCEPTOR_PROVIDER],
     bootstrap: [AppComponent]
 })
 export class AppModule {
