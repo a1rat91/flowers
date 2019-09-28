@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject} from 'rxjs';
+import {PostsService} from '../shared/posts.service';
 
 @Injectable()
 export class NavigationService {
@@ -7,6 +8,7 @@ export class NavigationService {
   private burgerSource = new BehaviorSubject<boolean>(false);
   currentNavigationState = this.navigationSource.asObservable();
   currentBurgerState = this.burgerSource.asObservable();
+  posts: PostsService;
 
   changeNavigationState(navigation: boolean) {
     this.navigationSource.next(navigation);

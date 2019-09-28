@@ -1,13 +1,10 @@
-import {
-    Component,
-    EventEmitter,
-    OnInit,
-    Output,
-    ViewEncapsulation
-} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import {Page, FlowersService} from '../../services/flowers.service';
-import {DistortionSliderPlugin} from '../../shared/plugins/distortion-slider/distortion-slider-plugin';
+import {PostsService} from '../../shared/posts.service';
+import {Post} from '../../admin/shared/interfaces';
+import {Observable} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
+
 
 @Component({
     selector: 'app-flower-page',
@@ -16,18 +13,17 @@ import {DistortionSliderPlugin} from '../../shared/plugins/distortion-slider/dis
     encapsulation: ViewEncapsulation.None
 })
 export class FlowerPageComponent implements OnInit {
-    @Output() menuClosed: EventEmitter<any> = new EventEmitter<any>();
-    id: string;
 
-    page: Page;
+    post$: Observable<Post>;
 
     constructor(private route: ActivatedRoute,
-                private flowersService: FlowersService) {
+                private postsService: PostsService) {
     }
 
     ngOnInit() {
-        this.route.params.subscribe((params: Params) => {
-            this.page = this.flowersService.getById(+params.id);
-        });
+        this.post$ = this.route.params
+            .pipe(switchMap((params: Params) => {
+                return this.postsService.getById(params['id']);
+            }));
     }
 }

@@ -1,4 +1,4 @@
-<div class="flower-page">
+<div class="flower-page" >
   <div class="flower-page__container">
     <div class="flower-page__left">
       <div class="flower-page__left-inner">
@@ -6,11 +6,16 @@
       </div>
     </div>
     <div class="flower-page__right">
-      <h1>Детальное отображение услуги {{page.id}}</h1>
-      <h2>{{page.title}}</h2>
-      <p>{{page.text}}</p>
+      <div *ngIf="post$ | async as post; else loading">
+        <h2>{{post.title}}</h2>
+        <quill-view-html [content]="post.text"></quill-view-html>
+      </div>
+      <ng-template #loading>
+        <p class="text-center">Загружаю пост...</p>
+      </ng-template>
   
       <app-slider-pagination></app-slider-pagination>
     </div>
   </div>
 </div>
+

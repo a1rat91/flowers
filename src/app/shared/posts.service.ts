@@ -15,7 +15,36 @@ export class PostsService {
                 return {
                     ...post,
                     id: response.name
-                }
+                };
             }));
+    }
+
+    getAll(): Observable<Post[]> {
+        return this.http.get(`${environment.fbDbUrl}/flowers.json`)
+            .pipe(map((response: {[key: string]: any}) => {
+                return Object
+                    .keys(response)
+                    .map(key => ({
+                        ...response[key],
+                        id: key
+                    }));
+            }));
+    }
+
+    getById(id: string): Observable<Post> {
+        return this.http.get<Post>(`${environment.fbDbUrl}/flowers/${id}.json`)
+            .pipe(map((post: Post) => {
+                return {
+                    ...post, id
+                };
+            }));
+    }
+
+    remove(id: string): Observable<void> {
+        return this.http.delete<void>(`${environment.fbDbUrl}/flowers/${id}.json`);
+    }
+
+    update(post: Post): Observable<Post> {
+        return this.http.patch<Post>(`${environment.fbDbUrl}/flowers/${post.id}.json`, post);
     }
 }

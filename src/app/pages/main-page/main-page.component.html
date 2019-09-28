@@ -1,11 +1,21 @@
 <div fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
-  <div class="section">
-    <app-fake3d></app-fake3d>
-  </div>
-  <div class="section">
-    <div class="some-title">Some section2</div>
-  </div>
-  <div class="section fp-auto-height">
-    <div class="some-title">Some section3</div>
-  </div>
+	<div class="section">
+		<app-fake3d></app-fake3d>
+	</div>
+	<div class="section">
+		<div *ngIf="posts$ | async as posts; else loading">
+			<div class="container" style="padding: 200px 0;">
+				<app-post
+				*ngFor="let post of posts"
+				[post]="post"
+				></app-post>
+			</div>
+		</div>
+		<ng-template #loading>
+			<p>Загрузка...</p>
+		</ng-template>
+	</div>
+	<div class="section fp-auto-height">
+		<div class="some-title">Some section3</div>
+	</div>
 </div>

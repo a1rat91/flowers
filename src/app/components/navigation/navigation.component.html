@@ -1,14 +1,20 @@
 <div class="navigation" [ngClass]="{'navigation_active': navigation}">
-  <app-logo routerLink="/" (click)="closeNav()"></app-logo>
-  <ul class="navigation__menu">
-    <li class="navigation__item"
-        *ngFor="let flower of flowers"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-      <a (click)="closeNav()"
-         [routerLink]="['/flowers', flower.id]">
-        Услуга {{flower.id}}
-      </a>
-    </li>
-  </ul>
+	<app-logo routerLink="/" (click)="closeNav()"></app-logo>
+	<div *ngIf="posts$ | async as posts; else loading">
+		<ul class="navigation__menu">
+			<li class="navigation__item"
+			    *ngFor="let post of posts"
+			    routerLinkActive="active"
+			    [routerLinkActiveOptions]="{exact: true}">
+				<a (click)="closeNav()"
+				   [routerLink]="['/post', post.id]">
+					Услуга {{post.title}}
+				</a>
+			</li>
+		</ul>
+	</div>
+	
+	<ng-template #loading>
+		<p>Загрузка</p>
+	</ng-template>
 </div>

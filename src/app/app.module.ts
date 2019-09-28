@@ -20,6 +20,7 @@ import { Fake3dModule } from './components/fake3d/public-api';
 import {MainLayoutComponent} from './shared/components/main-layout/main-layout.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from './shared/auth.interceptor';
+import {PostComponent} from './shared/components/post/post.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
     provide: HTTP_INTERCEPTORS,
@@ -37,6 +38,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
         HeaderComponent,
         FooterComponent,
         LogoComponent,
+        PostComponent
     ],
     imports: [
         BrowserModule,
@@ -44,7 +46,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
         LazyLoadImageModule,
         AppRoutingModule,
         SharedModule,
-        Fake3dModule,
+        Fake3dModule
     ],
     providers: [NavigationService, INTERCEPTOR_PROVIDER],
     bootstrap: [AppComponent]
