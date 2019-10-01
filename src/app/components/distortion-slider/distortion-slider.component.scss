@@ -1,21 +1,25 @@
 .distortion-slider {
-  width: 100%;
-  max-width: 1200px;
   height: 100%;
-  margin: 0 auto;
-  position: relative;
-  
-  .pagination {
-    position: relative;
-    z-index: 100000;
-  }
-  
-  &__img {
-    display: none;
-  }
+  width: 100%;
   
   canvas {
+    height: 100%;
     width: 100%;
-    z-index: 1000;
+  }
+}
+
+.slideshow-navigation-wrapper {
+  position: absolute;
+  bottom: 100px;
+  height: 30px;
+  left: 40%;
+  display: flex;
+  img {
+    display: block;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background: #ffffff;
+    margin: 10px;
   }
 }

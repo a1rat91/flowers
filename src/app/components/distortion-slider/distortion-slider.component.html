@@ -1,29 +1,10 @@
-<!-- Swiper -->
-<div class="distortion-slider swiper-container" #distortionSlider>
-  <div class="swiper-wrapper">
-    <div class="swiper-slide">
-      <img [lazyLoad] class="distortion-slider__img" src="/assets/images/flower-1.jpg"/>
-    </div>
-    <div class="swiper-slide">
-      <img [lazyLoad] class="distortion-slider__img" src="/assets/images/flower-2.jpg"/>
-    </div>
-    <div class="swiper-slide">
-      <img [lazyLoad] class="distortion-slider__img" src="/assets/images/flower-3.jpg"/>
-    </div>
-    <div class="swiper-slide">
-      <img [lazyLoad] class="distortion-slider__img" src="/assets/images/flower-4.jpg"/>
-    </div>
-    <div class="swiper-slide">
-      <img [lazyLoad] class="distortion-slider__img" src="/assets/images/flower-5.jpg"/>
-    </div>
-    <div class="swiper-slide">
-      <img [lazyLoad] class="distortion-slider__img" src="/assets/images/flower-6.jpg"/>
-    </div>
-    <div class="swiper-slide">
-      <img [lazyLoad] class="distortion-slider__img" src="/assets/images/flower-7.jpg"/>
-    </div>
-  </div>
-  <!-- Add Arrows -->
-  <div class="swiper-button-next"></div>
-  <div class="swiper-button-prev"></div>
+<div class="distortion-slider" #slider>
+</div>
+<div class="slideshow-navigation-wrapper">
+	<img src="assets/images/chevron-left.svg"
+	     class="slideshow-navigation-icon"
+	     (click)="previous()"/>
+	<img src="assets/images/chevron-right.svg"
+	     class="slideshow-navigation-icon"
+	     (click)="next()"/>
 </div>

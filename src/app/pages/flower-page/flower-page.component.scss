@@ -1,12 +1,14 @@
 .flower-page {
+  height: 650px;
   &__container {
     display: flex;
+    height: 100%;
   }
   
   &__left,
   &__right {
     width: 50%;
-    overflow: hidden;
+    height: 100%;
   }
   
   &__left {
@@ -14,6 +16,10 @@
   }
   &__right {
     padding-left: 20px;
+  }
+  
+  &__left-inner {
+    height: 100%;
   }
 }
 
