@@ -117,7 +117,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
         this.slider.nativeElement.appendChild(this.renderer.domElement);
     }
 
-    render() {
+    render = () => {
         this.renderer.render(this.scene, this.camera);
     }
 
@@ -143,7 +143,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
         this.currentTransition.play();
     }
 
-    onAnimationEnd() {
+    onAnimationEnd = () => {
         this.isAnimating = false;
         this.event.emit('animationEnd');
         this.render();
@@ -322,7 +322,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
         }
     }
 
-    animate() {
+    animate = () => {
         requestAnimationFrame(this.animate);
         this.render();
     }
