@@ -56,10 +56,10 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
 
     constructor() {
         this.images = ['assets/images/flower-1.jpg', 'assets/images/flower-2.jpg', 'assets/images/flower-3.jpg', 'assets/images/flower-4.jpg'];
-        this.displacement = 'assets/images/distortion.jpg';
-        this.intensity = 1;
-        this.speedIn = 1;
-        this.speedOut = 1;
+        this.displacement = 'assets/images/displacement/4.png';
+        this.intensity = 0.2;
+        this.speedIn = 1.6;
+        this.speedOut = 1.6;
         this.ease = 'Expo.easeOut';
         this.preserveAspectRatio = true;
         this.interactionVelocity = {
