@@ -1,5 +1,7 @@
 .flower-page {
-  height: 650px;
+  height: 100vh;
+  min-height: 650px;
+  
   &__container {
     display: flex;
     height: 100%;
