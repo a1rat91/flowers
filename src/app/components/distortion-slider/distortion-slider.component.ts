@@ -90,9 +90,6 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
     }
 
     ngAfterViewInit () {
-        this.on('event', () => {
-            console.log('qwe')
-        })
     }
 
     ngOnDestroy() {
