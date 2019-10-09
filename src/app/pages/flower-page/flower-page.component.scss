@@ -1,3 +1,6 @@
+@import "../../../assets/style/mixins/mixins-sait";
+@import "../../../assets/style/base/variables";
+
 .flower-page {
   height: 100vh;
   min-height: 650px;
@@ -18,10 +21,23 @@
   }
   &__right {
     padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
   &__left-inner {
     height: 100%;
+  }
+  
+  &__title {
+    @include title($fsz: 50px, $ta: left);
+    margin-bottom: 30px;
+  }
+  
+  &__btn {
+    margin-top: 50px;
+    margin-bottom: 100px;
   }
 }
 

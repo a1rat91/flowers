@@ -7,8 +7,9 @@
     </div>
     <div class="flower-page__right">
       <div *ngIf="post$ | async as post; else loading">
-        <h2>{{post.title}}</h2>
+        <h2 class="flower-page__title">{{post.title}}</h2>
         <quill-view-html [content]="post.text"></quill-view-html>
+        <button class="btn flower-page__btn">Заказать</button>
       </div>
       <ng-template #loading>
         <p class="text-center">Загружаю пост...</p>
