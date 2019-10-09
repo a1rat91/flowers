@@ -5,7 +5,6 @@
 	top: 0;
 	right: 0;
 	width: 100%;
-	z-index: 100;
 	height: $header-height;
 
 	&__inner {
@@ -28,6 +27,8 @@
 			display: flex;
 			justify-content: flex-end;
 			align-items: center;
+      position: relative;
+      z-index: 100;
 		}
 	}
  

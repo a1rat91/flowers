@@ -1,0 +1,18 @@
+.main-section {
+  @include flexCenter();
+  flex-direction: column;
+  height: 100%;
+  
+  &__title {
+    @include title(120px);
+    max-width: 940px;
+    margin: 0 auto 50px;
+  }
+  
+  &__btn {
+    background: rgba($black, .4);
+    max-width: 200px;
+    padding: 0 25px;
+    margin: 0 auto;
+  }
+}

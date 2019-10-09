@@ -1,3 +1,7 @@
+@import "../../../assets/style/mixins/mixins-sait";
+@import "../../../assets/style/base/variables";
+@import "main-section";
+
 .section.fp-auto-height {
 	height: auto !important;
 }

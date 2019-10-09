@@ -1,53 +1,100 @@
 @mixin posa() {
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
+
+@mixin title($fsz: 30px, $color: $white, $fw: 400, $ls: 0.09em, $tt: uppercase, $ta: center, $lh: 1.33) {
+  font-family: 'PlayfairDisplay';
+  font-size: $fsz;
+  font-weight: $fw;
+  letter-spacing: $ls;
+  color: $color;
+  text-transform: $tt;
+  text-align: $ta;
+  line-height: $lh;
+}
+
+@mixin flexCenter() {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+@mixin btn(
+  $bg: transparent,
+  $hoverBg: $white,
+  $color: $white,
+  $hoverColor: $black,
+  $fsz: 12px,
+  $tt: uppercase,
+  $pdr: 33px,
+  $height: 50px,
+  $ls: 0.15rem,
+  $border: 1px solid $white
+) {
+  @include flexCenter();
+  background: $bg;
+  color: $color;
+  font-size: $fsz;
+  text-transform: $tt;
+  padding: 0 $pdr;
+  height: $height;
+  letter-spacing: $ls;
+  border: $border;
+  
+  &:hover {
+    background: $hoverBg;
+    color: $hoverColor;
+  }
+}
+
 //
 @mixin scrollCss() {
-	scroll-behavior: smooth;
-	-webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
+
 // CSS Triangles Mixin
 @mixin css-triangle($direction, $color, $height, $width) {
-	// Base styles for all triangles
-	border-style: solid;
-	height: 0;
-	width: 0;
-	// Cardinal Directions - can't be scalene this way
-	@if($direction=='top') {
-		border-color: transparent transparent $color transparent;
-		border-width: 0 ($width/2) $height ($width/2);
-	}
-	@if ($direction=='bottom') {
-		border-color: $color transparent transparent transparent;
-		border-width: $height ($width/2) 0 ($width/2);
-	}
-	@if ($direction=='right') {
-		border-color: transparent transparent transparent $color;
-		border-width: ($height/2) 0 ($height/2) $width;
-	}
-	@if ($direction=='left') {
-		border-color: transparent $color transparent transparent;
-		border-width: ($height/2) $width ($height/2) 0;
-	}
-	// Ordinal Directions - can be scalene this way!
-	@if ($direction=='top-left') {
-		border-color: $color transparent transparent transparent;
-		border-width: $height $width 0 0;
-	}
-	@if ($direction=='top-right') {
-		border-color: transparent $color transparent transparent;
-		border-width: 0 $width $height 0;
-	}
-	@if ($direction=='bottom-left') {
-		border-color: transparent transparent transparent $color;
-		border-width: $height 0 0 $width;
-	}
-	@if ($direction=='bottom-right') {
-		border-color: transparent transparent $color transparent;
-		border-width: 0 0 $height $width;
-	}
+  // Base styles for all triangles
+  border-style: solid;
+  height: 0;
+  width: 0;
+  // Cardinal Directions - can't be scalene this way
+  @if ($direction=='top') {
+    border-color: transparent transparent $color transparent;
+    border-width: 0 ($width/2) $height ($width/2);
+  }
+  @if ($direction=='bottom') {
+    border-color: $color transparent transparent transparent;
+    border-width: $height ($width/2) 0 ($width/2);
+  }
+  @if ($direction=='right') {
+    border-color: transparent transparent transparent $color;
+    border-width: ($height/2) 0 ($height/2) $width;
+  }
+  @if ($direction=='left') {
+    border-color: transparent $color transparent transparent;
+    border-width: ($height/2) $width ($height/2) 0;
+  }
+  // Ordinal Directions - can be scalene this way!
+  @if ($direction=='top-left') {
+    border-color: $color transparent transparent transparent;
+    border-width: $height $width 0 0;
+  }
+  @if ($direction=='top-right') {
+    border-color: transparent $color transparent transparent;
+    border-width: 0 $width $height 0;
+  }
+  @if ($direction=='bottom-left') {
+    border-color: transparent transparent transparent $color;
+    border-width: $height 0 0 $width;
+  }
+  @if ($direction=='bottom-right') {
+    border-color: transparent transparent $color transparent;
+    border-width: 0 0 $height $width;
+  }
 }

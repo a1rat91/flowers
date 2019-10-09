@@ -1,4 +1,6 @@
+@import "../../../assets/style/mixins/mixins-sait";
 @import "../../../assets/style/base/variables";
+
 .navigation {
   position: fixed;
   left: 0;
@@ -10,17 +12,53 @@
   z-index: 0;
   pointer-events: none;
   opacity: 0;
+  @include flexCenter();
+  flex-direction: column;
+  text-align: center;
   
   &_active {
     background: $body-bg;
     pointer-events: all;
-    z-index: 101;
+    z-index: 99;
     opacity: 1;
+    
+    .header .logo {
+      display: none;
+    }
   }
   
   &__menu {
+    padding: 0;
+    list-style-type: none;
+    max-width: 400px;
+    margin: 0 auto;
+    
     .active a {
       color: #ffffff;
+    }
+  }
+  
+  &__item {
+    margin-bottom: 50px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  
+    &.active a {
+      font-size: 45px;
+    }
+    
+    a {
+      @include title(
+        $fsz: 35px,
+        $color: rgba($white, .5)
+      );
+      
+      &:hover {
+        text-decoration: none;
+        color: $white;
+      }
     }
   }
 }

@@ -1,0 +1,11 @@
+.logo {
+  position: relative;
+  z-index: 1;
+  
+  .navigation_active & {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

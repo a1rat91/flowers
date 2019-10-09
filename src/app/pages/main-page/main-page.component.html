@@ -1,6 +1,12 @@
 <div fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
 	<div class="section">
 		<app-fake3d></app-fake3d>
+    <div class="main-section">
+      <div class="main-section__title">
+        Флористика с душой
+      </div>
+      <button class="btn main-section__btn">Cмотреть работы</button>
+    </div>
 	</div>
 	<div class="section">
 		<div *ngIf="posts$ | async as posts; else loading">
