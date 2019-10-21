@@ -1,7 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {UploadService} from '../../services/upload.service';
-import {Upload} from '../../interfaces';
-import * as _ from 'lodash';
+import {Component} from '@angular/core';
 
 @Component({
     selector: 'app-upload',
@@ -10,29 +7,17 @@ import * as _ from 'lodash';
 })
 export class UploadComponent {
 
-    selectedFiles: FileList;
-    currentUpload: Upload;
-    uploadUrl: UploadService;
+    isHovering: boolean;
 
-    constructor(private upSvc: UploadService) { }
+    files: File[] = [];
 
-    detectFiles(event) {
-        this.selectedFiles = event.target.files;
+    toggleHover(event: boolean) {
+        this.isHovering = event;
     }
 
-    uploadSingle() {
-        let file = this.selectedFiles.item(0)
-        this.currentUpload = new Upload(file);
-        this.upSvc.pushUpload(this.currentUpload)
+    onDrop(files: FileList) {
+        for (let i = 0; i < files.length; i++) {
+            this.files.push(files.item(i));
+        }
     }
-
-    uploadMulti() {
-        let files = this.selectedFiles
-        let filesIndex = _.range(files.length)
-        _.each(filesIndex, (idx) => {
-            this.currentUpload = new Upload(files[idx]);
-            this.upSvc.pushUpload(this.currentUpload)}
-        )
-    }
-
 }

@@ -1,32 +1,30 @@
-<div *ngIf="currentUpload">
-	<div class="progress">
-		<div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': currentUpload?.progress + '%' }"></div>
+<div class="dropzone"
+     dropzone
+     (hovered)="toggleHover($event)"
+     (dropped)="onDrop($event)"
+     [class.hovering]="isHovering">
+	
+	<h3>AngularFire Drop Zone</h3>
+	<p>Drag and Drop a File</p>
+	<div class="file">
+		<label class="file-label">
+			
+			<input class="file-input" type="file" (change)="onDrop($event.target.files)">
+			
+			<span class="file-cta">
+            <span class="file-icon">
+              <i class="fa fa-upload"></i>
+            </span>
+            <span class="file-label">
+              or choose a file…
+            </span>
+          </span>
+		</label>
 	</div>
-	Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete
-	
-</div>
-<div *ngIf="uploadUrl">
-	<p>{{uploadUrl}}</p>
 </div>
 
-<label>
-	<input type="file" (change)="detectFiles($event)">
-</label>
+<h3>Uploads</h3>
 
-<button
-	[disabled]="!selectedFiles"
-	(click)="uploadSingle()">
-	
-	Upload Single
-</button>
-
-<label>
-	<input type="file" (change)="detectFiles($event)" multiple>
-</label>
-
-<button
-	[disabled]="!selectedFiles"
-	(click)="uploadMulti()">
-	
-	Upload Multiple
-</button>
+<div *ngFor="let file of files">
+	<app-upload-task [file]="file"></app-upload-task>
+</div>
