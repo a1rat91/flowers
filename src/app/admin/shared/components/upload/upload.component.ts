@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {PostsService} from '../../../../shared/posts.service';
 
 @Component({
     selector: 'app-upload',
@@ -10,6 +11,14 @@ export class UploadComponent {
     isHovering: boolean;
 
     files: File[] = [];
+    imageUrls: string [] = [];
+
+    constructor(private postsService: PostsService) {
+    }
+
+    getUploadedUrls($event) {
+        this.imageUrls.push($event);
+    }
 
     toggleHover(event: boolean) {
         this.isHovering = event;

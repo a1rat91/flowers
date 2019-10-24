@@ -2,12 +2,10 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
 
-// import { AngularFireModule } from '@angular/fire';
-// import { AngularFirestoreModule } from '@angular/fire/firestore';
-// import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import {environment} from '../../environments/environment';
 
@@ -21,8 +19,10 @@ import {AuthGuard} from './shared/services/auth.guard';
 import {SearchPipe} from './shared/search.pipe';
 import { AlertComponent } from './shared/components/alert/alert.component';
 import {AlertService} from './shared/services/alert.service';
-import {UploadService} from './shared/services/upload.service';
 import { UploadComponent } from './shared/components/upload/upload.component';
+import { DropzoneDirective } from './shared/components/upload/dropzone.directive';
+import { UploadTaskComponent } from './shared/components/upload-task/upload-task.component';
+
 
 @NgModule({
     declarations: [
@@ -33,7 +33,9 @@ import { UploadComponent } from './shared/components/upload/upload.component';
         EditPageComponent,
         SearchPipe,
         AlertComponent,
-        UploadComponent
+        UploadComponent,
+        DropzoneDirective,
+        UploadTaskComponent
     ],
     imports: [
         CommonModule,
@@ -41,9 +43,8 @@ import { UploadComponent } from './shared/components/upload/upload.component';
         ReactiveFormsModule,
         SharedModule,
         AngularFireModule.initializeApp(environment.firebase),
-        // AngularFirestoreModule,
-        // AngularFireStorageModule,
-        AngularFireDatabaseModule,
+        AngularFirestoreModule,
+        AngularFireStorageModule,
         RouterModule.forChild([
             {
                 path: '', component: AdminLayoutComponent, children: [
@@ -57,7 +58,7 @@ import { UploadComponent } from './shared/components/upload/upload.component';
         ])
     ],
     exports: [RouterModule],
-    providers: [AuthGuard, AlertService, UploadService]
+    providers: [AuthGuard, AlertService]
 })
 export class AdminModule {
 }
