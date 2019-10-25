@@ -200,7 +200,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
             this.imagesLoaded.push(textureLoaded);
         });
         const loader = new TextureLoader();
-        loader.crossOrigin = '';
+        loader.crossOrigin = 'anonymous';
         this.disp = loader.load(this.displacement, this.render);
         this.disp.wrapS = RepeatWrapping;
         this.disp.wrapT = RepeatWrapping;
@@ -299,7 +299,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
 
     insertImage(path, index = this.textures.length) {
         const loader = new TextureLoader();
-        loader.crossOrigin = '';
+        loader.crossOrigin = 'anonymous';
         return new Promise((resolve) => {
             let texture = loader.load(path, () => {
                 this.render();
