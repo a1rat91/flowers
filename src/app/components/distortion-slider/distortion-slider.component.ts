@@ -1,6 +1,6 @@
 import {
-    AfterViewInit, Component, DoCheck, ElementRef, EventEmitter, OnDestroy, OnInit, Output,
-    ViewChild, ViewEncapsulation
+  AfterViewInit, Component, DoCheck, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output,
+  ViewChild, ViewEncapsulation
 } from '@angular/core';
 // Import from source so webpack can do tree shaking
 import {
@@ -31,7 +31,7 @@ import {TweenMax, Expo, Ease} from 'gsap';
 export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('slider', {static: true}) slider: ElementRef;
     @Output() event: EventEmitter<any> = new EventEmitter();
-    images: string[];
+    @Input() images: string[];
     displacement: string;
     intensity: number;
     speedIn: number;
@@ -55,7 +55,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
     camera;
 
     constructor() {
-        this.images = ['assets/images/flower-1.jpg', 'assets/images/flower-2.jpg', 'assets/images/flower-3.jpg', 'assets/images/flower-4.jpg'];
+        // this.images = ['assets/images/flower-1.jpg', 'assets/images/flower-2.jpg', 'assets/images/flower-3.jpg', 'assets/images/flower-4.jpg'];
         this.displacement = 'assets/images/displacement/4.png';
         this.intensity = 0.2;
         this.speedIn = 1.6;
@@ -89,7 +89,8 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
         this.animate();
     }
 
-    ngAfterViewInit () {
+    ngAfterViewInit() {
+
     }
 
     ngOnDestroy() {
@@ -194,6 +195,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
     }
 
     loadTextures() {
+      console.log(this.images, '123');
         this.images.forEach((image, index) => {
             let textureLoaded = this.insertImage(image, index);
             this.imagesLoaded.push(textureLoaded);
