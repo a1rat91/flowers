@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {PostsService} from '../../../../shared/posts.service';
+import {UploadImgsService} from "../../services/uploadImgs.service";
 
 @Component({
     selector: 'app-upload',
@@ -13,11 +14,12 @@ export class UploadComponent {
     files: File[] = [];
     imageUrls: string [] = [];
 
-    constructor(private postsService: PostsService) {
+    constructor(private postsService: PostsService, private uploadImgs: UploadImgsService) {
     }
 
     getUploadedUrls($event) {
-        this.imageUrls.push($event);
+        // this.imageUrls.push($event);
+      this.uploadImgs.addImgs($event);
     }
 
     toggleHover(event: boolean) {

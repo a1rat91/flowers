@@ -195,7 +195,6 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
     }
 
     loadTextures() {
-      console.log(this.images, '123');
         this.images.forEach((image, index) => {
             let textureLoaded = this.insertImage(image, index);
             this.imagesLoaded.push(textureLoaded);
