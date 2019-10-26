@@ -304,6 +304,10 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
             let texture = loader.load(path, () => {
                 this.render();
                 resolve();
+            }, (xhr) => {
+                console.log(xhr);
+            }, (xhr) => {
+                console.log(xhr);
             });
             texture.magFilter = LinearFilter;
             texture.minFilter = LinearFilter;
