@@ -1,6 +1,27 @@
 {
   "hosting": {
     "public": "dist/flowers",
+    //TODO Разобраться с headers
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          },
+          {
+            "key": "Access-Control-Allow-Methods",
+            "value": "DELETE,GET,PATCH,POST,PUT"
+          },
+          {
+            "key": "Access-Control-Allow-Headers",
+            "value": "*"
+          }
+        ]
+      }
+    ],
+
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -10,17 +31,6 @@
       {
         "source": "**",
         "destination": "/index.html"
-      }
-    ],
-    "headers": [
-      {
-        "source": "**",
-        "headers": [
-          {
-            "key": "Access-Control-Allow-Origin",
-            "value": "*"
-          }
-        ]
       }
     ]
   }

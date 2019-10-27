@@ -1,0 +1,43 @@
+.mouse {
+	position: absolute;
+	bottom: 80px;
+	left: calc(50% - 14px);
+	width: 46px;
+	height: 71px;
+	background: url(../../../../assets/images/mouse.svg) no-repeat center;
+	background-size: contain;
+	opacity: 1;
+	transform: translateY(0);
+	cursor: pointer;
+	transition: all 1s ease 1.7s;
+	z-index: 3;
+	
+	&:after {
+		content: "";
+		position: absolute;
+		top: 10px;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		width: 2px;
+		height: 12px;
+		border-radius: 50%;
+		background: #fff;
+		animation: mouse 1s ease-in-out infinite;
+	}
+}
+
+@keyframes mouse {
+	0% {
+		transform: translateY(0);
+		opacity: 0;
+	}
+	50% {
+		transform: translateY(5px);
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(10px);
+		opacity: 0;
+	}
+}

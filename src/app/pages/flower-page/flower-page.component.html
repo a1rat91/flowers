@@ -2,7 +2,8 @@
   <div class="flower-page__container">
     <div class="flower-page__left">
       <div class="flower-page__left-inner" *ngIf="post$ | async as post; else loadingSlider">
-        <app-distortion-slider [images]="post.images"></app-distortion-slider>
+        <!--<app-distortion-slider [images]="post.images"></app-distortion-slider>-->
+        <app-distortion-slider></app-distortion-slider>
       </div>
       <ng-template #loadingSlider>
         load

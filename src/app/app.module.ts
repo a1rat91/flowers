@@ -21,12 +21,15 @@ import {MainLayoutComponent} from './shared/components/main-layout/main-layout.c
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from './shared/auth.interceptor';
 import {PostComponent} from './shared/components/post/post.component';
+import {MouseComponent} from './shared/components/mouse/mouse.component';
+import {SocComponent} from './shared/components/soc/soc.component';
+import {NextSectionLinkComponent} from "./shared/components/next-section-link/next-section-link.component";
 
 const INTERCEPTOR_PROVIDER: Provider = {
     provide: HTTP_INTERCEPTORS,
     multi: true,
     useClass: AuthInterceptor
-}
+};
 
 @NgModule({
     declarations: [
@@ -38,7 +41,10 @@ const INTERCEPTOR_PROVIDER: Provider = {
         HeaderComponent,
         FooterComponent,
         LogoComponent,
-        PostComponent
+        PostComponent,
+        MouseComponent,
+        SocComponent,
+        NextSectionLinkComponent
     ],
     imports: [
         BrowserModule,

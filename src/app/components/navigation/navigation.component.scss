@@ -12,6 +12,7 @@
   z-index: 0;
   pointer-events: none;
   opacity: 0;
+  transition: .5s;
   @include flexCenter();
   flex-direction: column;
   text-align: center;

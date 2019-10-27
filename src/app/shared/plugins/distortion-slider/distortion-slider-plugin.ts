@@ -58,7 +58,7 @@ export const DistortionSliderPlugin = opts => {
     parent.appendChild(renderer.domElement);
 
     const loader = new THREE.TextureLoader();
-    loader.crossOrigin = 'anonymous';
+    loader.crossOrigin = '';
 
     images.forEach((img) => {
         image = loader.load(img.getAttribute('src') + '?v=' + Date.now());

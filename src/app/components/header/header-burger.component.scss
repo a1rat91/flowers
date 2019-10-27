@@ -1,65 +1,86 @@
+@import "../../../assets/style/base/variables";
+
 .burger {
-  display: inline-block;
-  position: relative;
-  z-index: 110;
-  width: 30px;
-  border: 0;
-  padding: 0;
-  line-height: 30px;
-  background: 0 0;
-  user-select: none;
-  cursor: pointer;
-  
-  span {
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    height: 2px;
-    vertical-align: middle;
-    font-size: 0;
-    color: transparent;
-    background: #fff;
-    transition: background .3s .3s;
-    
-    &:before,
-    &:after {
-      content: '';
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: #fff;
-      transform-origin: 50% 50%;
-      transition: top .3s .3s,transform .3s;
-    }
-    
-    &:before {
-      top: -10px;
-    }
-    
-    &:after {
-      top: 10px;
-    }
-  }
-  
-  &_close {
-    span {
-      transition: background .3s 0s;
-      background: 0 0;
-      
-      &:before,
-      &:after {
-        top: 0;
-        transition: top .3s,transform .3s .3s;
-      }
-      
-      &:before {
-        transform: rotate3d(0,0,1,45deg);
-      }
-      
-      &:after {
-        transform: rotate3d(0,0,1,-45deg);
-      }
-    }
-  }
+	display: flex;
+	position: relative;
+	z-index: 110;
+	border: 0;
+	padding: 0;
+	line-height: 30px;
+	background: 0 0;
+	user-select: none;
+	cursor: pointer;
+	color: $white;
+	
+	&__icon {
+		margin-top: -2px;
+		
+		
+		span {
+			display: inline-block;
+			position: relative;
+			width: 30px;
+			height: 30px;
+			vertical-align: middle;
+			font-size: 0;
+			color: transparent;
+			
+			&:before,
+			&:after {
+				content: '';
+				position: absolute;
+				left: 0;
+				width: 100%;
+				height: 2px;
+				background: #fff;
+				top: 50%;
+				
+				transition: top .3s .3s, transform .3s;
+			}
+			
+			&:before {
+				transform: translateY(-50%);
+				margin-top: -4px;
+			}
+			
+			&:after {
+				transform: translateY(50%);
+				margin-bottom: -4px;
+			}
+		}
+		
+		.burger_close & {
+			span {
+				transition: background .3s 0s;
+				background: 0 0;
+				
+				&:before,
+				&:after {
+					transition: .5s;
+				}
+				
+				&:before {
+					transform: translateY(-50%) rotate(45deg);;
+					margin: 0;
+				}
+				
+				&:after {
+					transform: translateY(-50%) rotate(-45deg);
+					margin: 0;
+				}
+			}
+		}
+	}
+	
+	&__title {
+		text-transform: uppercase;
+		font-size: 20px;
+		opacity: 1;
+		margin-left: 15px;
+		transition: .5s;
+		
+		.burger_close & {
+			opacity: 0;
+		}
+	}
 }
