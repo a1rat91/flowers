@@ -1,0 +1,26 @@
+<div class="catalog-item">
+	<div class="catalog-item__index">
+		0{{index + 1 }}
+	</div>
+	
+	<div class="catalog-item__pic">
+		<img
+			[src]="post.images[0]"
+			alt=""
+			class="catalog-item__img"
+		>
+	</div>
+	<div class="catalog-item__heading">
+		
+		<div class="catalog-item__title">
+			{{post.title}}
+		</div>
+		
+		<button
+			[routerLink]="['/post', post.id]"
+			class="btn btn-dark catalog-item__btn">
+			Открыть
+		</button>
+		
+	</div>
+</div>

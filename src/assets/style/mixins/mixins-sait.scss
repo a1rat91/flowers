@@ -6,14 +6,13 @@
   height: 100%;
 }
 
-@mixin title($fsz: 30px, $color: $white, $fw: 400, $ls: 0.09em, $tt: uppercase, $ta: center, $lh: 1.33) {
+@mixin title($fsz: 30px, $color: $white, $fw: 400, $ls: 0.09em, $tt: uppercase, $lh: 1.33) {
   font-family: 'PlayfairDisplay';
   font-size: $fsz;
   font-weight: $fw;
   letter-spacing: $ls;
   color: $color;
   text-transform: $tt;
-  text-align: $ta;
   line-height: $lh;
 }
 

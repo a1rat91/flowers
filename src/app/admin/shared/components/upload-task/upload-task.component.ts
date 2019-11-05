@@ -3,7 +3,6 @@ import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import {PostsService} from '../../../../shared/posts.service';
 
 @Component({
     selector: 'app-upload-task',

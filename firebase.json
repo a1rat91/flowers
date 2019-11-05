@@ -4,24 +4,15 @@
     //TODO Разобраться с headers
     "headers": [
       {
-        "source": "**",
+        "source": "**/*.@(js|jpg|jpeg|png|css|svg|eot|otf|ttf|ttc|woff|font.css)",
         "headers": [
           {
             "key": "Access-Control-Allow-Origin",
-            "value": "*"
-          },
-          {
-            "key": "Access-Control-Allow-Methods",
-            "value": "DELETE,GET,PATCH,POST,PUT"
-          },
-          {
-            "key": "Access-Control-Allow-Headers",
             "value": "*"
           }
         ]
       }
     ],
-
     "ignore": [
       "firebase.json",
       "**/.*",

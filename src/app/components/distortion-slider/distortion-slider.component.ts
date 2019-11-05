@@ -1,6 +1,6 @@
 import {
-  AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output,
-  ViewChild, ViewEncapsulation
+    AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output,
+    ViewChild, ViewEncapsulation
 } from '@angular/core';
 import {
     Scene,
@@ -22,7 +22,9 @@ import {TweenMax, Expo, Ease} from 'gsap';
 
 @Component({
     selector: 'app-distortion-slider',
-    templateUrl: './distortion-slider.component.html',
+    template: `
+		<div class="distortion-slider" #slider>
+		</div>`,
     styleUrls: ['./distortion-slider.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
@@ -30,8 +32,7 @@ import {TweenMax, Expo, Ease} from 'gsap';
 export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('slider', {static: true}) slider: ElementRef;
     @Output() event: EventEmitter<any> = new EventEmitter();
-    // @Input() images: string[];
-    images: string[];
+    @Input() images: string[];
     displacement: string;
     intensity: number;
     speedIn: number;
@@ -55,7 +56,6 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
     camera;
 
     constructor() {
-        this.images = ['assets/images/flower-1.jpg', 'assets/images/flower-2.jpg', 'assets/images/flower-3.jpg', 'assets/images/flower-4.jpg'];
         this.displacement = 'assets/images/displacement/4.png';
         this.intensity = 0.2;
         this.speedIn = 1.6;
@@ -84,9 +84,14 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
     ngOnInit() {
         this.cameraInit();
         this.init();
+        this.animate();
+
         window.addEventListener('resize', this.onResize);
         window.addEventListener('mousemove', this.onMouseMove);
-        this.animate();
+
+        setInterval(() => {
+            this.next();
+        }, 2500);
     }
 
     ngAfterViewInit() {
@@ -200,14 +205,14 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
             this.imagesLoaded.push(textureLoaded);
         });
         const loader = new TextureLoader();
-        loader.crossOrigin = 'anonymous';
+        loader.crossOrigin = '';
         this.disp = loader.load(this.displacement, this.render);
         this.disp.wrapS = RepeatWrapping;
         this.disp.wrapT = RepeatWrapping;
     }
 
     initShaderMaterial() {
-        const ratio = {
+        let ratio = {
             width: this.preserveAspectRatio ? this.slider.nativeElement.offsetWidth : this.textures[this.currentImage].image.naturalWidth,
             height: this.preserveAspectRatio ? this.slider.nativeElement.offsetHeight : this.textures[this.currentImage].image.naturalHeight
         };
@@ -269,8 +274,8 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
     }
 
 
-    onResize() {
-        const ratio = {
+    onResize = () => {
+        let ratio = {
             width: this.preserveAspectRatio ? this.slider.nativeElement.offsetWidth : this.textures[this.currentImage].image.naturalWidth,
             height: this.preserveAspectRatio ? this.slider.nativeElement.offsetHeight : this.textures[this.currentImage].image.naturalHeight
         };
@@ -280,7 +285,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
         this.mat.uniforms.resolution.value.set(ratio.width, ratio.height);
         this.mat.uniforms.sliderResolution.value.set(this.slider.nativeElement.offsetWidth, this.slider.nativeElement.offsetHeight);
         this.render();
-    }
+    };
 
 
     play() {
@@ -299,15 +304,11 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
 
     insertImage(path, index = this.textures.length) {
         const loader = new TextureLoader();
-        loader.crossOrigin = 'anonymous';
+        loader.crossOrigin = '';
         return new Promise((resolve) => {
             let texture = loader.load(path, () => {
                 this.render();
                 resolve();
-            }, (xhr) => {
-                console.log(xhr);
-            }, (xhr) => {
-                console.log(xhr);
             });
             texture.magFilter = LinearFilter;
             texture.minFilter = LinearFilter;
@@ -317,7 +318,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
 
     removeImage(index) {
         if (index !== this.currentImage) {
-            this.textures.splice(index, 1)
+            this.textures.splice(index, 1);
         }
     }
 
@@ -330,7 +331,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
     animate = () => {
         requestAnimationFrame(this.animate);
         this.render();
-    }
+    };
 
     onMouseMove(e) {
         if (this.isInteractive && this.mat) {

@@ -1,29 +1,30 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, Provider} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {AppRoutingModule} from './app-routing.module';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+
 import {AngularFullpageModule} from '@fullpage/angular-fullpage';
 import {LazyLoadImageModule} from 'ng-lazyload-image';
-
-import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from './shared/shared.module';
-
-import {MainPageComponent} from './pages/main-page/main-page.component';
-import {NotFoundComponent} from './pages/not-found/not-found.component';
-
-import {NavigationService} from './services/navigation.service';
+import { Fake3dModule } from './components/fake3d/public-api';
+import {CatalogModule} from './shared/components/catalog/catalog.module';
+import {ActionsModule} from './shared/components/actions/actions.module';
 
 import {AppComponent} from './app.component';
-import {NavigationComponent} from './components/navigation/navigation.component';
+import {MainLayoutComponent} from './shared/components/main-layout/main-layout.component';
+import {MainPageComponent} from './pages/main-page/main-page.component';
+import {NotFoundComponent} from './pages/not-found/not-found.component';
 import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
+import {NavigationComponent} from './components/navigation/navigation.component';
+
 import {LogoComponent} from './shared/components/logo/logo.component';
-import { Fake3dModule } from './components/fake3d/public-api';
-import {MainLayoutComponent} from './shared/components/main-layout/main-layout.component';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {AuthInterceptor} from './shared/auth.interceptor';
-import {PostComponent} from './shared/components/post/post.component';
 import {MouseComponent} from './shared/components/mouse/mouse.component';
 import {SocComponent} from './shared/components/soc/soc.component';
-import {NextSectionLinkComponent} from "./shared/components/next-section-link/next-section-link.component";
+import {NextSectionLinkComponent} from './shared/components/next-section-link/next-section-link.component';
+
+import {NavigationService} from './services/navigation.service';
+import {AuthInterceptor} from './shared/auth.interceptor';
 
 const INTERCEPTOR_PROVIDER: Provider = {
     provide: HTTP_INTERCEPTORS,
@@ -41,20 +42,24 @@ const INTERCEPTOR_PROVIDER: Provider = {
         HeaderComponent,
         FooterComponent,
         LogoComponent,
-        PostComponent,
         MouseComponent,
         SocComponent,
         NextSectionLinkComponent
     ],
     imports: [
         BrowserModule,
+        SharedModule,
         AngularFullpageModule,
         LazyLoadImageModule,
         AppRoutingModule,
-        SharedModule,
-        Fake3dModule
+        Fake3dModule,
+        CatalogModule,
+        ActionsModule,
     ],
-    providers: [NavigationService, INTERCEPTOR_PROVIDER],
+    providers: [
+        NavigationService,
+        INTERCEPTOR_PROVIDER
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

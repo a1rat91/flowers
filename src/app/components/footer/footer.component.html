@@ -1,1 +1,22 @@
-<div class="footer section fp-auto-height" #footer>FOOTER</div>
+<div class="footer">
+	<nav class="footer__nav">
+		<ul class="footer__list" *ngIf="posts$ | async as posts;">
+			<li class="footer__item"
+			    *ngFor="let post of posts">
+				<a class="footer__link"
+				   [routerLink]="['/post', post.id]">
+					{{post.title}}
+				</a>
+			</li>
+		</ul>
+	</nav>
+	<div class="footer__soc">
+		<ul class="footer__soc-list">
+			<li class="footer__soc-item" *ngFor="let socItem of soc">
+				<a href="{{socItem.link}}" target="_blank" class="footer__soc-link">
+					<img src="../../../../assets/images/soc/{{socItem.icon}}" alt="">
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>

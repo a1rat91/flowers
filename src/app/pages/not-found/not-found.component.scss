@@ -1,0 +1,20 @@
+@import "../../../assets/style/mixins/mixins-sait";
+@import "../../../assets/style/base/variables";
+
+.not-found {
+	border: 1px solid rgba(#fff, .3);
+	margin: 30px;
+	height: calc(100vh - 60px);
+	
+	&__title {
+		@include title($fsz: 600px, $lh: 1.1);
+		@include flexCenter();
+		opacity: .09;
+	}
+	
+	&__desc {
+		max-width: 354px;
+		font-size: 30px;
+		margin: 0 auto;
+	}
+}

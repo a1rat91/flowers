@@ -1,0 +1,48 @@
+.actions {
+	margin-top: 90px;
+	
+	&__button-prev,
+	&__button-next {
+	
+	}
+	
+	&__button-next {
+		transform: translateX(33px) translateY(-50%);
+		margin-right: calc(100% / 10);
+	}
+	
+	&__button-prev {
+		transform: translateX(-33px) translateY(-50%);
+		margin-left: calc(100% / 10);
+	}
+	
+	&__inner {
+		display: flex;
+	}
+	
+	&__left {
+		width: 45%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding-right: 100px;
+	}
+	
+	&__right {
+		width: 55%;
+	}
+	
+	&__pagination-wrap {
+		display: flex;
+		justify-content: flex-end;
+	}
+	
+	&__pagination {
+		width: 55%;
+	}
+	
+	&__desc {
+		margin-top: 25px;
+		margin-bottom: 45px;
+	}
+}

@@ -2,43 +2,50 @@
 @import "../../../assets/style/base/variables";
 
 .flower-page {
-  height: 100vh;
-  min-height: 650px;
-  
-  &__container {
-    display: flex;
-    height: 100%;
-  }
-  
-  &__left,
-  &__right {
-    width: 50%;
-    height: 100%;
-  }
-  
-  &__left {
-    margin-left: -4px;
-  }
-  &__right {
-    padding-left: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  &__left-inner {
-    height: 100%;
-  }
-  
-  &__title {
-    @include title($fsz: 50px, $ta: left);
-    margin-bottom: 30px;
-  }
-  
-  &__btn {
-    margin-top: 50px;
-    margin-bottom: 100px;
-  }
+	height: 100vh;
+	min-height: 650px;
+	
+	&__container {
+		display: flex;
+		height: 100%;
+	}
+	
+	&__left,
+	&__right {
+		width: 50%;
+		height: 100%;
+	}
+	
+	&__left {
+		margin-left: -4px;
+	}
+	&__right {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding-left: 115px;
+		padding-right: calc(100% / 10);
+	}
+	
+	&__left-inner {
+		height: 100%;
+	}
+	
+	&__title {
+		@include title($fsz: 50px);
+		margin-bottom: 30px;
+	}
+	
+	&__text p {
+		max-width: 565px;
+		font-size: 18px;
+		line-height: 1.5;
+	}
+	
+	&__btn {
+		margin-top: 50px;
+		margin-bottom: 90px;
+	}
 }
 
 

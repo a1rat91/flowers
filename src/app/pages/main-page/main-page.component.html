@@ -10,9 +10,16 @@
 	
 	<div fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
 		<div class="section">
-			<app-fake3d></app-fake3d>
+			
+			<app-fake3d
+				[image]="'assets/images/main.jpg'"
+				[depf]="'assets/images/main-map.jpg'"
+				[horizontalThreshold]="35"
+				[verticalThreshold]="15">
+			</app-fake3d>
+			
 			<div class="main-section">
-				<div class="main-section__title">
+				<div class="main-section__title text-center">
 					Флористика с душой
 				</div>
 				<button class="btn main-section__btn">Cмотреть работы</button>
@@ -20,22 +27,21 @@
 				<app-mouse></app-mouse>
 			</div>
 		</div>
+		
 		<div class="section">
-			<div *ngIf="posts$ | async as posts; else loading">
-				<div class="container" style="padding: 200px 0;">
-					<app-post
-						*ngFor="let post of posts"
-						[post]="post"
-					></app-post>
-				</div>
+			<div class="section__title text-center">
+				Каталог услуг
 			</div>
+			<app-catalog *ngIf="posts$ | async as posts; else loading" [posts]="posts"></app-catalog>
+			
 			<ng-template #loading>
 				<p>Загрузка...</p>
 			</ng-template>
 		</div>
+		<div class="section">
+			<app-actions></app-actions>
+		</div>
 		<div class="section fp-auto-height">
-			<div class="some-title">Some section3</div>
-			
 			<app-footer></app-footer>
 		</div>
 	</div>

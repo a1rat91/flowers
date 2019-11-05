@@ -2,8 +2,9 @@
   <div class="flower-page__container">
     <div class="flower-page__left">
       <div class="flower-page__left-inner" *ngIf="post$ | async as post; else loadingSlider">
-        <!--<app-distortion-slider [images]="post.images"></app-distortion-slider>-->
-        <app-distortion-slider></app-distortion-slider>
+        
+        <app-distortion-slider [images]="post.images"></app-distortion-slider>
+        
       </div>
       <ng-template #loadingSlider>
         load
@@ -11,8 +12,10 @@
     </div>
     <div class="flower-page__right">
       <div *ngIf="post$ | async as post; else loading">
-        <h2 class="flower-page__title">{{post.title}}</h2>
-        <quill-view-html [content]="post.text"></quill-view-html>
+        <h2 class="flower-page__title text-left">{{post.title}}</h2>
+        <quill-view-html class="flower-page__text" [content]="post.text"></quill-view-html>
+  
+        <button (click)="onClick()" class="btn flower-page__btn">Заказать</button>
         
         <div class="pagination">
           <ul class="pagination__list" style="display: flex; padding: 0; margin: 0;">
@@ -24,7 +27,6 @@
           </ul>
         </div>
         
-        <button class="btn flower-page__btn">Заказать</button>
       </div>
       <ng-template #loading>
         <p class="text-center">Загружаю пост...</p>

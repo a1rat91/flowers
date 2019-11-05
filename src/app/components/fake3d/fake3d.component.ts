@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 
 import {fragmentGlsl as fragment} from './shaders/fragment';
 import {vertexGlsl as vertex} from './shaders/vertex';
@@ -13,7 +13,10 @@ import {Uniform, Rect, loadImages, clamp} from './utils';
 
 @Component({
     selector: 'app-fake3d',
-    templateUrl: './fake3d.component.html',
+    template: `
+        <div class="fake3d" #fake3d>
+        </div>
+    `,
     styleUrls: ['./fake3d.component.scss']
 })
 export class Fake3dComponent implements OnInit {
@@ -46,13 +49,17 @@ export class Fake3dComponent implements OnInit {
     public billboard;
     public positionLocation;
     public maxTilt;
-
+    @ViewChild('fake3d', {static: true}) fake3d: ElementRef;
+    @Input() image;
+    @Input() depf;
+    @Input() verticalThreshold;
+    @Input() horizontalThreshold;
 
     constructor() {
     }
 
     public ngOnInit() {
-        this.container = document.getElementById('gl');
+        this.container = this.fake3d.nativeElement;
         this.canvas = document.createElement('canvas');
         this.container.appendChild(this.canvas);
         this.gl = this.canvas.getContext('webgl');
@@ -65,10 +72,10 @@ export class Fake3dComponent implements OnInit {
         this.mouseTargetX = 0;
         this.mouseTargetY = 0;
 
-        this.imageOriginal = this.container.getAttribute('data-imageOriginal');
-        this.imageDepth = this.container.getAttribute('data-imageDepth');
-        this.vth = this.container.getAttribute('data-verticalThreshold');
-        this.hth = this.container.getAttribute('data-horizontalThreshold');
+        this.imageOriginal = this.image;
+        this.imageDepth = this.depf;
+        this.vth = this.verticalThreshold;
+        this.hth = this.horizontalThreshold;
 
         this.imageURLs = [
             this.imageOriginal,

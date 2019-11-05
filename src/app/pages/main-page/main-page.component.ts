@@ -20,7 +20,7 @@ export class MainPageComponent implements OnInit {
 
     // TODO Отключать fullpage при открытой навигации
     navigation: boolean;
-    posts$: Observable<Post[]>
+    posts$: Observable<Post[]>;
 
     constructor(private nav: NavigationService,
                 private postsService: PostsService) {

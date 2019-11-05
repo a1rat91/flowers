@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Fake3dComponent } from './fake3d.component';
 
-
-
 @NgModule({
   declarations: [Fake3dComponent],
   imports: [

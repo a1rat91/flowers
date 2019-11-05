@@ -1,0 +1,24 @@
+.catalog {
+	margin-top: 90px;
+	
+	&__container {
+		width: 100%;
+		padding-left: calc(100% / 10);
+		padding-right: calc(100% / 10);
+	}
+	
+	&__button-prev,
+	&__button-next {
+	
+	}
+	
+	&__button-next {
+		transform: translateX(33px) translateY(-50%);
+		margin-right: calc(100% / 10);
+	}
+	
+	&__button-prev {
+		transform: translateX(-33px) translateY(-50%);
+		margin-left: calc(100% / 10);
+	}
+}

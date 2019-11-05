@@ -1,37 +1,21 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {SocService} from '../../soc.service';
 
 @Component({
     selector: 'app-soc',
     templateUrl: './soc.component.html',
     styleUrls: ['./soc.component.scss']
 })
+
 export class SocComponent implements OnInit {
-    soc;
 
-    constructor() {
-
+    constructor(public socService: SocService) {
     }
 
+    soc;
+
     ngOnInit() {
-        this.soc =
-            [
-                {
-                    link: '#',
-                    icon: 'inst.svg'
-                },
-                {
-                    link: '#',
-                    icon: 'fb.svg'
-                },
-                {
-                    link: '#',
-                    icon: 'whatsapp.svg'
-                },
-                {
-                    link: '#',
-                    icon: 'vk.svg'
-                }
-            ];
+        this.soc = this.socService.getSocialLinks();
     }
 
 }

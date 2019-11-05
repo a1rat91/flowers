@@ -25,5 +25,10 @@ export class FlowerPageComponent implements OnInit {
             .pipe(switchMap((params: Params) => {
                 return this.postsService.getById(params['id']);
             }));
+
+    }
+
+    callOtherDomain() {
+
     }
 }

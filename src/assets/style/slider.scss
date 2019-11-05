@@ -1,0 +1,22 @@
+.slider {
+	&__pagination {
+		display: flex;
+		align-items: center;
+		margin-top: 50px;
+		max-width: 730px;
+	}
+	
+	&__active-index,
+	&__next-index {
+		font-family: "PlayfairDisplay";
+		font-size: 20px;
+	}
+	
+	&__active-index {
+		margin-right: 20px;
+	}
+	
+	&__next-index {
+		margin-left: 20px;
+	}
+}

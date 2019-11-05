@@ -1,0 +1,76 @@
+.catalog-item {
+	position: relative;
+	
+	&__index {
+		position: absolute;
+		font-family: 'PlayfairDisplay';
+		font-size: 20px;
+		z-index: 1;
+		padding: 15px 20px;
+		
+		&:after {
+			content: "";
+			display: block;
+			width: 70px;
+			height: 1px;
+			background: #ffffff;
+			position: absolute;
+			right: 0;
+			left: 100%;
+			top: 50%;
+			margin-top: 1px;
+		}
+	}
+	
+	&__pic {
+		&:before {
+			content: '';
+			display: block;
+			width: 100%;
+			height: 100%;
+			background: rgba(#000, .4);
+			position: absolute;
+			
+			.catalog-item:hover & {
+				background: rgba(#000, .6);
+			}
+		}
+	}
+	
+	&__img {
+		display: block;
+		width: 100%;
+		height: auto;
+		min-height: 450px;
+		object-fit: cover;
+	}
+	
+	&__heading {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: 15px 20px;
+	}
+	
+	&__title {
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		font-size: 16px;
+		line-height: 1.7;
+	}
+	
+	&__btn {
+		height: 0;
+		opacity: 0;
+		overflow: hidden;
+		transition: height .5s, opacity .5s;
+		transition-delay: .2s;
+		
+		
+		.catalog-item:hover & {
+			height: 50px;
+			opacity: 1;
+		}
+	}
+}

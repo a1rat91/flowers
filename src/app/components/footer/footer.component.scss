@@ -1,4 +1,47 @@
 .footer {
   position: relative;
   z-index: 1;
+  border-top: 1px solid rgba(#fff, .2);
+  margin: 0 50px;
+  padding: 20px 15px 10px;
+  
+  &__nav,
+  &__list {
+    display: flex;
+    justify-content: center;
+  }
+  
+  &__list,
+  &__soc-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  &__item,
+  &__soc-item {
+    padding: 0;
+    margin: 0 25px 30px;
+    
+    &:first-child {
+      margin-left: 0;
+    }
+  
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  
+  &__link {
+    font-size: 16px;
+    
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  
+  &__soc-list {
+    display: flex;
+    justify-content: center;
+  }
 }
