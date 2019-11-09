@@ -4,8 +4,7 @@ import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
 import {Observable} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
-import { Image } from 'angular2_photoswipe';
-import {DistortionSliderService} from "../../services/distortion-slider.service";
+import {DistortionSliderService} from '../../services/distortion-slider.service';
 
 
 @Component({

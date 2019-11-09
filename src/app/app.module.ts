@@ -25,7 +25,6 @@ import {NextSectionLinkComponent} from './shared/components/next-section-link/ne
 
 import {NavigationService} from './services/navigation.service';
 import {AuthInterceptor} from './shared/auth.interceptor';
-import {Angular2PhotoswipeModule} from 'angular2_photoswipe';
 
 const INTERCEPTOR_PROVIDER: Provider = {
     provide: HTTP_INTERCEPTORS,
