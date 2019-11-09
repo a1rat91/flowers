@@ -1,0 +1,34 @@
+<div class="distortion-slider-pagination">
+	<div class="distortion-slider-pagination__container">
+		
+		<div class="swiper-container" [swiper]="config" [(index)]="index">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide" *ngFor="let postImage of postImages; let i = index">
+					<div class="distortion-slider-pagination__inner">
+						<div class="distortion-slider-pagination__right">
+							<div class="distortion-slider-pagination__pic">
+								<a (click)="setActiveSlide(i)">
+									<img [src]="postImage" alt="" class="distortion-slider-pagination__img img-responsive">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-button-prev distortion-slider-pagination__button-prev"></div>
+		<div class="swiper-button-next distortion-slider-pagination__button-next"></div>
+	</div>
+	
+	<div class="distortion-slider-pagination__container">
+		<div class="distortion-slider-pagination__pagination-wrap">
+			<div class="slider__pagination distortion-slider-pagination__pagination">
+				<!--<div class="slider__active-index">0{{curentProgress}}</div>-->
+				<div class="swiper-distortion-slider-pagination-progressbar"></div>
+				<!--<div class="slider__next-index">0{{totalProgress}}</div>-->
+			</div>
+		</div>
+	
+	</div>
+
+</div>

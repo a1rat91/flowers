@@ -1,5 +1,5 @@
-@import "../../../../assets/style/mixins/mixins-sait";
-@import "../../../../assets/style/base/variables";
+@import "../../../assets/style/mixins/mixins-sait";
+@import "../../../assets/style/base/variables";
 
 .catalog {
 	padding-top: 90px;
@@ -21,18 +21,13 @@
 		padding-right: calc(100% / 10);
 	}
 	
-	&__button-prev,
 	&__button-next {
-	
-	}
-	
-	&__button-next {
-		transform: translateX(33px) translateY(-50%);
+		transform: translateX(33px);
 		margin-right: calc(100% / 10);
 	}
 	
 	&__button-prev {
-		transform: translateX(-33px) translateY(-50%);
+		transform: translateX(-33px);
 		margin-left: calc(100% / 10);
 	}
 }

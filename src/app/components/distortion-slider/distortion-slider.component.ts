@@ -19,6 +19,7 @@ import {fragment as fragment} from './shader';
 import {mod} from './utils';
 
 import {TweenMax, Expo, Ease} from 'gsap';
+import {DistortionSliderService} from '../../services/distortion-slider.service';
 
 @Component({
     selector: 'app-distortion-slider',
@@ -54,12 +55,13 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
     currentTransition;
     position;
     camera;
+    slideIndex;
 
-    constructor() {
+    constructor(private distortionSliderService: DistortionSliderService) {
         this.displacement = 'assets/images/displacement/4.png';
         this.intensity = 0.2;
-        this.speedIn = 1.6;
-        this.speedOut = 1.6;
+        this.speedIn = 1;
+        this.speedOut = 1;
         this.ease = 'Expo.easeOut';
         this.preserveAspectRatio = true;
         this.interactionVelocity = {
@@ -90,8 +92,15 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
         window.addEventListener('mousemove', this.onMouseMove);
 
         setInterval(() => {
-            this.next();
+            if (!this.slideIndex) {
+                this.next();
+            }
         }, 2500);
+
+        this.distortionSliderService.currentIndex.subscribe(slideIndex => {
+            console.log(slideIndex);
+            this.goTo(slideIndex);
+            return this.slideIndex = slideIndex});
     }
 
     ngAfterViewInit() {
