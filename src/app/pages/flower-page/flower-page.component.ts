@@ -1,9 +1,11 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
 import {Observable} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
+import { Image } from 'angular2_photoswipe';
+import {DistortionSliderService} from "../../services/distortion-slider.service";
 
 
 @Component({
@@ -15,9 +17,11 @@ import {switchMap} from 'rxjs/operators';
 export class FlowerPageComponent implements OnInit {
 
     post$: Observable<Post>;
+    slideIndex;
 
     constructor(private route: ActivatedRoute,
-                private postsService: PostsService) {
+                private postsService: PostsService,
+                private distortionSliderService: DistortionSliderService) {
     }
 
     ngOnInit() {
@@ -26,9 +30,7 @@ export class FlowerPageComponent implements OnInit {
                 return this.postsService.getById(params['id']);
             }));
 
+        this.distortionSliderService.currentIndex.subscribe(slideIndex => this.slideIndex = slideIndex);
     }
 
-    callOtherDomain() {
-
-    }
 }

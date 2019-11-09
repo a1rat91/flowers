@@ -17,17 +17,16 @@
   
         <button (click)="onClick()" class="btn flower-page__btn">Заказать</button>
         
-        <div class="pagination">
-          <ul class="pagination__list" style="display: flex; padding: 0; margin: 0;">
-            <li class="pagination__item" *ngFor="let image of post.images; let index = index" style="padding: 0; padding-right: 5px; list-style-type: none;">
-              <a href="{{index}}" class="pagination__link">
-                <img style="display: inline-block; width: 100px; height: auto;" class="pagination__img" [src]="image" alt="">
-              </a>
-            </li>
-          </ul>
-        </div>
+        <app-distortion-slider-pagination [postImages]="post.images"></app-distortion-slider-pagination>
         
       </div>
+      
+      <div class="flower-page__footer">
+        <a href="" target="_blank" class="flower-page__more">
+          Больше фотографий в профиле
+        </a>
+      </div>
+      
       <ng-template #loading>
         <p class="text-center">Загружаю пост...</p>
       </ng-template>

@@ -21,6 +21,9 @@
 	border: 1px solid #fff;
 	transition: opacity .5s;
 	background-image: none;
+	background-color: rgba(#000, .4);
+	margin: 0;
+	top: 50%;
 	
 	&:after {
 		content: '';
@@ -42,6 +45,7 @@
 }
 
 .swiper-button-prev {
+	transform: translateY(-50%);
 	&:after {
 		transform: rotate(180deg) translate(50%, 50%);
 	}
@@ -49,5 +53,5 @@
 
 .swiper-button-next {
 	margin-right: -10px;
-	transform: translateX(50%);
+	transform: translateY(-50%);
 }

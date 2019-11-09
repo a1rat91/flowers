@@ -23,8 +23,8 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		padding-left: 115px;
-		padding-right: calc(100% / 10);
+		padding: 75px calc(100% / 10) 75px 115px;
+		min-height: 700px;
 	}
 	
 	&__left-inner {
@@ -45,6 +45,36 @@
 	&__btn {
 		margin-top: 50px;
 		margin-bottom: 90px;
+	}
+	
+	&__footer {
+		position: absolute;
+		bottom: 45px;
+		right: 126px;
+	}
+	
+	&__more {
+		color: #fff;
+		position: relative;
+		padding-right: 30px;
+		line-height: 1.5;
+		
+		&:hover {
+			text-decoration: none;
+		}
+		
+		&:after {
+			content: '';
+			position: absolute;
+			width: 16px;
+			height: 16px;
+			display: block;
+			background: url(../../../assets/images/soc/inst.svg) no-repeat center;
+			background-size: cover;
+			right: 0;
+			top: 50%;
+			transform: translateY(-50%);
+		}
 	}
 }
 

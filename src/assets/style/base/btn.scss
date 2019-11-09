@@ -1,3 +1,9 @@
 .btn {
   @include btn();
+  
+  &_black {
+    background: #000000;
+    color: #ffffff;
+    border-color: #000;
+  }
 }

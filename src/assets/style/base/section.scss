@@ -1,6 +1,6 @@
 .section {
 	&__title {
-		@include title();
+		@include title($fw:700);
 		position: relative;
 		padding-bottom: 15px;
 		
