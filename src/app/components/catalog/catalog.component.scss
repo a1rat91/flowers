@@ -1,5 +1,19 @@
+@import "../../../../assets/style/mixins/mixins-sait";
+@import "../../../../assets/style/base/variables";
+
 .catalog {
-	margin-top: 90px;
+	padding-top: 90px;
+	position: relative;
+	
+	&__shadow {
+		@include title($fsz: 200px, $ls: 0.06em, $lh: 1, $fw: 700);
+		opacity: .03;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		white-space: nowrap;
+	}
 	
 	&__container {
 		width: 100%;

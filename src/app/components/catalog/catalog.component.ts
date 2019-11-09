@@ -28,8 +28,8 @@ export class CatalogComponent implements OnInit {
                 }
             },
             navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                nextEl: '.catalog__button-next',
+                prevEl: '.catalog__button-prev',
             }
         };
     }

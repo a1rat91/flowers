@@ -25,8 +25,8 @@ export class ActionsComponent implements OnInit {
                 type: 'progressbar',
             },
             navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                nextEl: '.actions__button-next',
+                prevEl: '.actions__button-prev',
             }
         };
     }

@@ -1,5 +1,6 @@
 .actions {
 	margin-top: 90px;
+	position: relative;
 	
 	&__button-prev,
 	&__button-next {
@@ -7,13 +8,12 @@
 	}
 	
 	&__button-next {
-		transform: translateX(33px) translateY(-50%);
-		margin-right: calc(100% / 10);
+		transform: translateX(20px) translateY(-25%);
+		margin-right: 0;
 	}
 	
 	&__button-prev {
-		transform: translateX(-33px) translateY(-50%);
-		margin-left: calc(100% / 10);
+		transform: translateX(-55px) translateY(-25%);
 	}
 	
 	&__inner {
