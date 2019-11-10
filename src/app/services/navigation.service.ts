@@ -4,8 +4,8 @@ import {PostsService} from '../shared/posts.service';
 
 @Injectable()
 export class NavigationService {
-  private navigationSource = new BehaviorSubject<boolean>(false);
-  private burgerSource = new BehaviorSubject<boolean>(false);
+  private navigationSource = new BehaviorSubject<boolean>(true);
+  private burgerSource = new BehaviorSubject<boolean>(true);
   currentNavigationState = this.navigationSource.asObservable();
   currentBurgerState = this.burgerSource.asObservable();
   posts: PostsService;

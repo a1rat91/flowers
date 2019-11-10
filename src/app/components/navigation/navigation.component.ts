@@ -1,8 +1,16 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {
+    AfterViewChecked, AfterViewInit, Component, DoCheck, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren,
+    ViewEncapsulation
+} from '@angular/core';
 import {NavigationService} from '../../services/navigation.service';
 import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
-import {Observable} from "rxjs";
+import {Observable} from 'rxjs';
+import { TimelineMax } from 'gsap';
+import {
+    fadeInNavigation,
+    fadeOutNavigation
+} from './navigation.animation';
 
 @Component({
     selector: 'app-navigation',
@@ -10,11 +18,15 @@ import {Observable} from "rxjs";
     styleUrls: ['./navigation.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class NavigationComponent implements OnInit {
-    navigation: boolean;
-    burger: boolean;
+export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
+
+    @ViewChild('navigation', {static: true}) navigationSections: ElementRef;
+    @ViewChildren('navMenuItems') navMenuItems: QueryList<ElementRef>;
+
+    public navigation: boolean;
+    public burger: boolean;
     public flowers = [];
-    posts$: Observable<Post[]>;
+    public posts$: Observable<Post[]>;
 
     constructor(
         private postsService: PostsService,
@@ -23,12 +35,44 @@ export class NavigationComponent implements OnInit {
 
     ngOnInit() {
         this.posts$ = this.postsService.getAll();
-        this.nav.currentNavigationState.subscribe(navigation => this.navigation = navigation);
+    }
+
+    ngAfterViewInit() {
+        this.nav.currentNavigationState.subscribe(navigation => {
+            if (!this.navigation) {
+                this.fadeInNav();
+            } else {
+                this.fadeOutNav();
+            }
+            return this.navigation = navigation;
+        });
         this.nav.currentBurgerState.subscribe(burger => this.burger = burger);
+    }
+
+    ngDoCheck() {
+        //TODO для дебага, потом удалить
     }
 
     closeNav() {
         this.nav.changeBurgerState(!this.burger);
         this.nav.changeNavigationState(!this.navigation);
+        this.fadeOutNav();
+    }
+
+    get navigationEl() {
+        return this.navigationSections.nativeElement;
+    }
+    get navigationMenu() {
+        return this.navMenuItems.map((ele) => ele.nativeElement);
+    }
+
+    fadeInNav() {
+        new TimelineMax({delay: 0.25})
+            .add(fadeInNavigation(this.navigationEl, this.navigationMenu));
+    }
+
+    fadeOutNav() {
+        new TimelineMax({delay: 0.5})
+            .add(fadeOutNavigation(this.navigationEl, this.navigationMenu));
     }
 }

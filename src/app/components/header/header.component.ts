@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
     }
 
     openNav() {
+        console.log(this.navigation, 'nav');
         this.nav.changeBurgerState(!this.burger);
         this.nav.changeNavigationState(!this.navigation);
     }

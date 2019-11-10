@@ -1,8 +1,8 @@
-<div class="navigation" [ngClass]="{'navigation_active': navigation}">
+<div class="navigation" #navigation [ngClass]="{'navigation_active': navigation}">
 	<app-logo routerLink="/" (click)="closeNav()"></app-logo>
 	<div *ngIf="posts$ | async as posts; else loading">
-		<ul class="navigation__menu">
-			<li class="navigation__item"
+		<ul class="navigation__menu" #navMenu>
+			<li #navMenuItems class="navigation__item"
 			    *ngFor="let post of posts"
 			    routerLinkActive="active"
 			    [routerLinkActiveOptions]="{exact: true}">
