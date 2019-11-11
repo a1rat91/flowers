@@ -1,6 +1,7 @@
 import {
-  AfterViewInit, Component, DoCheck, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output,
-  ViewChild, ViewEncapsulation
+    Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output,
+    SimpleChanges,
+    ViewChild, ViewEncapsulation
 } from '@angular/core';
 import {
     Scene,
@@ -18,7 +19,7 @@ import {vertex as vertex} from './shader';
 import {fragment as fragment} from './shader';
 import {mod} from './utils';
 
-import {TweenMax, Expo, Ease} from 'gsap';
+import {TweenMax, Expo} from 'gsap';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
 import {Router} from '@angular/router';
 
@@ -31,7 +32,7 @@ import {Router} from '@angular/router';
     encapsulation: ViewEncapsulation.None
 })
 
-export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     @ViewChild('slider', {static: true}) slider: ElementRef;
     @Output() event: EventEmitter<any> = new EventEmitter();
     @Input() images: string[];
@@ -57,6 +58,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
     position;
     camera;
     slideIndex;
+    newImagesArr;
 
     constructor(private distortionSliderService: DistortionSliderService,
                 private router: Router) {
@@ -85,9 +87,8 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
         this.position = {};
     }
 
-  ngOnInit() {
+    ngOnInit() {
         this.cameraInit();
-        this.init();
         this.animate();
 
         window.addEventListener('resize', this.onResize);
@@ -105,8 +106,12 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
         });
     }
 
-    ngAfterViewInit() {
-
+    ngOnChanges(changes: SimpleChanges): void {
+        this.newImagesArr = changes.images;
+        this.images = this.newImagesArr.currentValue;
+        this.imagesLoaded = [];
+        this.textures = [];
+        this.init();
     }
 
     ngOnDestroy() {
@@ -136,7 +141,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
 
     render = () => {
         this.renderer.render(this.scene, this.camera);
-    }
+    };
 
     transitionIn() {
         this.currentTransition = TweenMax.to(this.mat.uniforms.dispFactor, this.speedIn, {
@@ -164,7 +169,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
         this.isAnimating = false;
         this.event.emit('animationEnd');
         this.render();
-    }
+    };
 
     assignTexturesToMaterial() {
         this.mat.uniforms.texture1.value = this.textures[this.currentImage];
