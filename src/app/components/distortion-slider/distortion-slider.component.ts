@@ -1,6 +1,6 @@
 import {
-    AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output,
-    ViewChild, ViewEncapsulation
+  AfterViewInit, Component, DoCheck, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output,
+  ViewChild, ViewEncapsulation
 } from '@angular/core';
 import {
     Scene,
@@ -20,6 +20,7 @@ import {mod} from './utils';
 
 import {TweenMax, Expo, Ease} from 'gsap';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-distortion-slider',
@@ -57,7 +58,8 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
     camera;
     slideIndex;
 
-    constructor(private distortionSliderService: DistortionSliderService) {
+    constructor(private distortionSliderService: DistortionSliderService,
+                private router: Router) {
         this.displacement = 'assets/images/displacement/4.png';
         this.intensity = 0.2;
         this.speedIn = 1;
@@ -83,7 +85,7 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
         this.position = {};
     }
 
-    ngOnInit() {
+  ngOnInit() {
         this.cameraInit();
         this.init();
         this.animate();
@@ -98,9 +100,9 @@ export class DistortionSliderComponent implements OnInit, AfterViewInit, OnDestr
         }, 2500);
 
         this.distortionSliderService.currentIndex.subscribe(slideIndex => {
-            console.log(slideIndex);
             this.goTo(slideIndex);
-            return this.slideIndex = slideIndex});
+            return this.slideIndex = slideIndex;
+        });
     }
 
     ngAfterViewInit() {

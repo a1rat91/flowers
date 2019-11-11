@@ -1,7 +1,7 @@
 <div class="distortion-slider-pagination">
 	<div class="distortion-slider-pagination__container">
 		
-		<div class="swiper-container" [swiper]="config" [(index)]="index">
+		<div class="swiper-container" #swiperView [swiper]="config" [(index)]="index">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" *ngFor="let postImage of postImages; let i = index">
 					<div class="distortion-slider-pagination__inner">

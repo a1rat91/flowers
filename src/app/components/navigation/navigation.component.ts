@@ -56,7 +56,6 @@ export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
     closeNav() {
         this.nav.changeBurgerState(!this.burger);
         this.nav.changeNavigationState(!this.navigation);
-        this.fadeOutNav();
     }
 
     get navigationEl() {
