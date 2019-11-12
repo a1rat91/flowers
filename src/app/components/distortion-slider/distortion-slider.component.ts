@@ -1,33 +1,22 @@
 import {
-    Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output,
-    SimpleChanges,
-    ViewChild, ViewEncapsulation
-} from '@angular/core';
+    Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild,
+    ViewEncapsulation } from '@angular/core';
+
 import {
-    Scene,
-    WebGLRenderer,
-    OrthographicCamera,
-    TextureLoader,
-    LinearFilter,
-    RepeatWrapping,
-    ShaderMaterial,
-    PlaneBufferGeometry,
-    Mesh,
-    Vector2, Camera
-} from 'three';
+    Scene, WebGLRenderer, OrthographicCamera, TextureLoader, LinearFilter, RepeatWrapping, ShaderMaterial,
+    PlaneBufferGeometry, Mesh, Vector2, Camera } from 'three';
 import {vertex as vertex} from './shader';
 import {fragment as fragment} from './shader';
 import {mod} from './utils';
-
 import {TweenMax, Expo} from 'gsap';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
-import {Router} from '@angular/router';
+
+
 
 @Component({
     selector: 'app-distortion-slider',
     template: `
-		<div class="distortion-slider" #slider>
-		</div>`,
+		<div class="distortion-slider" #slider></div>`,
     styleUrls: ['./distortion-slider.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
@@ -60,8 +49,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     slideIndex;
     newImagesArr;
 
-    constructor(private distortionSliderService: DistortionSliderService,
-                private router: Router) {
+    constructor(private distortionSliderService: DistortionSliderService) {
         this.displacement = 'assets/images/displacement/4.png';
         this.intensity = 0.2;
         this.speedIn = 1;

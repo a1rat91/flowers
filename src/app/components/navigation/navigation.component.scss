@@ -12,14 +12,14 @@
   z-index: 99;
   pointer-events: none;
   background: $body-bg;
-  //opacity: 0;
+  opacity: 0;
   //transition: .5s;
   @include flexCenter();
   flex-direction: column;
   text-align: center;
   
   &_active {
-    
+    opacity: 1;
     pointer-events: all;
     
     .header .logo {
@@ -49,9 +49,11 @@
   
   &__item {
     transform: matrix(1, 0, 0, 1, 0, 100);
+    transition: .5s;
 
     &.active a {
-      font-size: 45px;
+      transform: scale(1.22);
+      display: block;
     }
     
     a {
