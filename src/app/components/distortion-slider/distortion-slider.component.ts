@@ -139,9 +139,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
         this.slider.nativeElement.appendChild(this.renderer.domElement);
     }
 
-    render = () => {
-        this.renderer.render(this.scene, this.camera);
-    };
+    render = () => this.renderer.render(this.scene, this.camera);
 
     transitionIn() {
         this.currentTransition = TweenMax.to(this.mat.uniforms.dispFactor, this.speedIn, {
@@ -169,7 +167,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
         this.isAnimating = false;
         this.event.emit('animationEnd');
         this.render();
-    };
+    }
 
     assignTexturesToMaterial() {
         this.mat.uniforms.texture1.value = this.textures[this.currentImage];
@@ -217,7 +215,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
 
     loadTextures() {
         this.images.forEach((image, index) => {
-            let textureLoaded = this.insertImage(image, index);
+            const textureLoaded = this.insertImage(image, index);
             this.imagesLoaded.push(textureLoaded);
         });
         const loader = new TextureLoader();
@@ -228,7 +226,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     initShaderMaterial() {
-        let ratio = {
+        const ratio = {
             width: this.preserveAspectRatio ? this.slider.nativeElement.offsetWidth : this.textures[this.currentImage].image.naturalWidth,
             height: this.preserveAspectRatio ? this.slider.nativeElement.offsetHeight : this.textures[this.currentImage].image.naturalHeight
         };
@@ -291,7 +289,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
 
 
     onResize = () => {
-        let ratio = {
+        const ratio = {
             width: this.preserveAspectRatio ? this.slider.nativeElement.offsetWidth : this.textures[this.currentImage].image.naturalWidth,
             height: this.preserveAspectRatio ? this.slider.nativeElement.offsetHeight : this.textures[this.currentImage].image.naturalHeight
         };
@@ -301,8 +299,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
         this.mat.uniforms.resolution.value.set(ratio.width, ratio.height);
         this.mat.uniforms.sliderResolution.value.set(this.slider.nativeElement.offsetWidth, this.slider.nativeElement.offsetHeight);
         this.render();
-    };
-
+    }
 
     play() {
         if (this.currentTransition) {
@@ -310,19 +307,17 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
-
     pause() {
         if (this.currentTransition) {
             this.currentTransition.pause();
         }
     }
 
-
     insertImage(path, index = this.textures.length) {
         const loader = new TextureLoader();
         loader.crossOrigin = '';
         return new Promise((resolve) => {
-            let texture = loader.load(path, () => {
+            const texture = loader.load(path, () => {
                 this.render();
                 resolve();
             });
@@ -347,7 +342,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     animate = () => {
         requestAnimationFrame(this.animate);
         this.render();
-    };
+    }
 
     onMouseMove(e) {
         if (this.isInteractive && this.mat) {

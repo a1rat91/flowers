@@ -31,6 +31,8 @@ export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
     constructor(
         private postsService: PostsService,
         private nav: NavigationService) {
+        this.burger = false;
+        this.navigation = false;
     }
 
     ngOnInit() {

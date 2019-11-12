@@ -1,19 +1,21 @@
-<div class="navigation" #navigation [ngClass]="{'navigation_active': navigation}">
+<div class="navigation" #navigation [ngClass]="{'navigation_active': !burger}">
 	<app-logo routerLink="/" (click)="closeNav()"></app-logo>
 	<div *ngIf="posts$ | async as posts; else loading">
-		<ul class="navigation__menu" #navMenu>
-			<li #navMenuItems class="navigation__item"
-			    *ngFor="let post of posts"
-			    routerLinkActive="active"
-			    [routerLinkActiveOptions]="{exact: true}">
-				<a (click)="closeNav()"
-				   [routerLink]="['/post', post.id]">
-					{{post.title}}
-				</a>
-			</li>
-		</ul>
+		<nav class="navigation__menu" #navMenu>
+			<div class="navigation__item-wrap"
+                 *ngFor="let post of posts">
+				<div #navMenuItems class="navigation__item"
+					 routerLinkActive="active"
+					 [routerLinkActiveOptions]="{exact: true}">
+					<a (click)="closeNav()"
+					   [routerLink]="['/post', post.id]">
+						{{post.title}}
+					</a>
+				</div>
+			</div>
+		</nav>
 	</div>
-	
+
 	<ng-template #loading>
 		<p>Загрузка</p>
 	</ng-template>

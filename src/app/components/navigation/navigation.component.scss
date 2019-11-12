@@ -37,14 +37,19 @@
       color: #ffffff;
     }
   }
-  
-  &__item {
+
+  &__item-wrap {
+    overflow: hidden;
     margin-bottom: 50px;
-    
+
     &:last-child {
       margin-bottom: 0;
     }
+  }
   
+  &__item {
+    transform: matrix(1, 0, 0, 1, 0, 100);
+
     &.active a {
       font-size: 45px;
     }

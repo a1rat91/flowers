@@ -1,5 +1,6 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {NavigationService} from '../../services/navigation.service';
+import {DOCUMENT} from "@angular/common";
 
 @Component({
     selector: 'app-header',
@@ -12,7 +13,8 @@ export class HeaderComponent implements OnInit {
     navigation: boolean;
     burger: boolean;
 
-    constructor(private nav: NavigationService) {
+    constructor(private nav: NavigationService,
+                @Inject(DOCUMENT) private document: Document) {
     }
 
     ngOnInit() {
@@ -24,5 +26,10 @@ export class HeaderComponent implements OnInit {
         console.log(this.navigation, 'nav');
         this.nav.changeBurgerState(!this.burger);
         this.nav.changeNavigationState(!this.navigation);
+        this.document.body.classList.add('hidden');
+
+        if (this.navigation) {
+            this.document.body.classList.remove('hidden');
+        }
     }
 }

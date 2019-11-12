@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {TweenMax, TimelineMax} from 'gsap';
 import * as gsap from 'gsap';
 import Linear = gsap.Linear;
@@ -13,10 +13,10 @@ import {Post} from '../../admin/shared/interfaces';
     styleUrls: ['./main-page.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent implements OnInit, AfterViewInit {
 
     config: any;
-    // fullpage_api: any;
+    fullpage_api: any;
 
     // TODO Отключать fullpage при открытой навигации
     navigation: boolean;
@@ -46,7 +46,18 @@ export class MainPageComponent implements OnInit {
         this.posts$ = this.postsService.getAll();
     }
 
+    ngAfterViewInit(): void {
+        this.nav.currentNavigationState.subscribe(navigation => {
+            this.fullpage_api.setAutoScrolling(true);
+            if (!this.navigation) {
+                this.fullpage_api.setAutoScrolling(false);
+            }
+
+            return this.navigation = navigation;
+        });
+    }
+
     getRef(fullPageRef) {
-        // this.fullpage_api = fullPageRef;
+        this.fullpage_api = fullPageRef;
     }
 }
