@@ -21,7 +21,10 @@ export class UploadTaskComponent implements OnInit {
     @Input() file: File;
     @Output() imageUploadEvent = new EventEmitter<string>();
 
-    constructor(private storage: AngularFireStorage, private db: AngularFirestore) {
+    constructor(
+        private storage: AngularFireStorage,
+        private db: AngularFirestore
+    ) {
         this.downloadUrls = [];
     }
 

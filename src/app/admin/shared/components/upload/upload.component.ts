@@ -14,11 +14,10 @@ export class UploadComponent {
     files: File[] = [];
     imageUrls: string [] = [];
 
-    constructor(private postsService: PostsService, private uploadImgs: UploadImgsService) {
+    constructor(private uploadImgs: UploadImgsService) {
     }
 
     getUploadedUrls($event) {
-        // this.imageUrls.push($event);
       this.uploadImgs.addImgs($event);
     }
 
