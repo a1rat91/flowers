@@ -3,7 +3,7 @@
 		каталог услуг
 	</div>
 	<div class="catalog__container">
-		<div class="swiper-container" [swiper]="config" [(index)]="index">
+		<div class="swiper-container" [swiper]="config">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" *ngFor="let post of posts; let i = index">
 					<app-catalog-item

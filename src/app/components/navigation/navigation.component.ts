@@ -22,6 +22,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
 
     @ViewChild('navigation', {static: true}) navigationSections: ElementRef;
     @ViewChildren('navMenuItems') navMenuItems: QueryList<ElementRef>;
+    @Input() index;
 
     public navigation: boolean;
     public burger: boolean;
