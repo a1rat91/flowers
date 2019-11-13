@@ -25,6 +25,7 @@ import {NextSectionLinkComponent} from './shared/components/next-section-link/ne
 
 import {NavigationService} from './services/navigation.service';
 import {AuthInterceptor} from './shared/auth.interceptor';
+import {DistortionTitleComponent} from './shared/components/distortion-title/distortion-title.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
     provide: HTTP_INTERCEPTORS,
@@ -44,7 +45,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
         LogoComponent,
         MouseComponent,
         SocComponent,
-        NextSectionLinkComponent
+        NextSectionLinkComponent,
+        DistortionTitleComponent
     ],
     imports: [
         BrowserModule,
