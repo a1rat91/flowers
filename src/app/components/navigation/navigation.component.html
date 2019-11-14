@@ -1,7 +1,7 @@
 <div class="navigation" #navigation [ngClass]="{'navigation_active': !burger}">
 	<app-logo routerLink="/" (click)="closeNav()"></app-logo>
 	<div *ngIf="posts$ | async as posts; else loading">
-		<nav class="navigation__menu" #navMenu>
+		<nav class="navigation__menu">
 			<div class="navigation__item-wrap"
                  *ngFor="let post of posts">
 				<div #navMenuItems class="navigation__item"

@@ -20,8 +20,8 @@ import {
 })
 export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
 
-    @ViewChild('navigation', {static: true}) navigationSections: ElementRef;
-    @ViewChildren('navMenuItems') navMenuItems: QueryList<ElementRef>;
+    @ViewChild('navigation', {static: true}) _navigationSections: ElementRef;
+    @ViewChildren('navMenuItems') _navMenuItems: QueryList<ElementRef>;
     @Input() index;
 
     public navigation: boolean;
@@ -43,9 +43,9 @@ export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
     ngAfterViewInit() {
         this.nav.currentNavigationState.subscribe(navigation => {
             if (!this.navigation) {
-                this.fadeInNav();
-            } else {
                 this.fadeOutNav();
+            } else {
+                this.fadeInNav();
             }
             return this.navigation = navigation;
         });
@@ -62,10 +62,10 @@ export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     get navigationEl() {
-        return this.navigationSections.nativeElement;
+        return this._navigationSections.nativeElement;
     }
     get navigationMenu() {
-        return this.navMenuItems.map((ele) => ele.nativeElement);
+        return this._navMenuItems.map((element) => element.nativeElement);
     }
 
     fadeInNav() {

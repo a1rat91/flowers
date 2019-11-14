@@ -12,14 +12,14 @@
   z-index: 99;
   pointer-events: none;
   background: $body-bg;
-  opacity: 0;
+  //opacity: 0;
   //transition: .5s;
   @include flexCenter();
   flex-direction: column;
   text-align: center;
   
   &_active {
-    opacity: 1;
+    //opacity: 1;
     pointer-events: all;
     
     .header .logo {
@@ -41,6 +41,7 @@
   &__item-wrap {
     overflow: hidden;
     margin-bottom: 50px;
+    position: relative;
 
     &:last-child {
       margin-bottom: 0;
@@ -48,8 +49,9 @@
   }
   
   &__item {
-    transform: matrix(1, 0, 0, 1, 0, 100);
     transition: .5s;
+    position: relative;
+    top: -200px;
 
     &.active a {
       transform: scale(1.22);
