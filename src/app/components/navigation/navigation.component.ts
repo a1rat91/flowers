@@ -20,8 +20,8 @@ import {
 })
 export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
 
-    @ViewChild('navigation', {static: true}) _navigationSections: ElementRef;
-    @ViewChildren('navMenuItems') _navMenuItems: QueryList<ElementRef>;
+    @ViewChild('navigation', {static: true}) private _navigationSections: ElementRef;
+    @ViewChildren('navMenuItems') private _navMenuItems: QueryList<ElementRef>;
     @Input() index;
 
     public navigation: boolean;
