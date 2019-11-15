@@ -57,7 +57,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     ngDoCheck() {
-        //TODO для дебага, потом удалить
+        // TODO для дебага, потом удалить
     }
 
     closeNav() {
@@ -73,18 +73,18 @@ export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     fadeInNav() {
-        let fadeIn =  new TimelineMax({delay: 0.25})
+        const tl =  new TimelineMax()
             .add(fadeInNavigation(this.navigationEl, this.navigationMenu));
 
 
-        // gsAnimationTools(fadeIn, 0.1, 0.1);
+        // gsAnimationTools(tl, 0.1, 0.1);
     }
 
     fadeOutNav() {
-        let fadeOut = new TimelineMax({delay: 0.5})
+        const tl = new TimelineMax({delay: 0.5})
             .add(fadeOutNavigation(this.navigationEl, this.navigationMenu));
 
 
-        gsapAnimationDebugTools(fadeOut, 0.1, 0.1);
+        gsapAnimationDebugTools(tl, 0.1, 0.1);
     }
 }

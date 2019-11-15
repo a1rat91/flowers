@@ -25,6 +25,7 @@ import {NextSectionLinkComponent} from './shared/components/next-section-link/ne
 
 import {NavigationService} from './services/navigation.service';
 import {AuthInterceptor} from './shared/auth.interceptor';
+import {NavigationLogoComponent} from './shared/components/navigation-logo/navigation-logo.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
     provide: HTTP_INTERCEPTORS,
@@ -42,6 +43,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
         HeaderComponent,
         FooterComponent,
         LogoComponent,
+        NavigationLogoComponent,
         MouseComponent,
         SocComponent,
         NextSectionLinkComponent
