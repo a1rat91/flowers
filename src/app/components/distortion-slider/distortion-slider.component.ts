@@ -16,7 +16,7 @@ import {DistortionSliderService} from '../../services/distortion-slider.service'
 @Component({
     selector: 'app-distortion-slider',
     template: `
-		<div class="distortion-slider" #slider></div>`,
+		<div class="distortion-slider" #slider (mouseenter) ="mouseEnter() " (mouseleave) ="mouseLeave()"></div>`,
     styleUrls: ['./distortion-slider.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
@@ -82,16 +82,24 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
         window.addEventListener('resize', this.onResize);
         window.addEventListener('mousemove', this.onMouseMove);
 
-        setInterval(() => {
-            if (!this.slideIndex) {
-                this.next();
-            }
-        }, 2500);
+        // setInterval(() => {
+        //     if (!this.slideIndex) {
+        //         this.next();
+        //     }
+        // }, 2500);
 
         this.distortionSliderService.currentIndex.subscribe(slideIndex => {
             this.goTo(slideIndex);
             return this.slideIndex = slideIndex;
         });
+    }
+
+    mouseEnter() {
+        this.next();
+    }
+
+    mouseLeave() {
+        this.previous();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -168,9 +176,10 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     previous() {
-        if (this.isAnimating) {
-            return;
-        }
+        // console.log('prev');
+        // if (this.isAnimating) {
+        //     return;
+        // }
         // Skip animation if the materials are not ready
         if (this.mat === null) {
             this.currentImage = mod((this.currentImage - 1), (this.textures.length));
@@ -186,9 +195,9 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     next(nextImage = null) {
-        if (this.isAnimating) {
-            return;
-        }
+        // if (this.isAnimating) {
+        //     return;
+        // }
         // Skip animation if the materials are not ready
         if (this.mat === null) {
             this.currentImage = mod((this.currentImage + 1), (this.textures.length));
