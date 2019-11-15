@@ -12,6 +12,10 @@ import {
     fadeOutNavigation
 } from './navigation.animation';
 
+// TODO: For animation debug
+import {gsapAnimationDebugTools as gsapAnimationDebugTools} from '../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools';
+
+
 @Component({
     selector: 'app-navigation',
     templateUrl: './navigation.component.html',
@@ -69,12 +73,18 @@ export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     fadeInNav() {
-        new TimelineMax({delay: 0.25})
+        let fadeIn =  new TimelineMax({delay: 0.25})
             .add(fadeInNavigation(this.navigationEl, this.navigationMenu));
+
+
+        // gsAnimationTools(fadeIn, 0.1, 0.1);
     }
 
     fadeOutNav() {
-        new TimelineMax({delay: 0.5})
+        let fadeOut = new TimelineMax({delay: 0.5})
             .add(fadeOutNavigation(this.navigationEl, this.navigationMenu));
+
+
+        gsapAnimationDebugTools(fadeOut, 0.1, 0.1);
     }
 }
