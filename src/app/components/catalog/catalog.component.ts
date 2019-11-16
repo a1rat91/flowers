@@ -1,4 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, NgZone, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Router} from '@angular/router';
+import { TimelineMax } from 'gsap';
+import {
+    catalogNextPageTransition
+} from './catalog.animation';
+import {gsapAnimationDebugTools} from "../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools";
 
 @Component({
     selector: 'app-catalog',
@@ -10,9 +16,11 @@ export class CatalogComponent implements OnInit {
     config;
     curentProgress;
     totalProgress;
+    @ViewChildren('catalogItems') private _catalogItems: QueryList<ElementRef>;
+    @ViewChild('catalog', {static: true}) private _catalog: ElementRef;
+    @ViewChild('catalogTitle', {static: true}) private _catalogTitle: ElementRef;
 
-    constructor() {
-
+    constructor(private router: Router, private ngZone: NgZone) {
     }
 
     ngOnInit() {
@@ -51,6 +59,37 @@ export class CatalogComponent implements OnInit {
         progressBarContainer += '</span></div>';
 
         return progressBarContainer;
+    }
+
+    get catalog() {
+        return this._catalog.nativeElement;
+    }
+    get catalogItems() {
+        return this._catalogItems.map((element) => element.nativeElement);
+    }
+    get catalogTitle() {
+        return this._catalogTitle.nativeElement;
+    }
+
+    nextPage(id, event) {
+        // console.log(event);
+        const catalogWrap = event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
+        const catalogEl = event.target;
+        const catalogElWidth = window.innerWidth / 2;
+        const catalogElHeight = window.innerHeight;
+        const catalogElImg = catalogEl.querySelector('.catalog-item__img');
+        this.catalog.classList.add('go-to-next-page');
+        catalogWrap.classList.add('hide-items');
+        catalogEl.classList.add('active');
+
+
+        const tl = new TimelineMax()
+            .add(catalogNextPageTransition(this.catalogTitle, catalogEl, catalogElImg, catalogEl.getBoundingClientRect().left, catalogElWidth, catalogElHeight))
+            .add(() => this.ngZone.run(() => {
+                // this.router.navigate([`/post/${ id }`]);
+            }));
+
+        gsapAnimationDebugTools(tl, 0.1, 0.1);
     }
 
 }

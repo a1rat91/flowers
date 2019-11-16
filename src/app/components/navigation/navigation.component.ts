@@ -85,6 +85,6 @@ export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
             .add(fadeOutNavigation(this.navigationEl, this.navigationMenu));
 
 
-        gsapAnimationDebugTools(tl, 0.1, 0.1);
+        // gsapAnimationDebugTools(tl, 0.1, 0.1);
     }
 }

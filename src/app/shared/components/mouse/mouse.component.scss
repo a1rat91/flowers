@@ -1,6 +1,4 @@
 .mouse {
-	position: absolute;
-	bottom: 80px;
 	width: 36px;
 	height: 58px;
 	background: url(../../../../assets/images/mouse.svg) no-repeat center;
@@ -9,8 +7,7 @@
 	cursor: pointer;
 	transition: all 1s ease 1.7s;
 	z-index: 3;
-	left: 50%;
-	transform: translateX(-50%) translateY(0);
+	
 	
 	&:after {
 		content: "";

@@ -16,7 +16,11 @@ import {DistortionSliderService} from '../../services/distortion-slider.service'
 @Component({
     selector: 'app-distortion-slider',
     template: `
-		<div class="distortion-slider" #slider (mouseenter) ="mouseEnter() " (mouseleave) ="mouseLeave()"></div>`,
+        <div class="distortion-slider">
+            <img [src]="images[0]" alt="" class="distortion-slider__bg">
+	        <div class="distortion-slider__inner" #slider (mouseenter) ="mouseEnter() " (mouseleave) ="mouseLeave()"></div>
+        </div>
+		`,
     styleUrls: ['./distortion-slider.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
@@ -62,7 +66,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
         };
         this.isInteractive = false;
         this.angle = Math.PI / 4;
-        this.currentImage = 0;
+        this.currentImage = -1;
         this.scene = new Scene();
         this.renderer = new WebGLRenderer({antialias: false, alpha: true});
         this.mat = null;
@@ -95,11 +99,11 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     mouseEnter() {
-        this.next();
+        // this.next();
     }
 
     mouseLeave() {
-        this.previous();
+        // this.previous();
     }
 
     ngOnChanges(changes: SimpleChanges): void {

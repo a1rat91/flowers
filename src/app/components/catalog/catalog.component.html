@@ -1,14 +1,16 @@
-<div class="catalog">
-	<div class="catalog__shadow">
+<div class="catalog" #catalog>
+	<div class="catalog__shadow" #catalogTitle>
 		каталог услуг
 	</div>
 	<div class="catalog__container">
 		<div class="swiper-container" [swiper]="config">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" *ngFor="let post of posts; let i = index">
-					<app-catalog-item
-						[post]="post" [index]="i"
-					></app-catalog-item>
+					<a #catalogItems (click)="nextPage(post.id, $event)">
+						<app-catalog-item
+							[post]="post" [index]="i"
+						></app-catalog-item>
+					</a>
 				</div>
 			</div>
 		</div>

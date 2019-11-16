@@ -8,7 +8,7 @@ const appRoutes: Routes = [
     {path: '', component: MainLayoutComponent, children: [
         {path: '', redirectTo: '/', pathMatch: 'full'},
         {path: '', component: MainPageComponent},
-        {path: 'post', loadChildren: './pages/flower-page/flower-page.module#FlowerPageModule'},
+        {path: 'post', loadChildren: () => import('./pages/flower-page/flower-page.module').then(m => m.FlowerPageModule)},
     ]},
     {path : 'admin', loadChildren: './admin/admin.module#AdminModule'},
     {path: 'not-found', component: NotFoundComponent},

@@ -11,20 +11,24 @@
 	<div fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
 		<div class="section">
 			
-			<app-fake3d
-				[image]="'assets/images/main.jpg'"
-				[depf]="'assets/images/main-map.jpg'"
-				[horizontalThreshold]="35"
-				[verticalThreshold]="15">
-			</app-fake3d>
+			<div class="main-section__bg">
+				<app-fake3d
+					[image]="'assets/images/main.jpg'"
+					[depf]="'assets/images/main-map.jpg'"
+					[horizontalThreshold]="35"
+					[verticalThreshold]="15">
+				</app-fake3d>
+			</div>
 			
 			<div class="main-section">
-				<div class="main-section__title text-center">
+				<div class="main-section__title text-center" #mainTitle>
 					Флористика с душой
 				</div>
-				<button class="btn main-section__btn">Cмотреть работы</button>
+				<button class="btn main-section__btn" #mainBtn>Cмотреть работы</button>
 				
-				<app-mouse></app-mouse>
+				<div class="main-section__mouse" #mouse>
+					<app-mouse></app-mouse>
+				</div>
 			</div>
 		</div>
 		
