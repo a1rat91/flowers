@@ -6,7 +6,9 @@
 		<div class="swiper-container" [swiper]="config">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide" *ngFor="let post of posts; let i = index">
-					<a #catalogItems (click)="nextPage(post.id, $event)">
+<!--					<a #catalogItems (click)="nextPage(post.id, $event)">-->
+<!--                    TODO: При клике на catalogItems тригерить grid-to-fullscreen-->
+					<a #catalogItems>
 						<app-catalog-item
 							[post]="post" [index]="i"
 						></app-catalog-item>
@@ -17,7 +19,7 @@
 		<div class="swiper-button-prev catalog__button-prev"></div>
 		<div class="swiper-button-next catalog__button-next"></div>
 	</div>
-	
+
 	<div class="catalog__container">
 		<div class="slider__pagination">
 			<!--<div class="slider__active-index">0{{curentProgress}}</div>-->
@@ -25,5 +27,5 @@
 			<!--<div class="slider__next-index">0{{totalProgress}}</div>-->
 		</div>
 	</div>
-	
+
 </div>

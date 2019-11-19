@@ -4,6 +4,7 @@ import {SwiperModule} from 'ngx-swiper-wrapper';
 import {CatalogComponent} from './catalog.component';
 import {CatalogItemComponent} from './catalog-item/catalog-item.component';
 import {AppRoutingModule} from '../../app-routing.module';
+import {GridToFullscreenAnimationComponent} from '../grid-to-fullscreen-animation/grid-to-fullscreen-animation.component';
 
 @NgModule({
     imports: [
@@ -14,6 +15,7 @@ import {AppRoutingModule} from '../../app-routing.module';
     declarations: [
         CatalogComponent,
         CatalogItemComponent,
+        GridToFullscreenAnimationComponent
     ],
     providers: [],
     exports: [

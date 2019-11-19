@@ -1,10 +1,6 @@
 .catalog-item {
 	position: relative;
-	
-	.hide-items & {
-		opacity: 0;
-		pointer-events: none;
-	}
+	pointer-events: none;
 	
 	&.active {
 		opacity: 1;
@@ -31,10 +27,6 @@
 			top: 50%;
 			margin-top: 1px;
 		}
-		
-		.catalog-item.active & {
-			opacity: 0;
-		}
 	}
 	
 	&__pic {
@@ -50,10 +42,6 @@
 			
 			.catalog-item:hover & {
 				background: rgba(#000, .6);
-			}
-			
-			.catalog-item.active & {
-				background: transparent;
 			}
 		}
 	}

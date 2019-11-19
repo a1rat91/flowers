@@ -1,0 +1,10 @@
+<div id="app" #app></div>
+<div class="grid" id="itemsWrapper" #wrapper>
+    <figure>
+        <img class="grid__item-img" [src]="postImage" alt="A picture of Montparnasse in Paris"/>
+        <img class="grid__item-img grid__item-img--large" style="display: none;" #thumbsItems [src]="postImage"/>
+    </figure>
+</div>
+<div class="fullview">
+    <div class="fullview__item" #fullviewItems></div>
+</div>

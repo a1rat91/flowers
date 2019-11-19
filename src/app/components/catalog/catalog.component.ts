@@ -4,7 +4,7 @@ import { TimelineMax } from 'gsap';
 import {
     catalogNextPageTransition
 } from './catalog.animation';
-import {gsapAnimationDebugTools} from "../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools";
+import {gsapAnimationDebugTools} from '../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools';
 
 @Component({
     selector: 'app-catalog',

@@ -32,7 +32,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": ["src/assets/js/imagesloaded.pkgd.min.js"]
           },
           "configurations": {
             "production": {
@@ -96,7 +96,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": ["src/assets/js/imagesloaded.pkgd.min.js"]
           }
         },
         "lint": {
