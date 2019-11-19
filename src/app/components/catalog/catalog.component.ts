@@ -19,6 +19,7 @@ export class CatalogComponent implements OnInit {
     @ViewChildren('catalogItems') private _catalogItems: QueryList<ElementRef>;
     @ViewChild('catalog', {static: true}) private _catalog: ElementRef;
     @ViewChild('catalogTitle', {static: true}) private _catalogTitle: ElementRef;
+    lightBoxActive;
 
     constructor(private router: Router, private ngZone: NgZone) {
     }
@@ -90,6 +91,10 @@ export class CatalogComponent implements OnInit {
             }));
 
         gsapAnimationDebugTools(tl, 0.1, 0.1);
+    }
+
+    lightBoxActivated(event) {
+        return this.lightBoxActive = event;
     }
 
 }

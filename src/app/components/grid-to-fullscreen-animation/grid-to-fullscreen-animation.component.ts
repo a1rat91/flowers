@@ -1,11 +1,11 @@
 import {
     AfterViewInit,
-    Component,
-    ElementRef,
+    Component, DoCheck,
+    ElementRef, EventEmitter,
     Inject,
-    Input,
-    OnInit,
-    QueryList,
+    Input, OnChanges,
+    OnInit, Output,
+    QueryList, SimpleChanges,
     ViewChild,
     ViewChildren
 } from '@angular/core';
@@ -20,7 +20,7 @@ declare var imagesLoaded: any;
     templateUrl: './grid-to-fullscreen-animation.component.html',
     styleUrls: ['./grid-to-fullscreen-animation.component.scss']
 })
-export class GridToFullscreenAnimationComponent implements AfterViewInit {
+export class GridToFullscreenAnimationComponent implements AfterViewInit, OnChanges {
 
     currentIndex: number;
     @ViewChildren('thumbsItems') private _thumbsItems: QueryList<ElementRef>;
@@ -28,6 +28,10 @@ export class GridToFullscreenAnimationComponent implements AfterViewInit {
     @ViewChild('wrapper', {static: true}) private _wrapper: ElementRef;
     @ViewChild('app', {static: true}) private _app: ElementRef;
     @Input() postImage;
+    @Input() lightBoxActivated;
+    @Output() lightBoxStatusChanged = new EventEmitter<string>();
+    transitionEffect;
+    itemsWrapper;
 
     constructor(@Inject(DOCUMENT) private document: Document) {
     }
@@ -44,13 +48,23 @@ export class GridToFullscreenAnimationComponent implements AfterViewInit {
     get app() {
         return this._app.nativeElement;
     }
+//TODO: Получил lightBoxActivated, теперь нужно тригерить плагин
+    // lightBoxStatusChanged() {
+    //     console.log(this.lightBoxActivated);
+    //     return this.lightBoxActivated;
+    // }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.lightBoxActivated.currentValue) {
+            this.transitionEffect.init();
+        }
+    }
 
     ngAfterViewInit() {
-        const itemsWrapper = this.wrapper;
-        const thumbs = this.thumbsItems;
-        const fullviewItems = this.fullviewItems;
+
+        this.itemsWrapper = this.wrapper;
         const transitionEffectDuration = 1.2;
-        const transitionEffect = this.createDemoEffect({
+        this.transitionEffect = this.createDemoEffect({
             activation: {type: 'mouse'},
             timing: {
                 duration: transitionEffectDuration
@@ -68,7 +82,7 @@ export class GridToFullscreenAnimationComponent implements AfterViewInit {
             onToFullscreenStart: ({index}) => {
                 this.currentIndex = index;
                 // thumbs[this.currentIndex].style.opacity = 0;
-                transitionEffect.uniforms.uSeed.value = index * 10;
+                this.transitionEffect.uniforms.uSeed.value = index * 10;
                 toggleFullview();
             },
             // onToGridFinish: ({index, lastIndex}) => {
@@ -81,9 +95,9 @@ export class GridToFullscreenAnimationComponent implements AfterViewInit {
                 toGrid: Power1.easeInOut
             }
         });
-        transitionEffect.init();
+        // this.transitionEffect.init();
         let toggleFullview = () => {
-            fullviewItems[this.currentIndex].classList.add('fullview__item--current');
+            this.fullviewItems[this.currentIndex].classList.add('fullview__item--current');
         };
         imagesLoaded(document.querySelectorAll('.grid__item-img'), instance => {
             // document.body.classList.remove('loading');
@@ -105,7 +119,7 @@ export class GridToFullscreenAnimationComponent implements AfterViewInit {
                     images.push(imageSet);
                 }
             }
-            transitionEffect.createTextures(images);
+            this.transitionEffect.createTextures(images);
         });
     }
 

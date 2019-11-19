@@ -4,7 +4,7 @@
 	</div>
 	
 	<div class="catalog-item__pic">
-		<app-grid-to-fullscreen-animation [postImage]="post.images[0]"></app-grid-to-fullscreen-animation>
+		<app-grid-to-fullscreen-animation [postImage]="post.images[0]" [lightBoxActivated]="lightBoxActivated" (lightBoxStatusChanged)="lightBoxActivated"></app-grid-to-fullscreen-animation>
 	</div>
 	<div class="catalog-item__heading">
 		

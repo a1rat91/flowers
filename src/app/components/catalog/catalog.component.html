@@ -8,8 +8,8 @@
 				<div class="swiper-slide" *ngFor="let post of posts; let i = index">
 <!--					<a #catalogItems (click)="nextPage(post.id, $event)">-->
 <!--                    TODO: При клике на catalogItems тригерить grid-to-fullscreen-->
-					<a #catalogItems>
-						<app-catalog-item
+					<a #catalogItems style="pointer-events: all" (click)="lightBoxActivated($event)">
+						<app-catalog-item [lightBoxActivated]="lightBoxActive"
 							[post]="post" [index]="i"
 						></app-catalog-item>
 					</a>

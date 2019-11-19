@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, DoCheck, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {Post} from '../../../admin/shared/interfaces';
 
 @Component({
@@ -7,15 +7,21 @@ import {Post} from '../../../admin/shared/interfaces';
     styleUrls: ['./catalog-item.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class CatalogItemComponent implements OnInit {
+export class CatalogItemComponent implements OnInit, DoCheck {
 
     @Input() post: Post;
     @Input() index;
+    @Input() lightBoxActivated;
+
 
     constructor() {
     }
 
     ngOnInit() {
+    }
+
+    ngDoCheck() {
+        // console.log(this.lightBoxActivated);
     }
 
 }

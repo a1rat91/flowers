@@ -22,7 +22,7 @@ export class DistortionSliderPaginationComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    this.swiperView.update();
+    // this.swiperView.update();
   }
 
   ngOnInit() {
