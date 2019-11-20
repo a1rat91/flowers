@@ -237,8 +237,8 @@ export class GridToFullscreenEffect {
         }
 // TODO: That bitch
         for (let i = 0; i < this.itemsWrapper.length; i++) {
-            const image = this.itemsWrapper[i].children[0].children[0];
-            image.addEventListener("click", this.createOnMouseDown(i));
+            const btn = this.itemsWrapper[i].parentNode.parentNode.querySelector('.btn');
+	        btn.addEventListener("click", this.createOnMouseDown(i));
         }
     }
     /**

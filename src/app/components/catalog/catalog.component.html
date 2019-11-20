@@ -17,7 +17,7 @@
 						<div class="catalog-item__pic">
 							<div #wrapper>
 								<figure>
-									<img style="display: block;width: 100%; height: auto; z-index: 3; position: relative;" class="grid__item-img catalog-item__img" [src]="post.images[0]" crossorigin = "anonymous"/>
+									<img style="display: block;width: 100%; height: auto; position: relative;" class="grid__item-img catalog-item__img" [src]="post.images[0]" crossorigin = "anonymous"/>
 									<img class="grid__item-img grid__item-img--large" style="display: none;" #thumbsItems [src]="post.images[0]" crossorigin = "anonymous"/>
 								</figure>
 							</div>
@@ -28,8 +28,7 @@
 								{{post.title}}
 							</div>
 
-							<button
-									[routerLink]="['/post', post.id]"
+							<button (click)="nextPage(post.id, $event)"
 									class="btn btn-dark catalog-item__btn">
 								смотреть работы
 							</button>

@@ -164,15 +164,8 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     nextPage(id, event) {
-        // console.log(event);
         const catalogWrap = event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
         const catalogEl = event.target;
-        const catalogElWidth = window.innerWidth / 2;
-        const catalogElHeight = window.innerHeight;
-        const catalogElImg = catalogEl.querySelector('.catalog-item__img');
-        this.catalog.classList.add('go-to-next-page');
-        catalogWrap.classList.add('hide-items');
-        catalogEl.classList.add('active');
 
         const tl = new TimelineMax()
             .add(catalogNextPageTransition(this.catalogTitle, catalogEl))
