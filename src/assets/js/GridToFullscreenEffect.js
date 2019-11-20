@@ -125,6 +125,7 @@ export class GridToFullscreenEffect {
         const textures = [];
         for (let i = 0; i < images.length; i++) {
             const imageSet = images[i];
+            imageSet.crossOrigin = '';
             const largeTexture = new THREE.Texture(imageSet.large.image);
 
             // So It doesnt get resized to the power of 2
@@ -234,10 +235,11 @@ export class GridToFullscreenEffect {
                 this.recalculateUniforms(ev);
             });
         }
-
-        for (let i = 0; i < this.itemsWrapper.children.length; i++) {
-            const image = this.itemsWrapper.children[i].children[0];
-            image.addEventListener("mousedown", this.createOnMouseDown(i));
+// TODO: That bitch
+        for (let i = 0; i < this.itemsWrapper.length; i++) {
+            console.log(this.itemsWrapper[i].children[0].children[0]);
+            const image = this.itemsWrapper[i].children[0].children[0];
+            image.addEventListener("click", this.createOnMouseDown(i));
         }
     }
     /**
@@ -286,10 +288,7 @@ export class GridToFullscreenEffect {
     }
     recalculateUniforms(ev) {
         if (this.currentImageIndex === -1) return;
-
-        const rect = this.itemsWrapper.children[
-            this.currentImageIndex
-            ].children[0].getBoundingClientRect();
+        const rect = this.itemsWrapper[this.currentImageIndex].children[0].children[0].getBoundingClientRect();
         const mouseNormalized = {
             x: (ev.clientX - rect.left) / rect.width,
             // Allways invert Y coord
@@ -364,7 +363,7 @@ export class GridToFullscreenEffect {
             this.uniforms.uImageLargeRes.value.y =
                 textureSet.large.texture.image.naturalHeight;
         }
-        this.itemsWrapper.style.zIndex = 0;
+        this.itemsWrapper[this.currentImageIndex].style.zIndex = 0;
         this.container.style.zIndex = 2;
 
         if (this.options.onToFullscreenStart)

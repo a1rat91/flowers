@@ -1,17 +1,30 @@
-import {Component, ElementRef, Input, NgZone, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {Router} from '@angular/router';
-import { TimelineMax } from 'gsap';
 import {
-    catalogNextPageTransition
-} from './catalog.animation';
+    AfterViewInit,
+    Component, DoCheck,
+    ElementRef,
+    Inject,
+    Input,
+    NgZone,
+    OnInit,
+    QueryList,
+    ViewChild,
+    ViewChildren
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { TimelineMax } from 'gsap';
+import { catalogNextPageTransition } from './catalog.animation';
 import {gsapAnimationDebugTools} from '../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools';
+import {Power1} from 'gsap';
+import {DOCUMENT} from '@angular/common';
+import {GridToFullscreenEffect as GridToFullscreenEffect} from '../../../assets/js/GridToFullscreenEffect.js';
+declare var imagesLoaded: any;
 
 @Component({
     selector: 'app-catalog',
     templateUrl: './catalog.component.html',
-    styleUrls: ['./catalog.component.scss']
+    styleUrls: ['./catalog.component.scss', './catalog-item.scss']
 })
-export class CatalogComponent implements OnInit {
+export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     @Input() posts;
     config;
     curentProgress;
@@ -19,9 +32,36 @@ export class CatalogComponent implements OnInit {
     @ViewChildren('catalogItems') private _catalogItems: QueryList<ElementRef>;
     @ViewChild('catalog', {static: true}) private _catalog: ElementRef;
     @ViewChild('catalogTitle', {static: true}) private _catalogTitle: ElementRef;
-    lightBoxActive;
+    @ViewChildren('thumbsItems') private _thumbsItems: QueryList<ElementRef>;
+    @ViewChildren('fullviewItems') private _fullviewItems: QueryList<ElementRef>;
+    @ViewChildren('wrapper') private _wrapper: QueryList<ElementRef>;
+    @ViewChild('app', {static: true}) private _app: ElementRef;
+    @Input() postImage;
+    currentIndex;
 
-    constructor(private router: Router, private ngZone: NgZone) {
+    constructor(private router: Router, private ngZone: NgZone, @Inject(DOCUMENT) private document: Document) {
+    }
+
+    get catalog() {
+        return this._catalog.nativeElement;
+    }
+    get catalogItems() {
+        return this._catalogItems.map((element) => element.nativeElement);
+    }
+    get catalogTitle() {
+        return this._catalogTitle.nativeElement;
+    }
+    get thumbsItems() {
+        return this._thumbsItems.map((element) => element.nativeElement);
+    }
+    get fullviewItems() {
+        return this._fullviewItems.map((element) => element.nativeElement);
+    }
+    get wrappers() {
+        return this._wrapper.map((element) => element.nativeElement);
+    }
+    get app() {
+        return this._app.nativeElement;
     }
 
     ngOnInit() {
@@ -43,6 +83,67 @@ export class CatalogComponent implements OnInit {
         };
     }
 
+    ngAfterViewInit() {
+        const itemsWrapper = this.wrappers;
+        const thumbs = this.thumbsItems;
+        const fullviewItems = this.fullviewItems;
+        const transitionEffectDuration = 1.2;
+        const transitionEffect = this.createDemoEffect({
+            activation: {type: 'mouse'},
+            timing: {
+                duration: transitionEffectDuration
+            },
+            transformation: {
+                type: 'simplex',
+                props: {
+                    seed: '8000',
+                    frequencyX: 0.2,
+                    frequencyY: 0.2,
+                    amplitudeX: 0.3,
+                    amplitudeY: 0.3
+                }
+            },
+            onToFullscreenStart: ({index}) => {
+                this.currentIndex = index;
+                transitionEffect.uniforms.uSeed.value = index * 10;
+                toggleFullview();
+            },
+            seed: 800,
+            easings: {
+                toFullscreen: Power1.easeOut,
+                toGrid: Power1.easeInOut
+            }
+        });
+        transitionEffect.init();
+        const toggleFullview = () => {
+            fullviewItems[this.currentIndex].classList.add('fullview__item--current');
+        };
+        imagesLoaded(document.querySelectorAll('.grid__item-img'), instance => {
+            // Make Images sets for the transition effect
+            const images = [];
+            for (let i = 0, imageSet = {}; i < instance.elements.length; i++) {
+                const image = {
+                    element: instance.elements[i],
+                    image: instance.images[i].isLoaded ? instance.images[i].img : null
+                };
+                if (i % 2 === 0) {
+                    imageSet = {};
+                    // @ts-ignore
+                    imageSet.small = image;
+                }
+                if (i % 2 === 1) {
+                    // @ts-ignore
+                    imageSet.large = image;
+                    images.push(imageSet);
+                }
+            }
+            transitionEffect.createTextures(images);
+        });
+    }
+
+    ngDoCheck() {
+    }
+
     customProgressBar(current: number, total: number): string {
         const ratio: number = current / total;
 
@@ -62,16 +163,6 @@ export class CatalogComponent implements OnInit {
         return progressBarContainer;
     }
 
-    get catalog() {
-        return this._catalog.nativeElement;
-    }
-    get catalogItems() {
-        return this._catalogItems.map((element) => element.nativeElement);
-    }
-    get catalogTitle() {
-        return this._catalogTitle.nativeElement;
-    }
-
     nextPage(id, event) {
         // console.log(event);
         const catalogWrap = event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
@@ -83,9 +174,8 @@ export class CatalogComponent implements OnInit {
         catalogWrap.classList.add('hide-items');
         catalogEl.classList.add('active');
 
-
         const tl = new TimelineMax()
-            .add(catalogNextPageTransition(this.catalogTitle, catalogEl, catalogElImg, catalogEl.getBoundingClientRect().left, catalogElWidth, catalogElHeight))
+            .add(catalogNextPageTransition(this.catalogTitle, catalogEl))
             .add(() => this.ngZone.run(() => {
                 // this.router.navigate([`/post/${ id }`]);
             }));
@@ -93,8 +183,27 @@ export class CatalogComponent implements OnInit {
         gsapAnimationDebugTools(tl, 0.1, 0.1);
     }
 
-    lightBoxActivated(event) {
-        return this.lightBoxActive = event;
+    createDemoEffect(options) {
+        const transitionEffect = new GridToFullscreenEffect(
+            this.app,
+            this.wrappers,
+            Object.assign(
+                {
+                    scrollContainer: window,
+                    onToFullscreenStart: ({index}) => {
+                    },
+                    onToFullscreenFinish: ({index}) => {
+                    },
+                    onToGridStart: ({index}) => {
+                    },
+                    onToGridFinish: ({index, lastIndex}) => {
+                    }
+                },
+                options
+            )
+        );
+
+        return transitionEffect;
     }
 
 }

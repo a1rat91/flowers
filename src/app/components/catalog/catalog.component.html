@@ -1,18 +1,46 @@
-<div class="catalog" #catalog>
+<div style="position: absolute; z-index: -1; top: 0;" #app></div>
+<div class="catalog" #catalog >
 	<div class="catalog__shadow" #catalogTitle>
 		каталог услуг
 	</div>
+
 	<div class="catalog__container">
 		<div class="swiper-container" [swiper]="config">
-			<div class="swiper-wrapper">
-				<div class="swiper-slide" *ngFor="let post of posts; let i = index">
-<!--					<a #catalogItems (click)="nextPage(post.id, $event)">-->
-<!--                    TODO: При клике на catalogItems тригерить grid-to-fullscreen-->
-					<a #catalogItems style="pointer-events: all" (click)="lightBoxActivated($event)">
-						<app-catalog-item [lightBoxActivated]="lightBoxActive"
-							[post]="post" [index]="i"
-						></app-catalog-item>
-					</a>
+			<div class="swiper-wrapper" >
+				<div class="swiper-slide" *ngFor="let post of posts; let i = index" style="position: relative;">
+
+					<div class="catalog-item">
+						<div class="catalog-item__index">
+							0{{i + 1 }}
+						</div>
+
+						<div class="catalog-item__pic">
+							<div #wrapper>
+								<figure>
+									<img style="display: block;width: 100%; height: auto; z-index: 3; position: relative;" class="grid__item-img catalog-item__img" [src]="post.images[0]" crossorigin = "anonymous"/>
+									<img class="grid__item-img grid__item-img--large" style="display: none;" #thumbsItems [src]="post.images[0]" crossorigin = "anonymous"/>
+								</figure>
+							</div>
+						</div>
+						<div class="catalog-item__heading">
+
+							<div class="catalog-item__title">
+								{{post.title}}
+							</div>
+
+							<button
+									[routerLink]="['/post', post.id]"
+									class="btn btn-dark catalog-item__btn">
+								смотреть работы
+							</button>
+
+
+							<div class="fullview">
+								<div class="fullview__item" #fullviewItems></div>
+							</div>
+
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
