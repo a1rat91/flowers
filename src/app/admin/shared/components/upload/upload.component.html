@@ -23,9 +23,10 @@
 		</label>
 	</div>
 </div>
+<div style="position: absolute; height: 0; width: 0; left: -1000%;pointer-events: none; opacity: 0; overflow: hidden">
+	<h3>Uploads</h3>
 
-<h3>Uploads</h3>
-
-<div *ngFor="let file of files">
-	<app-upload-task [file]="file" (imageUploadEvent)="getUploadedUrls($event)"></app-upload-task>
+	<div *ngFor="let file of files" >
+		<app-upload-task [file]="file" (imageUploadEvent)="getUploadedUrls($event)"></app-upload-task>
+	</div>
 </div>

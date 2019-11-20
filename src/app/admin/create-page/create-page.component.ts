@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Post} from '../shared/interfaces';
 import {PostsService} from '../../shared/posts.service';
 import {AlertService} from '../shared/services/alert.service';
-import {UploadImgsService} from "../shared/services/uploadImgs.service";
+import {UploadImgsService} from '../shared/services/uploadImgs.service';
 
 @Component({
     selector: 'app-create-page',

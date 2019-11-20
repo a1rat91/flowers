@@ -237,7 +237,6 @@ export class GridToFullscreenEffect {
         }
 // TODO: That bitch
         for (let i = 0; i < this.itemsWrapper.length; i++) {
-            console.log(this.itemsWrapper[i].children[0].children[0]);
             const image = this.itemsWrapper[i].children[0].children[0];
             image.addEventListener("click", this.createOnMouseDown(i));
         }

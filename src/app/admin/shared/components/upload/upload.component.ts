@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import {PostsService} from '../../../../shared/posts.service';
-import {UploadImgsService} from "../../services/uploadImgs.service";
+import {UploadImgsService} from '../../services/uploadImgs.service';
 
 @Component({
     selector: 'app-upload',
@@ -12,7 +11,6 @@ export class UploadComponent {
     isHovering: boolean;
 
     files: File[] = [];
-    imageUrls: string [] = [];
 
     constructor(private uploadImgs: UploadImgsService) {
     }
