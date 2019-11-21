@@ -35,7 +35,10 @@ export class CreatePageComponent implements OnInit {
         const post: Post = {
             title: this.form.value.title,
             text: this.form.value.text,
-            images: this.uploadImgsService.getImgs()
+            distortionSliderImg: this.uploadImgsService.getImgs('distortionSliderImg'),
+            distortionSliderMinImg: this.uploadImgsService.getImgs('distortionSliderMinImg'),
+            catalogImg: this.uploadImgsService.getImgs('catalogImg'),
+            catalogTransitionImg: this.uploadImgsService.getImgs('catalogTransitionImg')
         };
 
         this.postsService.create(post).subscribe(() => {

@@ -13,7 +13,10 @@ export interface Post {
     id?: string;
     title: string;
     text: string;
-    images?: string[];
+    distortionSliderImg?: string[];
+    distortionSliderMinImg?: string[];
+    catalogImg?: string[];
+    catalogTransitionImg?: string[];
 }
 
 export interface FbCreateResponse {

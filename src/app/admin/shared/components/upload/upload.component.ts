@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {UploadImgsService} from '../../services/uploadImgs.service';
 
 @Component({
@@ -9,14 +9,15 @@ import {UploadImgsService} from '../../services/uploadImgs.service';
 export class UploadComponent {
 
     isHovering: boolean;
-
+    @Input() prefix;
+    @Input() descr;
     files: File[] = [];
 
     constructor(private uploadImgs: UploadImgsService) {
     }
 
     getUploadedUrls($event) {
-      this.uploadImgs.addImgs($event);
+      this.uploadImgs.addImgs($event, this.prefix);
     }
 
     toggleHover(event: boolean) {

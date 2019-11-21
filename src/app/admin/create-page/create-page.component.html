@@ -22,7 +22,14 @@
 		<quill-editor formControlName="text"></quill-editor>
 	</div>
 	
-	<app-upload></app-upload>
+	<app-upload [prefix]="'distortionSliderImg'" [descr]="'Изображения для слайдера на странице услуги (996x1081)'"></app-upload>
+	<hr>
+	<app-upload [prefix]="'distortionSliderMinImg'" [descr]="'Миниатюра для слайдера на странице услуги (123x123)'"></app-upload>
+	<hr>
+	<app-upload [prefix]="'catalogImg'" [descr]="'Изображения для слайдера каталога услуг (330x450)'"></app-upload>
+	<hr>
+	<app-upload [prefix]="'catalogTransitionImg'" [descr]="'Изображение для перехода при выбраной услуге (1092x1080)'"></app-upload>
+	<hr>
 	
 	<button
 		type="submit"

@@ -3,7 +3,7 @@
     <div class="flower-page__left">
       <div class="flower-page__left-inner" *ngIf="post$ | async as post; else loadingSlider">
         
-        <app-distortion-slider [images]="post.images"></app-distortion-slider>
+        <app-distortion-slider [images]="post.distortionSliderImg"></app-distortion-slider>
         
       </div>
       <ng-template #loadingSlider>
@@ -17,7 +17,7 @@
   
         <button class="btn flower-page__btn">Заказать</button>
         
-        <app-distortion-slider-pagination [postImages]="post.images"></app-distortion-slider-pagination>
+        <app-distortion-slider-pagination [postImages]="post.distortionSliderMinImg"></app-distortion-slider-pagination>
         
       </div>
       
