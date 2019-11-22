@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {NavigationService} from '../../services/navigation.service';
 import {DOCUMENT} from "@angular/common";
+import {LoaderService} from "../loader/loader.service";
 
 @Component({
     selector: 'app-header',
@@ -14,7 +15,8 @@ export class HeaderComponent implements OnInit {
     burger: boolean;
 
     constructor(private nav: NavigationService,
-                @Inject(DOCUMENT) private document: Document) {
+                @Inject(DOCUMENT) private document: Document,
+                private loaderService: LoaderService) {
     }
 
     ngOnInit() {
@@ -31,5 +33,9 @@ export class HeaderComponent implements OnInit {
         if (this.navigation) {
             this.document.body.classList.remove('hidden');
         }
+    }
+
+    goToMainPage() {
+        this.loaderService.changeLoaderState(false);
     }
 }
