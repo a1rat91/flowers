@@ -1,4 +1,13 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    OnInit,
+    Output,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import {TweenMax, TimelineMax} from 'gsap';
 import * as gsap from 'gsap';
 import Linear = gsap.Linear;
@@ -14,6 +23,7 @@ import {
     fadeInMainSection,
     fadeOutMainSection
 } from './main-page.animation';
+import {LoaderService} from "../../components/loader/loader.service";
 
 @Component({
     selector: 'app-main-page',
@@ -30,9 +40,11 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     @ViewChild('mainTitle', {static: true}) private _mainTitle: ElementRef;
     @ViewChild('mainBtn', {static: true}) private _mainBtn: ElementRef;
     @ViewChild('mouse', {static: true}) private _mouse: ElementRef;
+    loader: boolean;
 
     constructor(private nav: NavigationService,
-                private postsService: PostsService) {
+                private postsService: PostsService,
+                private loaderService: LoaderService) {
         this.config = {
             licenseKey: 'OPEN-SOURCE-GPLV3-LICENSE',
             anchors: ['firstSection', 'secondSection', 'lastSection'],
@@ -72,7 +84,10 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-
+        this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader);
+        window.addEventListener('load', () => {
+            this.loaderService.changeLoaderState(false);
+        });
         this.nav.currentNavigationState.subscribe(navigation => {
             this.fullpage_api.setAutoScrolling(true);
             if (!this.navigation) {

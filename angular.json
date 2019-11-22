@@ -30,7 +30,6 @@
               "src/assets/style"
             ],
             "styles": [
-              "styles-app-loading.scss",
               "src/styles.scss"
             ],
             "scripts": ["src/assets/js/imagesloaded.pkgd.min.js"]
@@ -95,7 +94,6 @@
               "src/assets/style"
             ],
             "styles": [
-              "styles-app-loading.scss",
               "src/styles.scss"
             ],
             "scripts": ["src/assets/js/imagesloaded.pkgd.min.js"]

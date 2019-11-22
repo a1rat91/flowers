@@ -14,6 +14,7 @@ import {
 
 // TODO: For animation debug
 import {gsapAnimationDebugTools as gsapAnimationDebugTools} from '../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools';
+import {LoaderService} from "../loader/loader.service";
 
 
 @Component({
@@ -35,7 +36,8 @@ export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
 
     constructor(
         private postsService: PostsService,
-        private nav: NavigationService) {
+        private nav: NavigationService,
+        private loaderService: LoaderService) {
         this.burger = false;
         this.navigation = false;
     }
@@ -63,6 +65,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
     closeNav() {
         this.nav.changeBurgerState(!this.burger);
         this.nav.changeNavigationState(!this.navigation);
+        this.loaderService.changeLoaderState(false);
     }
 
     get navigationEl() {

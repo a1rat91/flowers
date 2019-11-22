@@ -1,10 +1,11 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
 import {Observable} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
+import {LoaderService} from '../../components/loader/loader.service';
 
 
 @Component({
@@ -13,14 +14,16 @@ import {DistortionSliderService} from '../../services/distortion-slider.service'
     styleUrls: ['./flower-page.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class FlowerPageComponent implements OnInit {
+export class FlowerPageComponent implements OnInit, AfterViewInit {
 
     post$: Observable<Post>;
     slideIndex;
+    loader: boolean;
 
     constructor(private route: ActivatedRoute,
                 private postsService: PostsService,
-                private distortionSliderService: DistortionSliderService) {
+                private distortionSliderService: DistortionSliderService,
+                private loaderService: LoaderService) {
     }
 
     ngOnInit() {
@@ -30,6 +33,13 @@ export class FlowerPageComponent implements OnInit {
             }));
 
         this.distortionSliderService.currentIndex.subscribe(slideIndex => this.slideIndex = slideIndex);
+    }
+
+    ngAfterViewInit(): void {
+        this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader);
+        window.addEventListener('load', () => {
+            this.loaderService.changeLoaderState(false);
+        });
     }
 
 }
