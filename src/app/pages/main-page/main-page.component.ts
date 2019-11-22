@@ -54,7 +54,9 @@ export class MainPageComponent implements OnInit, AfterViewInit {
             },
             onLeave: (origin, destination, direction) => {
                 // animationReset
-                // console.log('onLeave', origin, destination, direction);
+                // console.log('onLeave', origin);
+                // console.log('onLeave', destination);
+                // console.log('onLeave', direction);
 
                 if (destination.index !== 0) {
                     // Если не первая секция, не отыгрываем анимацию
@@ -63,7 +65,9 @@ export class MainPageComponent implements OnInit, AfterViewInit {
             },
             afterLoad: (origin, destination, direction) => {
                 // fadeIn
-                // console.log('afterLoad', origin, destination, direction);
+                // console.log('afterLoad', origin);
+                // console.log('afterLoad', destination);
+                // console.log('afterLoad', direction);
 
                 if (destination.index !== 0) {
                     // Если не первая секция, не отыгрываем анимацию
