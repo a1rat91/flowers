@@ -1,4 +1,4 @@
-<div class="navigation" #navigation [ngClass]="{'navigation_active': !burger}">
+<div class="navigation" #navigation style="top: -100%;">
 	<app-navigation-logo routerLink="/" (click)="closeNav()"></app-navigation-logo>
 	<div *ngIf="posts$ | async as posts; else loading">
 		<nav class="navigation__menu">
