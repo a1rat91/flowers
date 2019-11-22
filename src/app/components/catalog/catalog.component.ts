@@ -17,6 +17,7 @@ import {gsapAnimationDebugTools} from '../../../assets/js/gsap-animation-debug-t
 import {Power1} from 'gsap';
 import {DOCUMENT} from '@angular/common';
 import {GridToFullscreenEffect as GridToFullscreenEffect} from '../../../assets/js/GridToFullscreenEffect.js';
+import {LoaderService} from "../loader/loader.service";
 declare var imagesLoaded: any;
 
 @Component({
@@ -39,7 +40,10 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     @Input() postImage;
     currentIndex;
 
-    constructor(private router: Router, private ngZone: NgZone, @Inject(DOCUMENT) private document: Document) {
+    constructor(private router: Router,
+                private ngZone: NgZone,
+                @Inject(DOCUMENT) private document: Document,
+                private loaderService: LoaderService) {
     }
 
     get catalog() {
@@ -170,7 +174,8 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
         const tl = new TimelineMax()
             .add(catalogNextPageTransition(this.catalogTitle, catalogEl))
             .add(() => this.ngZone.run(() => {
-                // this.router.navigate([`/post/${ id }`]);
+                this.loaderService.changeLoaderState(false);
+                this.router.navigate([`/post/${ id }`]);
             }));
 
         gsapAnimationDebugTools(tl, 0.1, 0.1);
