@@ -17,7 +17,7 @@ import {gsapAnimationDebugTools} from '../../../assets/js/gsap-animation-debug-t
 import {Power1} from 'gsap';
 import {DOCUMENT} from '@angular/common';
 import {GridToFullscreenEffect as GridToFullscreenEffect} from '../../../assets/js/GridToFullscreenEffect.js';
-import {LoaderService} from "../loader/loader.service";
+import {LoaderService} from '../loader/loader.service';
 declare var imagesLoaded: any;
 
 @Component({
@@ -36,7 +36,8 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     @ViewChildren('thumbsItems') private _thumbsItems: QueryList<ElementRef>;
     @ViewChildren('fullviewItems') private _fullviewItems: QueryList<ElementRef>;
     @ViewChildren('wrapper') private _wrapper: QueryList<ElementRef>;
-    @ViewChild('app', {static: true}) private _app: ElementRef;
+    @ViewChild('catalogTransition', {static: true}) private _catalogTransition: ElementRef;
+    @ViewChild('catalogTransitionCurtain', {static: true}) private _catalogTransitionCurtain: ElementRef;
     @Input() postImage;
     currentIndex;
 
@@ -64,8 +65,12 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     get wrappers() {
         return this._wrapper.map((element) => element.nativeElement);
     }
-    get app() {
-        return this._app.nativeElement;
+    get catalogTransition() {
+        return this._catalogTransition.nativeElement;
+    }
+
+    get catalogTransitionCurtain() {
+      return this._catalogTransitionCurtain.nativeElement;
     }
 
     ngOnInit() {
@@ -169,13 +174,12 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
 
     nextPage(id, event) {
         const catalogWrap = event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
-        const catalogEl = event.target;
 
         const tl = new TimelineMax()
-            .add(catalogNextPageTransition(this.catalogTitle, catalogEl))
+            .add(catalogNextPageTransition(this.catalogTitle, this.catalogTransitionCurtain))
             .add(() => this.ngZone.run(() => {
-                this.loaderService.changeLoaderState(false);
-                this.router.navigate([`/post/${ id }`]);
+                this.router.navigate([`/post/${ id }`], { queryParams: { loader: false } });
+                // this.loaderService.changeLoaderState(false);
             }));
 
         gsapAnimationDebugTools(tl, 0.1, 0.1);
@@ -183,7 +187,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
 
     createDemoEffect(options) {
         const transitionEffect = new GridToFullscreenEffect(
-            this.app,
+            this.catalogTransition,
             this.wrappers,
             Object.assign(
                 {

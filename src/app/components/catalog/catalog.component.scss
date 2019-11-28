@@ -1,48 +1,62 @@
 @import "../../../assets/style/mixins/mixins-sait";
 @import "../../../assets/style/base/variables";
 
+.catalog-transition {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  
+  span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: $body-bg;
+  }
+}
+
 .catalog {
-	padding-top: 90px;
-	position: relative;
-	transition: .5s;
-	
-	&.go-to-next-page {
-		padding-top: 0;
-	}
-	
-	.hide-items {
-		overflow: auto!important;
-	}
-	
-	&__shadow {
-		@include title($fsz: 200px, $ls: 0.06em, $lh: 1, $fw: 700);
-		opacity: .03;
-		position: absolute;
-		top: 0;
-		left: 50%;
-		transform: translateX(-50%);
-		white-space: nowrap;
-	}
-	
-	&__container {
-		width: 100%;
-		padding-left: calc(100% / 10);
-		padding-right: calc(100% / 10);
-		transition: .5s;
-		
-		.go-to-next-page & {
-			padding-left: 0;
-			padding-right: 0;
-		}
-	}
-	
-	&__button-next {
-		transform: translateX(33px);
-		margin-right: calc(100% / 10);
-	}
-	
-	&__button-prev {
-		transform: translateX(-33px);
-		margin-left: calc(100% / 10);
-	}
+  padding-top: 90px;
+  position: relative;
+  transition: .5s;
+  
+  &.go-to-next-page {
+    padding-top: 0;
+  }
+  
+  .hide-items {
+    overflow: auto !important;
+  }
+  
+  &__shadow {
+    @include title($fsz: 200px, $ls: 0.06em, $lh: 1, $fw: 700);
+    opacity: .03;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+  
+  &__container {
+    width: 100%;
+    padding-left: calc(100% / 10);
+    padding-right: calc(100% / 10);
+    transition: .5s;
+    
+    .go-to-next-page & {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  
+  &__button-next {
+    transform: translateX(33px);
+    margin-right: calc(100% / 10);
+  }
+  
+  &__button-prev {
+    transform: translateX(-33px);
+    margin-left: calc(100% / 10);
+  }
 }

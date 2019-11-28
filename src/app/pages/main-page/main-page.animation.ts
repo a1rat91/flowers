@@ -9,7 +9,7 @@ export function fadeInMainSection(title, btn, mouse) {
     return new TimelineMax()
         .from(title, 2, titleConfig)
         .from(btn, 1, btnConfig)
-        .from(mouse, 1, mouseConfig);
+        .from(mouse, 0.5, mouseConfig, '-=0.7');
 }
 
 export function fadeOutMainSection(title, btn, mouse) {
@@ -21,6 +21,6 @@ export function fadeOutMainSection(title, btn, mouse) {
     return new TimelineMax()
         .from(title, 2, titleConfig)
         .from(btn, 1, btnConfig)
-        .from(mouse, 1, mouseConfig);
+        .from(mouse, 0.5, mouseConfig, '-=0.7');
 
 }

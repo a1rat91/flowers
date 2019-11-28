@@ -11,6 +11,7 @@ export class LoaderService {
     }
 
     changeLoaderState(loader: boolean) {
+        console.log(loader, 'loader');
         this.loaderSource.next(loader);
     }
 

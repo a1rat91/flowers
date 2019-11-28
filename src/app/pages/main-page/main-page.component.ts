@@ -9,8 +9,6 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import {TweenMax, TimelineMax} from 'gsap';
-import * as gsap from 'gsap';
-import Linear = gsap.Linear;
 import {NavigationService} from '../../services/navigation.service';
 import {PostsService} from '../../shared/posts.service';
 import {Observable} from 'rxjs/index';
@@ -23,7 +21,7 @@ import {
     fadeInMainSection,
     fadeOutMainSection
 } from './main-page.animation';
-import {LoaderService} from "../../components/loader/loader.service";
+import {LoaderService} from '../../components/loader/loader.service';
 
 @Component({
     selector: 'app-main-page',
