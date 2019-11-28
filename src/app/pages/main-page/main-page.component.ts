@@ -100,6 +100,10 @@ export class MainPageComponent implements OnInit, AfterViewInit {
         });
     }
 
+    handleChange(match: boolean) {
+        console.log(match, 'media query changed');
+    }
+
     getRef(fullPageRef) {
         this.fullpage_api = fullPageRef;
     }

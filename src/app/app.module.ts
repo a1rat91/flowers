@@ -27,6 +27,7 @@ import {NavigationService} from './services/navigation.service';
 import {AuthInterceptor} from './shared/auth.interceptor';
 import {NavigationLogoComponent} from './shared/components/navigation-logo/navigation-logo.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import {MediaQueryWatcherModule} from "ngx-media-query-watcher";
 
 const INTERCEPTOR_PROVIDER: Provider = {
     provide: HTTP_INTERCEPTORS,
@@ -57,7 +58,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
         AppRoutingModule,
         Fake3dModule,
         CatalogModule,
-        ActionsModule
+        ActionsModule,
+        MediaQueryWatcherModule
     ],
     providers: [
         NavigationService,

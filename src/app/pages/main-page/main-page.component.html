@@ -49,6 +49,11 @@
 			<app-actions></app-actions>
 		</div>
 		<div class="section fp-auto-height">
+			<div media-query-watcher
+			     query="(min-width: 992px)"
+			     (mediaMatchChanged)="handleChange($event)">
+				qwe
+			</div>
 			<app-footer></app-footer>
 		</div>
 	</div>
