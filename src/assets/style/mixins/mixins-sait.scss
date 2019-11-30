@@ -6,7 +6,7 @@
   height: 100%;
 }
 
-@mixin title($fsz: 30px, $color: $white, $fw: 400, $ls: 0.09em, $tt: uppercase, $lh: 1.33) {
+@mixin title($fsz: 30px, $color: $white, $fw: 400, $ls: 0.03em, $tt: uppercase, $lh: 1.33) {
   font-family: 'PlayfairDisplay';
   font-size: $fsz;
   font-weight: $fw;
@@ -31,7 +31,7 @@
   $tt: uppercase,
   $pdr: 33px,
   $height: 50px,
-  $ls: 0.15rem,
+  $ls: 0.15em,
   $border: 1px solid $white
 ) {
   @include flexCenter();

@@ -1,7 +1,19 @@
+@import "../../../assets/style/base/variables";
+
 .container{
 	margin: 0 auto;
-	max-width: 1230px;
+	max-width: 1260px;
 	padding-left: 15px;
 	padding-right: 15px;
 	position: relative;
+	
+	@media all and (max-width: $screen-lg) {
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+	
+	@media all and (max-width: $screen-md) {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
 }

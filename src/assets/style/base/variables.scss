@@ -8,13 +8,6 @@ $colorLink: $white;
 $header-height: 140px;
 $flower-page-height: 969px;
 
-// Базовая стили
-$font-family: 'SFUIDisplay', sans-serif;
-$font-size: 18px;
-$line-height: 1.4;
-$color: $white;
-$font-weight: 400;
-
 // Ширины
 $screen-xs:                   0;
 $screen-sm:                   480px;
@@ -22,6 +15,13 @@ $screen-md:                   768px;
 $screen-lg:                   992px;
 $screen-xl:                   1200px;
 $screen-xxl:                  1800px;
+
+// Базовая стили
+$font-family: 'SFUIDisplay', sans-serif;
+$font-size: 18px;
+$line-height: 1.4;
+$color: $white;
+$font-weight: 400;
 
 // Разное
 $border-radius:               3px;

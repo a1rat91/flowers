@@ -16,6 +16,12 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+@media all and (max-width: $screen-lg) {
+	body {
+		font-size: 14px;
+	}
+}
+
 a {
 	color: rgba($white, 0.5);
 	
@@ -41,4 +47,16 @@ p {
 
 .hidden {
 	overflow: hidden!important;
+}
+
+.lg-pdt-75 {
+	padding-top: 75px;
+}
+
+.lg-pdb-75 {
+	padding-bottom: 75px;
+}
+
+.lg-pdb-150 {
+	padding-bottom: 150px;
 }

@@ -3,7 +3,13 @@
 <div class="main-page">
 	<div class="main-page__container">
 		<div class="main-page__inner">
-			<app-soc></app-soc>
+			<div media-query-watcher
+			     query="(min-width: 992px)"
+			     (mediaMatchChanged)="handleChangeToDesctop($event)">
+				<div *ngIf="desctopMediaQuery">
+					<app-soc></app-soc>
+				</div>
+			</div>
 			
 			<app-next-section-link></app-next-section-link>
 		</div>
@@ -24,9 +30,18 @@
 			
 			<div class="main-section">
 				<div class="main-section__title text-center" #mainTitle>
-					Флористика с душой
+					Флористика<br>
+					с душой
 				</div>
 				<button class="btn main-section__btn" #mainBtn>Cмотреть работы</button>
+				
+				<div media-query-watcher
+				     query="(max-width: 992px)"
+				     (mediaMatchChanged)="handleChangeToTablet($event)">
+					<div *ngIf="tabletMediaQuery">
+						<app-soc></app-soc>
+					</div>
+				</div>
 				
 				<div class="main-section__mouse" #mouse>
 					<app-mouse></app-mouse>
@@ -34,7 +49,7 @@
 			</div>
 		</div>
 		
-		<div class="section">
+		<div class="section is-catalog">
 			<div class="section__title text-center">
 				Каталог услуг
 			</div>
@@ -44,16 +59,12 @@
 				<p>Загрузка...</p>
 			</ng-template>
 		</div>
-
-		<div class="section">
+		
+		<div class="section is-action">
 			<app-actions></app-actions>
 		</div>
+		
 		<div class="section fp-auto-height">
-			<div media-query-watcher
-			     query="(min-width: 992px)"
-			     (mediaMatchChanged)="handleChange($event)">
-				qwe
-			</div>
 			<app-footer></app-footer>
 		</div>
 	</div>

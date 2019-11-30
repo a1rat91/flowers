@@ -6,7 +6,7 @@ import {LoaderService} from "../loader/loader.service";
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss', './header-burger.component.scss'],
+    styleUrls: ['./header.component.scss', './burger.scss'],
     encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent implements OnInit {

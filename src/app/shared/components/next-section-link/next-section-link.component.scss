@@ -1,7 +1,9 @@
+@import "../../../../assets/style/base/variables";
+
 .next-section-link {
 	position: absolute;
-	right: -53px;
-	bottom: 213px;
+	right: -67px;
+	bottom: 200px;
 	z-index: 80;
 	transform: rotate(90deg);
 	
@@ -10,7 +12,7 @@
 		line-height: 24px;
 		letter-spacing: 0.06em;
 		color: #ffffff;
-		padding-right: 22px;
+		padding-right: 40px;
 		cursor: pointer;
 		
 		&:hover {
@@ -31,6 +33,10 @@
 			animation: arr 1s ease-in-out infinite;
 		}
 		
+	}
+	
+	@media all and (max-width: $screen-lg) {
+		display: none;
 	}
 }
 

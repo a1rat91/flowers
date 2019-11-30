@@ -39,40 +39,48 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     @ViewChild('mainBtn', {static: true}) private _mainBtn: ElementRef;
     @ViewChild('mouse', {static: true}) private _mouse: ElementRef;
     loader: boolean;
+    desctopMediaQuery;
+    tabletMediaQuery;
 
     constructor(private nav: NavigationService,
                 private postsService: PostsService,
                 private loaderService: LoaderService) {
-        this.config = {
-            licenseKey: 'OPEN-SOURCE-GPLV3-LICENSE',
-            anchors: ['firstSection', 'secondSection', 'lastSection'],
-            menu: '#menu',
-            afterResize: () => {
-                // console.log("After resize");
-            },
-            onLeave: (origin, destination, direction) => {
-                // animationReset
-                // console.log('onLeave', origin);
-                // console.log('onLeave', destination);
-                // console.log('onLeave', direction);
 
-                if (destination.index !== 0) {
-                    // Если не первая секция, не отыгрываем анимацию
-                    this.fadeOutMainSection();
-                }
-            },
-            afterLoad: (origin, destination, direction) => {
-                // fadeIn
-                // console.log('afterLoad', origin);
-                // console.log('afterLoad', destination);
-                // console.log('afterLoad', direction);
+        this.desctopMediaQuery = false;
+        this.tabletMediaQuery = false;
 
-                if (destination.index !== 0) {
-                    // Если не первая секция, не отыгрываем анимацию
-                    this.fadeInMainSection();
+        if (window.innerWidth >= 992) {
+            this.config = {
+                licenseKey: 'OPEN-SOURCE-GPLV3-LICENSE',
+                anchors: ['firstSection', 'secondSection', 'lastSection'],
+                menu: '#menu',
+                afterResize: () => {
+                    // console.log("After resize");
+                },
+                onLeave: (origin, destination, direction) => {
+                    // animationReset
+                    // console.log('onLeave', origin);
+                    // console.log('onLeave', destination);
+                    // console.log('onLeave', direction);
+
+                    if (destination.index !== 0) {
+                        // Если не первая секция, не отыгрываем анимацию
+                        this.fadeOutMainSection();
+                    }
+                },
+                afterLoad: (origin, destination, direction) => {
+                    // fadeIn
+                    // console.log('afterLoad', origin);
+                    // console.log('afterLoad', destination);
+                    // console.log('afterLoad', direction);
+
+                    if (destination.index !== 0) {
+                        // Если не первая секция, не отыгрываем анимацию
+                        this.fadeInMainSection();
+                    }
                 }
-            }
-        };
+            };
+        }
     }
 
     ngOnInit() {
@@ -81,7 +89,6 @@ export class MainPageComponent implements OnInit, AfterViewInit {
         this.posts$ = this.postsService.getAll();
 
         this.fadeInMainSection();
-
 
     }
 
@@ -100,8 +107,17 @@ export class MainPageComponent implements OnInit, AfterViewInit {
         });
     }
 
-    handleChange(match: boolean) {
-        console.log(match, 'media query changed');
+    handleChangeToDesctop(match: boolean) {
+        if (match) {
+            this.desctopMediaQuery = true;
+        } else {
+            this.desctopMediaQuery = false;
+        }
+    }
+
+
+    handleChangeToTablet(match: boolean) {
+        match ? this.tabletMediaQuery = true : this.tabletMediaQuery = false;
     }
 
     getRef(fullPageRef) {

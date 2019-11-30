@@ -1,6 +1,19 @@
+@import "../../../../assets/style/base/variables";
+
 .navigation-logo {
-  position: absolute;
-  top: 90px;
-  left: 50%;
-  transform: translateX(-50%);
+	position: absolute;
+	top: 90px;
+	left: 50%;
+	transform: translateX(-50%);
+	
+	@media all and (max-width: $screen-sm) {
+		top: 25px;
+		
+		.logo__pic {
+			display: block;
+			max-width: 97px;
+			width: 100%;
+			height: auto;
+		}
+	}
 }

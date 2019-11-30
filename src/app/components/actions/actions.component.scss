@@ -1,3 +1,5 @@
+@import "../../../assets/style/base/variables";
+
 .actions {
 	margin-top: 90px;
 	position: relative;
@@ -39,5 +41,47 @@
 	&__desc {
 		margin-top: 25px;
 		margin-bottom: 45px;
+	}
+	
+	@media all and (max-width: $screen-lg) {
+		margin-top: 0;
+		
+		&__inner {
+			display: flex;
+			flex-direction: column-reverse;
+			text-align: center;
+		}
+		
+		&__title {
+			&:after {
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		}
+		
+		&__left,
+		&__right {
+			width: 100%;
+			padding: 0;
+		}
+		
+		&__left {
+			max-width: 510px;
+			margin: 0 auto;
+		}
+		
+		&__desc {
+			margin-bottom: 40px;
+		}
+		
+		&__pic {
+			max-width: 453px;
+			margin: 0 auto 30px;
+		}
+		
+		&__btn {
+			max-width: 220px;
+			margin: 0 auto;
+		}
 	}
 }

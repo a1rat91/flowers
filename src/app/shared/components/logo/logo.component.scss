@@ -1,4 +1,16 @@
+@import "../../../../assets/style/base/variables";
+
 .logo {
   position: relative;
   z-index: 1;
+  
+  @media all and (max-width: $screen-md) {
+    max-width: 97px;
+    
+    &__pic {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
 }

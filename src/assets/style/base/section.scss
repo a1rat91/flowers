@@ -1,3 +1,5 @@
+@import "../../../assets/style/base/variables";
+
 .section {
 	&__title {
 		@include title($fw:700);
@@ -33,6 +35,24 @@
 				left: 100%;
 				right: 0;
 			}
+		}
+	}
+	
+	@media all and (max-width: $screen-lg) {
+		&__title {
+			font-size: 20px;
+			letter-spacing: 0.06em;
+			padding-bottom: 20px;
+		}
+	}
+	
+	@media all and (max-width: $screen-md) {
+		&.is-catalog {
+			padding-top: 30px;
+		}
+		
+		&.is-action {
+			padding-top: 20px;
 		}
 	}
 }

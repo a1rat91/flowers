@@ -14,21 +14,20 @@
     left: 0;
     top: 100%;
     margin-top: -80px;
-    //TODO Доработать градиент что-бы при ресайзе страницы не было скачков
     background: linear-gradient(to bottom, rgba(248,80,50,0) 0%, rgba(59,24,30,0.19) 30%, rgba(59,24,30,0.7) 74%, rgba(59,24,30,1) 100%);
   }
   
   &__title {
     @include title(120px);
     max-width: 940px;
-    margin: 0 auto 50px;
+    margin: 60px auto 35px;
     opacity: 1;
   }
   
   &__btn {
     background: rgba($black, .4);
-    max-width: 200px;
-    padding: 0 25px;
+    max-width: 210px;
+    padding: 0 30px;
     margin: 0 auto;
   }
   
@@ -38,4 +37,63 @@
     left: 50%;
     transform: translateX(-50%) translateY(0);
   }
+  
+  @media all and (max-width: $screen-xl){
+    &__title {
+      font-size: 100px;
+    }
+  }
+  
+  @media all and (max-width: $screen-lg){
+    padding-bottom: 180px;
+    
+    &__title {
+      font-size: 70px;
+    }
+    
+    &__btn {
+      height: 60px;
+      max-width: 260px;
+      font-size: 15px;
+    }
+    
+    &__mouse {
+      bottom: 65px;
+    }
+  }
+  
+  @media all and (max-width: $screen-md - 1) {
+    &__title {
+      font-size: 60px;
+    }
+  }
+  
+  @media all and (max-width: $screen-sm) {
+  
+    padding-bottom: 100px;
+    
+    &__title {
+      font-size: 45px;
+    }
+    
+    &__btn {
+      height: 45px;
+      max-width: 180px;
+      font-size: 10px;
+      padding: 0 30px;
+    }
+  }
+  
+  @media all and (min-width: $screen-xs) and (max-width: 400px) {
+    &__title {
+      font-size: 30px;
+    }
+  }
 }
+//
+//$screen-xs:                   0;
+//$screen-sm:                   480px;
+//$screen-md:                   768px;
+//$screen-lg:                   992px;
+//$screen-xl:                   1200px;
+//$screen-xxl:                  1800px;

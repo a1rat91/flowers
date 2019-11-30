@@ -77,7 +77,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
         this.config = {
             direction: 'horizontal',
             slidesPerView: 4,
-            spaceBetween: 60,
+            spaceBetween: 50,
             pagination: {
                 el: '.swiper-catalog-progressbar',
                 type: 'progressbar',
@@ -88,6 +88,16 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
             navigation: {
                 nextEl: '.catalog__button-next',
                 prevEl: '.catalog__button-prev',
+            },
+            breakpoints: {
+                992: {
+                    slidesPerView: 2,
+                    spaceBetween: 28,
+                },
+                480: {
+                    slidesPerView: 1,
+                    spaceBetween: 15,
+                }
             }
         };
     }

@@ -8,7 +8,6 @@ import {LazyLoadImageModule} from 'ng-lazyload-image';
 import {SharedModule} from './shared/shared.module';
 import { Fake3dModule } from './components/fake3d/public-api';
 import {CatalogModule} from './components/catalog/catalog.module';
-import {ActionsModule} from './components/actions/actions.module';
 
 import {AppComponent} from './app.component';
 import {MainLayoutComponent} from './shared/components/main-layout/main-layout.component';
@@ -26,8 +25,8 @@ import {NextSectionLinkComponent} from './shared/components/next-section-link/ne
 import {NavigationService} from './services/navigation.service';
 import {AuthInterceptor} from './shared/auth.interceptor';
 import {NavigationLogoComponent} from './shared/components/navigation-logo/navigation-logo.component';
-import { LoaderComponent } from './components/loader/loader.component';
-import {MediaQueryWatcherModule} from "ngx-media-query-watcher";
+import {MediaQueryWatcherModule} from 'ngx-media-query-watcher';
+import {ActionsComponent} from './components/actions/actions.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
     provide: HTTP_INTERCEPTORS,
@@ -48,7 +47,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
         NavigationLogoComponent,
         MouseComponent,
         SocComponent,
-        NextSectionLinkComponent
+        NextSectionLinkComponent,
+        ActionsComponent
     ],
     imports: [
         BrowserModule,
@@ -58,7 +58,6 @@ const INTERCEPTOR_PROVIDER: Provider = {
         AppRoutingModule,
         Fake3dModule,
         CatalogModule,
-        ActionsModule,
         MediaQueryWatcherModule
     ],
     providers: [

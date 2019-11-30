@@ -7,28 +7,12 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ActionsComponent implements OnInit {
     @Input() posts;
-    config;
-    curentProgress;
-    totalProgress;
 
     constructor() {
 
     }
 
     ngOnInit() {
-        this.config = {
-            direction: 'horizontal',
-            slidesPerView: 1,
-            spaceBetween: 30,
-            pagination: {
-                el: '.swiper-actions-progressbar',
-                type: 'progressbar',
-            },
-            navigation: {
-                nextEl: '.actions__button-next',
-                prevEl: '.actions__button-prev',
-            }
-        };
     }
 
 }

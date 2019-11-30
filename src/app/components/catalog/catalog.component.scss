@@ -29,7 +29,7 @@
   }
   
   &__shadow {
-    @include title($fsz: 200px, $ls: 0.06em, $lh: 1, $fw: 700);
+    @include title($fsz: 200px, $ls: 0.02em, $lh: 1, $fw: 700);
     opacity: .03;
     position: absolute;
     top: 0;
@@ -40,8 +40,7 @@
   
   &__container {
     width: 100%;
-    padding-left: calc(100% / 10);
-    padding-right: calc(100% / 10);
+    padding: 0 calc(100% / 9);
     transition: .5s;
     
     .go-to-next-page & {
@@ -58,5 +57,32 @@
   &__button-prev {
     transform: translateX(-33px);
     margin-left: calc(100% / 10);
+  }
+  
+  @media all and (max-width: $screen-lg) {
+    
+    &__shadow {
+      display: none;
+    }
+    
+    &__container {
+      padding-left: 40px;
+      padding-right: 40px;
+      max-width: 768px;
+      margin: 0 auto;
+      
+      .swiper-catalog-progressbar {
+        max-width: 100%;
+      }
+    }
+  }
+  
+  @media all and (max-width: $screen-md) {
+    padding-top: 20px;
+    
+    &__container {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
   }
 }

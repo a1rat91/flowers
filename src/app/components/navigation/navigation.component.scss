@@ -59,4 +59,16 @@
       }
     }
   }
+  
+  @media all and (max-width: $screen-sm) {
+    &__item {
+      a {
+        display: block;
+        font-size: 20px;
+        max-width: 165px;
+        text-align: center;
+        margin: 0 auto;
+      }
+    }
+  }
 }

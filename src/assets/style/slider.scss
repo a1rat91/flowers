@@ -1,8 +1,10 @@
+@import "../../assets/style/base/variables";
+
 .slider {
 	&__pagination {
 		display: flex;
 		align-items: center;
-		margin-top: 50px;
+		margin-top: 30px;
 		max-width: 730px;
 	}
 	
@@ -18,5 +20,11 @@
 	
 	&__next-index {
 		margin-left: 20px;
+	}
+	
+	@media all and (max-width: $screen-md) {
+		&__pagination {
+			margin-top: 10px;
+		}
 	}
 }

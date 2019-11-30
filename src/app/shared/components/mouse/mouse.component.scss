@@ -1,3 +1,5 @@
+@import "../../../../assets/style/base/variables";
+
 .mouse {
 	width: 36px;
 	height: 58px;
@@ -22,6 +24,38 @@
 		background: #fff;
 		animation: mouse 1s ease-in-out infinite;
 	}
+	
+	@media all and (max-width: $screen-lg) {
+		background: none;
+		height: 30px;
+		
+		&:after {
+			width: 30px;
+			height: 30px;
+			background: url("../../../../assets/images/tablet-arrow.svg") no-repeat center center;
+			animation: arrow 1s ease-in-out infinite;
+		}
+	}
+	
+	@media all and (max-width: $screen-sm) {
+		
+		height: 25px;
+		
+		&:after {
+			width: 25px;
+			height: 25px;
+		}
+	}
+	
+	@media all and (max-width: $screen-sm) {
+		
+		height: 14px;
+		
+		&:after {
+			width: 14px;
+			height: 14px;
+		}
+	}
 }
 
 @keyframes mouse {
@@ -36,5 +70,17 @@
 	100% {
 		transform: translateY(10px);
 		opacity: 0;
+	}
+}
+
+@keyframes arrow {
+	0% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(7px);
+	}
+	100% {
+		transform: translateY(0);
 	}
 }

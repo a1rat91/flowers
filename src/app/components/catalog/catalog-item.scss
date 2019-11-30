@@ -1,30 +1,53 @@
+@import "../../../assets/style/base/variables";
+
 .catalog-item {
 	position: relative;
 
 	&.active {
 		opacity: 1;
 	}
+	
+	&__index-wrap {
+		position: absolute;
+		top: 29px;
+		left: 15px;
+		width: 110px;
+		z-index: 1;
+		overflow: hidden;
+	}
 
 	&__index {
-		position: absolute;
 		font-family: 'PlayfairDisplay';
 		font-size: 20px;
-		z-index: 1;
-		padding: 15px 20px;
-		transition: opacity .5s;
-
+		padding: 15px 0;
+		transition: .5s;
+		
+		&:before,
 		&:after {
 			content: "";
 			display: block;
-			width: 70px;
 			height: 1px;
 			background: #ffffff;
 			position: absolute;
-			right: 0;
-			left: 100%;
 			top: 50%;
 			margin-top: 1px;
+			transition: .5s;
+			width: 70px;
 		}
+		
+		&:before {
+			left: -85px;
+			
+		}
+		
+		&:after {
+			right: 0;
+		}
+		
+		.catalog-item:hover & {
+			transform: translateX(70px);
+		}
+		
 	}
 
 	&__pic {
@@ -64,7 +87,7 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
-		padding: 15px 20px;
+		padding: 18px 21px;
 
 		.catalog-item.active & {
 			opacity: 0;
@@ -84,11 +107,40 @@
 		overflow: hidden;
 		transition: height .5s, opacity .5s;
 		transition-delay: .2s;
-
+		padding: 0 30px;
+		margin-top: 20px;
 
 		.catalog-item:hover & {
 			height: 50px;
 			opacity: 1;
+		}
+	}
+	
+	@media all and (max-width: $screen-lg) {
+		
+		&__heading {
+			height: 100%;
+			display: flex;
+			align-items: flex-end;
+		}
+		
+		&__btn {
+			opacity: 0;
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			height: 100%;
+			width: 100%;
+			z-index: 100;
+			margin-top: 0;
+		}
+	}
+	
+	@media all and (max-width: $screen-md) {
+		&__index-wrap {
+			top: 8px;
 		}
 	}
 }

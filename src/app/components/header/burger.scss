@@ -19,8 +19,9 @@
 		span {
 			display: inline-block;
 			position: relative;
-			width: 30px;
+			width: 24px;
 			height: 30px;
+			margin-top: 2px;
 			vertical-align: middle;
 			font-size: 0;
 			color: transparent;
@@ -78,9 +79,22 @@
 		opacity: 1;
 		margin-left: 15px;
 		transition: .5s;
+		letter-spacing: 0.06em;
 		
 		.burger_close & {
 			opacity: 0;
+		}
+	}
+	
+	@media all and (max-width: $screen-lg) {
+		&__title {
+			display: none;
+		}
+		
+		&__icon {
+			span {
+				width: 35px;
+			}
 		}
 	}
 }
