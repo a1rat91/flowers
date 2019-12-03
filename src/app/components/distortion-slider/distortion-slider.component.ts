@@ -10,24 +10,22 @@ import {fragment as fragment} from './shader';
 import {mod} from './utils';
 import {TweenMax, Expo} from 'gsap';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
+import {TimelineMax} from 'gsap';
 
 
 
 @Component({
     selector: 'app-distortion-slider',
-    template: `
-        <div class="distortion-slider">
-            <img [src]="images[0]" alt="" class="distortion-slider__bg">
-	        <div class="distortion-slider__inner" #slider (mouseenter) ="mouseEnter() " (mouseleave) ="mouseLeave()"></div>
-        </div>
-		`,
+    templateUrl: './distortion-slider.component.html',
     styleUrls: ['./distortion-slider.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
 
 export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     @ViewChild('slider', {static: true}) slider: ElementRef;
-    @Output() event: EventEmitter<any> = new EventEmitter();
+    @ViewChild('distortionSliderCurtain', {static: true}) distortionSliderCurtain: ElementRef;
+    @Output() onAnimationEndEvent: EventEmitter<any> = new EventEmitter();
+    @Output() onLoadEnd: EventEmitter<any> = new EventEmitter();
     @Input() images: string[];
     displacement: string;
     intensity: number;
@@ -165,7 +163,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
 
     onAnimationEnd = () => {
         this.isAnimating = false;
-        this.event.emit('animationEnd');
+        this.onAnimationEndEvent.emit('animationEnd');
         this.render();
     }
 
@@ -283,7 +281,11 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
         this.loadTextures();
         Promise.all(this.imagesLoaded).then(() => {
             this.initShaderMaterial();
-            this.event.emit('loaded');
+            this.onLoadEnd.emit('loaded');
+
+            new TimelineMax()
+                .to(this.distortionSliderCurtain.nativeElement, 1, {x: '100%', ease: Expo.easeOut });
+
             this.render();
         });
     }

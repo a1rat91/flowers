@@ -23,7 +23,6 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
     post$: Observable<Post>;
     slideIndex;
     loader: boolean;
-    @ViewChild('sliderCurtain', {static: true}) private _sliderCurtain: ElementRef;
     @ViewChild('titleEl', {static: true}) private _titleEl: ElementRef;
     @ViewChild('textEl', {static: true}) private _textEl: ElementRef;
     @ViewChild('btnEl', {static: true}) private _btnEl: ElementRef;
@@ -66,13 +65,8 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
         window.addEventListener('load', () => {
             this.loaderService.changeLoaderState(false);
         });
-
-        this.fadeInMainSection();
     }
 
-    get sliderCurtain() {
-        return this._sliderCurtain.nativeElement;
-    }
     get titleEl() {
         return this._titleEl.nativeElement;
     }
@@ -89,11 +83,13 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
         return this._footerEl.nativeElement;
     }
 
-    fadeInMainSection() {
-        const tl =  new TimelineMax()
-            .add(fadeInFlowerPage(this.sliderCurtain, this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl));
+    fadeInMainSection(event) {
+        if (event === 'loaded') {
+            const tl =  new TimelineMax()
+                .add(fadeInFlowerPage(this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl));
 
-        gsapAnimationDebugTools(tl, 0.1, 0.1);
+            gsapAnimationDebugTools(tl, 0.1, 0.1);
+        }
     }
 
 }

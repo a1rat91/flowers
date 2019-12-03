@@ -4,9 +4,8 @@
     <div class="flower-page__container">
         <div class="flower-page__left">
             <div class="flower-page__left-inner">
-                <span class="flower-page__slider-curtain" #sliderCurtain></span>
                 <div class="flower-page__left-inner" *ngIf="post$ | async as post; else loadingSlider">
-                    <app-distortion-slider [images]="post.distortionSliderImg"></app-distortion-slider>
+                    <app-distortion-slider [images]="post.distortionSliderImg" (onLoadEnd)="fadeInMainSection($event)"></app-distortion-slider>
                 </div>
                 <ng-template #loadingSlider>
                     load
