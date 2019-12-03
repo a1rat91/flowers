@@ -1,4 +1,4 @@
-import {AfterViewChecked, AfterViewInit, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
@@ -6,6 +6,10 @@ import {Observable, Subscribable, Subscription} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
 import {LoaderService} from '../../components/loader/loader.service';
+import {TweenMax, TimelineMax} from 'gsap';
+import {fadeInMainSection} from "../main-page/main-page.animation";
+import {fadeInFlowerPage} from "./flower-page.animation";
+import {gsapAnimationDebugTools} from "../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools";
 
 
 @Component({
@@ -19,6 +23,12 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
     post$: Observable<Post>;
     slideIndex;
     loader: boolean;
+    @ViewChild('sliderCurtain', {static: true}) private _sliderCurtain: ElementRef;
+    @ViewChild('titleEl', {static: true}) private _titleEl: ElementRef;
+    @ViewChild('textEl', {static: true}) private _textEl: ElementRef;
+    @ViewChild('btnEl', {static: true}) private _btnEl: ElementRef;
+    @ViewChild('paginationEl', {static: true}) private _paginationEl: ElementRef;
+    @ViewChild('footerEl', {static: true}) private _footerEl: ElementRef;
     isFirstTimeCalled: boolean;
     private routeSubscription: Subscription;
 
@@ -34,7 +44,6 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
             if (queryParam['loader']) {
                 this.isFirstTimeCalled = false;
             }
-            console.log(this.loader, '1111111111111111');
             return this.loader;
         });
     }
@@ -50,16 +59,41 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        console.log(this.isFirstTimeCalled, 'this.isFirstTimeCalled');
-        console.log(this.routeSubscription, 'this.routeSubscription');
         if (!this.isFirstTimeCalled) {
             this.loaderService.changeLoaderState(false);
         }
 
         window.addEventListener('load', () => {
-            console.log('load')
             this.loaderService.changeLoaderState(false);
         });
+
+        this.fadeInMainSection();
+    }
+
+    get sliderCurtain() {
+        return this._sliderCurtain.nativeElement;
+    }
+    get titleEl() {
+        return this._titleEl.nativeElement;
+    }
+    get textEl() {
+        return this._textEl.nativeElement;
+    }
+    get btnEl() {
+        return this._btnEl.nativeElement;
+    }
+    get paginationEl() {
+        return this._paginationEl.nativeElement;
+    }
+    get footerEl() {
+        return this._footerEl.nativeElement;
+    }
+
+    fadeInMainSection() {
+        const tl =  new TimelineMax()
+            .add(fadeInFlowerPage(this.sliderCurtain, this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl));
+
+        gsapAnimationDebugTools(tl, 0.1, 0.1);
     }
 
 }

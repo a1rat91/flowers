@@ -15,10 +15,37 @@
 		width: 50%;
 		height: 100%;
 	}
-	
+
 	&__left {
 		margin-left: -4px;
+		position: relative;
+
+		&:after {
+			content: '';
+			display: block;
+			width: 100%;
+			border: 1px solid rgba(#fff, 0.2);
+			position: absolute;
+			top: 30px;
+			left: 30px;
+			bottom: 30px;
+			right: -30px;
+		}
 	}
+	
+	&__left-inner {
+		overflow: hidden;
+	}
+
+	&__slider-curtain {
+		position: absolute;
+		right: -4px;
+		width: 100%;
+		height: 100%;
+		background: $body-bg;
+		z-index: 0;
+	}
+
 	&__right {
 		display: flex;
 		flex-direction: column;
@@ -30,24 +57,48 @@
 	&__left-inner {
 		height: 100%;
 	}
+
+	&__title-wrap,
+	&__text-wrap,
+	&__btn-wrap,
+	&__pagination-wrap,
+	&__footer-wrap {
+		overflow: hidden;
+	}
+
+	&__title,
+	&__text,
+	&__btn,
+	&__pagination,
+	&__footer {
+		position: relative;
+		top: 150px;
+		opacity: 0;
+	}
 	
 	&__title {
-		@include title($fsz: 50px);
 		margin-bottom: 30px;
+
+		span {
+			@include title($fsz: 50px);
+		}
 	}
 	
-	&__text p {
-		max-width: 565px;
-		font-size: 18px;
-		line-height: 1.5;
+	&__text{
+
+		p {
+			max-width: 565px;
+			font-size: 18px;
+			line-height: 1.5;
+		}
 	}
-	
+
 	&__btn {
 		margin-top: 50px;
 		margin-bottom: 90px;
 	}
-	
-	&__footer {
+
+	&__footer-wrap {
 		position: absolute;
 		bottom: 45px;
 		right: 126px;
@@ -83,7 +134,7 @@
 			padding-right: 80px;
 		}
 		
-		&__footer {
+		&__footer-wrap {
 			right: 80px;
 		}
 	}
@@ -120,7 +171,7 @@
 			padding-right: 60px;
 		}
 		
-		&__footer {
+		&__footer-wrap {
 			right: 60px;
 		}
 		

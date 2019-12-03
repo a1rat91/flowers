@@ -1,40 +1,56 @@
 <app-loader></app-loader>
 
 <div class="flower-page">
-  <div class="flower-page__container">
-    <div class="flower-page__left">
-      <div class="flower-page__left-inner" *ngIf="post$ | async as post; else loadingSlider">
-        
-        <app-distortion-slider [images]="post.distortionSliderImg"></app-distortion-slider>
-        
-      </div>
-      <ng-template #loadingSlider>
-        load
-      </ng-template>
-    </div>
-    <div class="flower-page__right">
-      <div class="flower-page__content" *ngIf="post$ | async as post; else loading">
-        <div class="flower-page__content-inner">
-          <h2 class="flower-page__title text-left">{{post.title}}</h2>
-          <quill-view-html class="flower-page__text" [content]="post.text"></quill-view-html>
-  
-          <button class="btn flower-page__btn">Заказать</button>
+    <div class="flower-page__container">
+        <div class="flower-page__left">
+            <div class="flower-page__left-inner">
+                <span class="flower-page__slider-curtain" #sliderCurtain></span>
+                <div class="flower-page__left-inner" *ngIf="post$ | async as post; else loadingSlider">
+                    <app-distortion-slider [images]="post.distortionSliderImg"></app-distortion-slider>
+                </div>
+                <ng-template #loadingSlider>
+                    load
+                </ng-template>
+            </div>
         </div>
-        
-        <app-distortion-slider-pagination [postImages]="post.distortionSliderMinImg"></app-distortion-slider-pagination>
-        
-      </div>
-      
-      <div class="flower-page__footer">
-        <a href="" target="_blank" class="flower-page__more">
-          Больше фотографий в профиле
-        </a>
-      </div>
-      
-      <ng-template #loading>
-        <p class="text-center">Загружаю пост...</p>
-      </ng-template>
+        <div class="flower-page__right">
+            <div class="flower-page__content">
+                <div class="flower-page__content-inner">
+                    <div class="flower-page__title-wrap">
+                        <h2 class="flower-page__title text-left" #titleEl>
+                            <span *ngIf="post$ | async as post">{{post.title}}</span>
+                        </h2>
+                    </div>
+                    <div class="flower-page__text-wrap">
+                        <div class="flower-page__text" #textEl>
+                            <quill-view-html *ngIf="post$ | async as post"
+                                             [content]="post.text"></quill-view-html>
+                        </div>
+                    </div>
+
+                    <div class="flower-page__btn-wrap">
+                        <button class="btn flower-page__btn" #btnEl>Заказать</button>
+                    </div>
+
+                </div>
+                <div class="flower-page__pagination-wrap">
+                    <div class="flower-page__pagination" #paginationEl>
+                        <app-distortion-slider-pagination *ngIf="post$ | async as post"
+                                                          [postImages]="post.distortionSliderMinImg"
+                        ></app-distortion-slider-pagination>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flower-page__footer-wrap">
+                <div class="flower-page__footer" #footerEl>
+                    <a href="" target="_blank" class="flower-page__more">
+                        Больше фотографий в профиле
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
