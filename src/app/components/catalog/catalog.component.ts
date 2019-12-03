@@ -90,11 +90,15 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
                 prevEl: '.catalog__button-prev',
             },
             breakpoints: {
+                1400: {
+                    slidesPerView: 3,
+                    spaceBetween: 28,
+                },
                 992: {
                     slidesPerView: 2,
                     spaceBetween: 28,
                 },
-                480: {
+                540: {
                     slidesPerView: 1,
                     spaceBetween: 15,
                 }
