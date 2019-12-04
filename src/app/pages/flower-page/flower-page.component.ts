@@ -89,7 +89,7 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
             const tl =  new TimelineMax()
                 .add(fadeInFlowerPage(this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl));
 
-            GSDevTools.create();
+            // GSDevTools.create();
         }
     }
 

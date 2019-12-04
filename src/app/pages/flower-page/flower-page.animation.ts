@@ -9,10 +9,10 @@ export function fadeInFlowerPage(title, text, btn, pagination, footer) {
     const footerConfig: TweenConfig = { top: 0, opacity: 1, ease: Expo.easeOut};
 
     return new TimelineMax()
-        .to(title, 1, titleConfig, '-=0.3')
-        .to(text, 1, textConfig, '-=0.8')
-        .to(btn, 1, btnConfig, '-=0.8')
-        .to(pagination, 1, paginationConfig, '-=0.8')
-        .to(footer, 1, footerConfig, '-=0.8');
+        .to(title, 2, titleConfig)
+        .to(text, 2, textConfig, '-=1.7')
+        .to(btn, 1.5, btnConfig, '-=1.3')
+        .to(pagination, 1.5, paginationConfig, '-=1.3')
+        .to(footer, 1.5, footerConfig, '-=0.8');
     // '-=0.5'
 }

@@ -12,4 +12,7 @@ export class MainLayoutComponent implements OnInit {
   ngOnInit() {
   }
 
+  headerState(event) {
+    console.log(event, 'event');
+  }
 }

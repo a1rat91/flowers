@@ -284,7 +284,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
             this.onLoadEnd.emit('loaded');
 
             new TimelineMax()
-                .to(this.distortionSliderCurtain.nativeElement, 1, {x: '100%', ease: Expo.easeOut });
+                .to(this.distortionSliderCurtain.nativeElement, 2, {x: '100%', ease: Expo.easeOut });
 
             this.render();
         });

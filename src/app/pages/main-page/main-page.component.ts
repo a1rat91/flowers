@@ -13,15 +13,12 @@ import {NavigationService} from '../../services/navigation.service';
 import {PostsService} from '../../shared/posts.service';
 import {Observable} from 'rxjs/index';
 import {Post} from '../../admin/shared/interfaces';
-
-// TODO: For animation debug
-import {gsapAnimationDebugTools as gsapAnimationDebugTools} from '../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools';
-
 import {
     fadeInMainSection,
     fadeOutMainSection
 } from './main-page.animation';
 import {LoaderService} from '../../components/loader/loader.service';
+import {HeaderService} from '../../components/header/header.service';
 
 @Component({
     selector: 'app-main-page',
@@ -44,7 +41,8 @@ export class MainPageComponent implements OnInit, AfterViewInit {
 
     constructor(private nav: NavigationService,
                 private postsService: PostsService,
-                private loaderService: LoaderService) {
+                private loaderService: LoaderService,
+                private headerService: HeaderService) {
 
         this.desctopMediaQuery = false;
         this.tabletMediaQuery = false;
@@ -62,6 +60,7 @@ export class MainPageComponent implements OnInit, AfterViewInit {
                     // console.log('onLeave', origin);
                     // console.log('onLeave', destination);
                     // console.log('onLeave', direction);
+                    this.headerService.changeLoaderState(false);
 
                     if (destination.index !== 0) {
                         // Если не первая секция, не отыгрываем анимацию
@@ -85,6 +84,7 @@ export class MainPageComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.nav.currentNavigationState.subscribe(navigation => this.navigation = navigation);
+        this.headerService.currentHeaderState.subscribe(header => this.header = header);
 
         this.posts$ = this.postsService.getAll();
 

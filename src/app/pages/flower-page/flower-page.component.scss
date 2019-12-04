@@ -59,13 +59,18 @@
 
 	&__title,
 	&__text,
-	&__btn,
-	&__pagination,
-	&__footer {
+	&__footer,
+    &__btn,
+    &__pagination {
 		position: relative;
-		top: 150px;
+		top: 30px;
 		opacity: 0;
 	}
+
+    &__btn,
+    &__pagination {
+      top: 10px;
+    }
 	
 	&__title {
 		margin-bottom: 30px;

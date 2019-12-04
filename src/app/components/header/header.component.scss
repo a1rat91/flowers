@@ -32,6 +32,14 @@
 			margin-top: -10px;
 		}
 	}
+
+	&__logo,
+	&__burger {
+		position: relative;
+		top: 30px;
+		opacity: 0;
+		z-index: 1;
+	}
 	
 	@media all and (max-width: $screen-lg) {
 		&__inner {

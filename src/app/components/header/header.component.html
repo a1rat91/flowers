@@ -2,18 +2,22 @@
   <div class="header__inner">
     <div class="header__row">
       <div class="header__col">
-        <app-logo routerLink="/" (click)="goToMainPage()"></app-logo>
+        <div class="header__logo" #logoEl>
+          <app-logo routerLink="/" (click)="goToMainPage()"></app-logo>
+        </div>
       </div>
       <!-- /.header__col -->
       <div class="header__col header__col_right">
-        <a (click)="openNav()" class="burger" [ngClass]="{'burger_close': !burger}">
-          <div class="burger__icon">
-            <span></span>
-          </div>
-          <span class="burger__title">
+        <div class="header__burger" #burgerEl>
+          <a (click)="openNav()" class="burger" [ngClass]="{'burger_close': !burger}">
+            <div class="burger__icon">
+              <span></span>
+            </div>
+            <span class="burger__title">
             Меню
           </span>
-        </a>
+          </a>
+        </div>
       </div>
       <!-- /.header__col -->
     </div>
