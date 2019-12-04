@@ -10,6 +10,7 @@ import {TweenMax, TimelineMax} from 'gsap';
 import {fadeInMainSection} from "../main-page/main-page.animation";
 import {fadeInFlowerPage} from "./flower-page.animation";
 import {gsapAnimationDebugTools} from "../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools";
+import {GSDevTools} from '../../shared/plugins/GSDevTools';
 
 
 @Component({
@@ -88,7 +89,7 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
             const tl =  new TimelineMax()
                 .add(fadeInFlowerPage(this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl));
 
-            gsapAnimationDebugTools(tl, 0.1, 0.1);
+            GSDevTools.create();
         }
     }
 
