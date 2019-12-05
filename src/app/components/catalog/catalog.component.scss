@@ -58,6 +58,23 @@
     transform: translateX(-33px);
     margin-left: calc(100% / 10);
   }
+
+  .swiper-catalog-progressbar {
+    height: 2px;
+    width: 100%;
+    display: block;
+    background: rgba(#fff, .5);
+    position: relative;
+
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: #fff;
+      display: block;
+    }
+  }
   
   @media all and (max-width: $screen-lg) {
     

@@ -7,3 +7,11 @@ export function catalogNextPageTransition(title, curtain) {
     return new TimelineMax()
         .to(curtain, 2, catalogCurtainConfig);
 }
+
+export function sliderProgrees(progressEl, progress) {
+
+    const progressConfig: TweenConfig = { width: `${progress}%`, ease: Expo.easeInOut};
+
+    return new TimelineMax()
+        .to(progressEl, 0.5, progressConfig);
+}

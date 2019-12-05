@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TimelineMax } from 'gsap';
-import { catalogNextPageTransition } from './catalog.animation';
+import {catalogNextPageTransition, sliderProgrees} from './catalog.animation';
 import {gsapAnimationDebugTools} from '../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools';
 import {Power1} from 'gsap';
 import {DOCUMENT} from '@angular/common';
@@ -38,6 +38,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     @ViewChildren('wrapper') private _wrapper: QueryList<ElementRef>;
     @ViewChild('catalogTransition', {static: true}) private _catalogTransition: ElementRef;
     @ViewChild('catalogTransitionCurtain', {static: true}) private _catalogTransitionCurtain: ElementRef;
+    @ViewChild('catalogProgressbar', {static : true}) private _catalogProgressbar: ElementRef;
     @Input() postImage;
     currentIndex;
 
@@ -68,9 +69,11 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     get catalogTransition() {
         return this._catalogTransition.nativeElement;
     }
-
     get catalogTransitionCurtain() {
       return this._catalogTransitionCurtain.nativeElement;
+    }
+    get catalogProgressbar() {
+        return this._catalogProgressbar.nativeElement;
     }
 
     ngOnInit() {
@@ -80,7 +83,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
             spaceBetween: 50,
             pagination: {
                 el: '.swiper-catalog-progressbar',
-                type: 'progressbar',
+                type: 'custom',
                 renderCustom: (swiper, current, total) => {
                     return this.customProgressBar(current, total);
                 }
@@ -111,7 +114,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
         const thumbs = this.thumbsItems;
         const fullviewItems = this.fullviewItems;
         const transitionEffectDuration = 1.2;
-        const transitionEffect = this.createDemoEffect({
+        const transitionEffect = this.createTransitionEffect({
             activation: {type: 'mouse'},
             timing: {
                 duration: transitionEffectDuration
@@ -167,23 +170,12 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     ngDoCheck() {
     }
 
-    customProgressBar(current: number, total: number): string {
-        const ratio: number = current / total;
-
+    customProgressBar(current: number, total: number) {
+        const ratio: number = (current / total) * 100;
         this.curentProgress = current;
         this.totalProgress = total;
 
-        const progressBarStyle =
-            `style="transform: translate3d(0px, 0px, 0px) scaleX(${ ratio }) scaleY(1); transition: 500ms;"`;
-        const progressBar =
-            `<span class='swiper-pagination-progressbar-fill' ${progressBarStyle}></span>`;
-
-        let progressBarContainer =
-            `<div class="swiper-pagination-progressbar" style="height: 4px; bottom: -1px; width: 100%; background-color: #fff;">`;
-        progressBarContainer += progressBar;
-        progressBarContainer += '</span></div>';
-
-        return progressBarContainer;
+        sliderProgrees(this.catalogProgressbar, ratio);
     }
 
     nextPage(id, event) {
@@ -199,7 +191,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
         gsapAnimationDebugTools(tl, 0.1, 0.1);
     }
 
-    createDemoEffect(options) {
+    createTransitionEffect(options) {
         const transitionEffect = new GridToFullscreenEffect(
             this.catalogTransition,
             this.wrappers,

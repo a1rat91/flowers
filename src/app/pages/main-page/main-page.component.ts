@@ -84,7 +84,7 @@ export class MainPageComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.nav.currentNavigationState.subscribe(navigation => this.navigation = navigation);
-        this.headerService.currentHeaderState.subscribe(header => this.header = header);
+        // this.headerService.currentHeaderState.subscribe(header => this.header = header);
 
         this.posts$ = this.postsService.getAll();
 
