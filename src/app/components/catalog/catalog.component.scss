@@ -59,12 +59,13 @@
     margin-left: calc(100% / 10);
   }
 
-  .swiper-catalog-progressbar {
+  &__progressbar {
     height: 2px;
     width: 100%;
     display: block;
     background: rgba(#fff, .5);
     position: relative;
+    margin-top: 23px;
 
     span {
       position: absolute;
