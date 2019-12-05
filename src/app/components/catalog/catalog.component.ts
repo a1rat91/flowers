@@ -178,8 +178,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
         sliderProgrees(this.catalogProgressbar, ratio);
     }
 
-    nextPage(id, event) {
-        const catalogWrap = event.target.parentNode.parentNode.parentNode.parentNode.parentNode;
+    nextPage(id) {
 
         const tl = new TimelineMax()
             .add(catalogNextPageTransition(this.catalogTitle, this.catalogTransitionCurtain))
