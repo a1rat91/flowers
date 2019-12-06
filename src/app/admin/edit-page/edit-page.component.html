@@ -19,11 +19,53 @@
 		<div class="form-control">
 			<quill-editor formControlName="text"></quill-editor>
 		</div>
+
+		<div class="form-control">
+			<label>Изображения для слайдера на странице услуги (996x1081):</label>
+			<div *ngFor="let imgUrl of distortionSliderImg" style="display: flex;">
+				<input type="text" value="{{imgUrl}}" #distortionSliderImgItems>
+				<div class="form-control__btns">
+					<button (click)="removeImgURL(distortionSliderImg, imgUrl)">-</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-control">
+			<label>Миниатюра для слайдера на странице услуги (123x123):</label>
+			<div *ngFor="let imgUrl of distortionSliderMinImg" style="display: flex;">
+				<input type="text" value="{{imgUrl}}" #distortionSliderMinImgItems>
+				<div class="form-control__btns">
+					<button (click)="removeImgURL(distortionSliderMinImg, imgUrl)">-</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-control">
+			<label>Изображения для слайдера каталога услуг (330x450):</label>
+			<div *ngFor="let imgUrl of catalogImg" style="display: flex;">
+				<input type="text" value="{{imgUrl}}" #catalogImgItems>
+				<div class="form-control__btns">
+					<button (click)="removeImgURL(catalogImg, imgUrl)">-</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-control">
+			<label>Изображение для перехода при выбраной услуге (1092x1080):</label>
+			<div *ngFor="let imgUrl of catalogTransitionImg" style="display: flex;">
+				<input type="text" value="{{imgUrl}}" #catalogTransitionImgItems>
+				<div class="form-control__btns">
+					<button (click)="removeImgURL(catalogTransitionImg, imgUrl)">-</button>
+				</div>
+			</div>
+		</div>
 		<button
 			class="btn btn-primary"
 			type="submit"
 			[disabled]="form.invalid || submitted"
-		>Обновить</button>
+		>
+			Обновить
+		</button>
 	</form>
 </div>
 
