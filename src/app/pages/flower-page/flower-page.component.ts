@@ -1,4 +1,14 @@
-import {AfterViewChecked, AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {
+    AfterViewChecked,
+    AfterViewInit,
+    Component,
+    ElementRef, Inject,
+    Input,
+    OnChanges,
+    OnInit, SimpleChanges,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
@@ -11,6 +21,7 @@ import {fadeInMainSection} from "../main-page/main-page.animation";
 import {fadeInFlowerPage} from "./flower-page.animation";
 import {gsapAnimationDebugTools} from "../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools";
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
+import {DOCUMENT} from "@angular/common";
 
 
 @Component({
@@ -35,7 +46,8 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
     constructor(private route: ActivatedRoute,
                 private postsService: PostsService,
                 private distortionSliderService: DistortionSliderService,
-                private loaderService: LoaderService) {
+                private loaderService: LoaderService,
+                @Inject(DOCUMENT) private document: Document) {
 
         this.isFirstTimeCalled = true;
 
@@ -56,15 +68,20 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
 
         this.distortionSliderService.currentIndex.subscribe(slideIndex => this.slideIndex = slideIndex);
         this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader);
+        this.document.body.classList.remove('hidden');
     }
 
     ngAfterViewInit(): void {
-        if (!this.isFirstTimeCalled) {
-            this.loaderService.changeLoaderState(false);
-        }
+        setTimeout(() => {
+            if (!this.isFirstTimeCalled) {
+                this.loaderService.changeLoaderState(false);
+            }
+        }, 0);
 
         window.addEventListener('load', () => {
-            this.loaderService.changeLoaderState(false);
+            setTimeout(() => {
+                this.loaderService.changeLoaderState(false);
+            }, 0);
         });
     }
 
@@ -84,7 +101,7 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
         return this._footerEl.nativeElement;
     }
 
-    fadeInMainSection(event) {
+    fadeInFlowerPage(event) {
         if (event === 'loaded') {
             const tl =  new TimelineMax()
                 .add(fadeInFlowerPage(this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl));

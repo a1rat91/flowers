@@ -12,7 +12,7 @@ export function fadeInNavigation(nav, navItems) {
 
 export function fadeOutNavigation(nav, navItems) {
 
-    const navConfig: TweenConfig = { top: '-100%', ease: Expo.easeInOut};
+    const navConfig: TweenConfig = { top: '-130%', ease: Expo.easeInOut};
     const positionConfig: TweenConfig = { top: '-150px', delay: 0.3, ease: Expo.easeOut};
 
     return new TimelineMax()

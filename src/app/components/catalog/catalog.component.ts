@@ -172,10 +172,13 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
 
     customProgressBar(current: number, total: number) {
         const ratio: number = (current / total) * 100;
-        this.curentProgress = current;
-        this.totalProgress = total;
 
-        sliderProgrees(this.catalogProgressbar, ratio);
+        setTimeout(() => {
+            this.curentProgress = current;
+            this.totalProgress = total;
+
+            sliderProgrees(this.catalogProgressbar, ratio);
+        });
     }
 
     nextPage(id) {
@@ -187,7 +190,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
                 // this.loaderService.changeLoaderState(false);
             }));
 
-        gsapAnimationDebugTools(tl, 0.1, 0.1);
+        // gsapAnimationDebugTools(tl, 0.1, 0.1);
     }
 
     createTransitionEffect(options) {

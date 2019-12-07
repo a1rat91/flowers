@@ -6,6 +6,7 @@
 	right: 0;
 	width: 100%;
 	height: $header-height;
+	background: transparent;
 
 	&__inner {
 		width: 100%;
@@ -39,6 +40,10 @@
 		top: 30px;
 		opacity: 0;
 		z-index: 2;
+	}
+	
+	&__burger {
+		z-index: 100;
 	}
 	
 	@media all and (max-width: $screen-lg) {

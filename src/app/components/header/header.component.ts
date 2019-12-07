@@ -61,6 +61,6 @@ export class HeaderComponent implements OnInit {
 
         const tl =  new TimelineMax()
             .add(fadeInHeader(this.logoEl, this.burgerEl));
-        GSDevTools.create();
+        // GSDevTools.create();
     }
 }

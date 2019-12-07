@@ -1,4 +1,4 @@
-import {Component, DoCheck, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, DoCheck, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {DistortionSliderService} from '../../../services/distortion-slider.service';
 import {SwiperComponent, SwiperConfigInterface, SwiperDirective} from 'ngx-swiper-wrapper';
 import {sliderProgrees} from './distortion-slider-pagination.animation';
@@ -8,7 +8,7 @@ import {sliderProgrees} from './distortion-slider-pagination.animation';
     templateUrl: './distortion-slider-pagination.component.html',
     styleUrls: ['./distortion-slider-pagination.component.scss']
 })
-export class DistortionSliderPaginationComponent implements OnInit, DoCheck {
+export class DistortionSliderPaginationComponent implements OnInit, OnChanges {
     @ViewChild(SwiperDirective, {static: true}) swiperView: SwiperDirective;
     @ViewChild('distortionSliderProgressbar', {static: true}) private _distortionSliderProgressbar: ElementRef;
 
@@ -26,12 +26,7 @@ export class DistortionSliderPaginationComponent implements OnInit, DoCheck {
     constructor(private distortionSliderService: DistortionSliderService) {
     }
 
-    ngDoCheck() {
-        // this.swiperView.update();
-    }
-
     ngOnInit() {
-        this.swiperView.update();
         this.config = {
             direction: 'horizontal',
             slidesPerView: 4,
@@ -59,12 +54,18 @@ export class DistortionSliderPaginationComponent implements OnInit, DoCheck {
         this.distortionSliderService.currentIndex.subscribe(slideIndex => this.slideIndex = slideIndex);
     }
 
+    ngOnChanges(): void {
+        this.swiperView.update();
+    }
+
     customProgressBar(current: number, total: number) {
         const ratio: number = (current / total) * 100;
-        this.curentProgress = current;
-        this.totalProgress = total;
+        setTimeout(() => {
+            this.curentProgress = current;
+            this.totalProgress = total;
+            sliderProgrees(this.distortionSliderProgressbar, ratio);
+        }, 0);
 
-        sliderProgrees(this.distortionSliderProgressbar, ratio);
     }
 
     setActiveSlide(slide) {

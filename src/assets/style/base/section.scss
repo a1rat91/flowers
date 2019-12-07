@@ -45,14 +45,4 @@
 			padding-bottom: 20px;
 		}
 	}
-	
-	@media all and (max-width: $screen-md) {
-		&.is-catalog {
-			padding-top: 30px;
-		}
-		
-		&.is-action {
-			padding-top: 20px;
-		}
-	}
 }

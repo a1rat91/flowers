@@ -108,16 +108,20 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     }
 
     handleChangeToDesctop(match: boolean) {
-        if (match) {
-            this.desctopMediaQuery = true;
-        } else {
-            this.desctopMediaQuery = false;
-        }
+        setTimeout(() => {
+            if (match) {
+                this.desctopMediaQuery = true;
+            } else {
+                this.desctopMediaQuery = false;
+            }
+        }, 0);
     }
 
 
     handleChangeToTablet(match: boolean) {
-        match ? this.tabletMediaQuery = true : this.tabletMediaQuery = false;
+        setTimeout(() => {
+            match ? this.tabletMediaQuery = true : this.tabletMediaQuery = false;
+        });
     }
 
     getRef(fullPageRef) {

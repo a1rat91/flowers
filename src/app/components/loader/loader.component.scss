@@ -1,16 +1,72 @@
 @import "../../../assets/style/base/variables";
+$width: 2px;
+$linecap: round; $linejoin: round;
+$ease: 3s ease-in-out;
 
 .loader {
   display: block;
   width: 100%;
   height: 100%;
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   background: $body-bg;
-  z-index: 1000;
+  z-index: 10;
+  pointer-events: none;
 
   &_close {
     display: none;
   }
+
+  .loader-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.4s ease;
+  }
+
+  .circle-loader-wrapper {
+    position: relative;
+    opacity: 0;
+    animation: show $ease infinite;
+    animation-delay: 1s;
+
+    .circle-loader-spinner {
+      stroke: #ffffff;
+      stroke-width: $width;
+      stroke-linecap: $linecap;
+      stroke-linejoin: $linejoin;
+      stroke-dasharray: 256;
+      animation: spin $ease infinite;
+      animation-delay: 1s;
+    }
+
+    .circle-loader-background {
+      stroke: rgba(#fff, .1);
+      stroke-width: $width;
+      stroke-linecap: $linecap;
+      stroke-linejoin: $linejoin;
+    }
+  }
+
+  .loader-flower {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: -6px -8px;
+  }
+}
+
+@keyframes spin {
+  to { stroke-dashoffset: -504; }
+}
+
+@keyframes show {
+  0%   {opacity: 1;}
+  25%   {opacity: 1;}
+  50%  {opacity: 0;}
+  75%  {opacity: 1;}
+  100% {opacity: 1;}
 }

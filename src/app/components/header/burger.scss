@@ -97,4 +97,10 @@
 			}
 		}
 	}
+	
+	@media all and (max-width: $screen-md) {
+		&__icon span {
+			width: 21px;
+		}
+	}
 }
