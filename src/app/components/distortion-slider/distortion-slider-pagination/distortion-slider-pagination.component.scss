@@ -1,24 +1,88 @@
+@import "../../../../assets/style/base/variables";
+
 .distortion-slider-pagination {
+	margin-left: -40px;
 	
 	&__container {
-		max-width: 556px;
+		max-width: 636px;
 		position: relative;
+		padding-left: 40px;
+		padding-right: 40px;
 	}
 	
 	&__button-next {
-		margin-right: -36px;
+		margin-right: 6px;
 	}
 	
 	&__button-prev {
-		margin-left: -36px;
+		margin-left: 4px;
 	}
 	
 	&__pic {
 	
 	}
 	
-	&__pagination {
-		margin-top: 20px;
+	&__progressbar {
+		height: 2px;
+		width: 100%;
+		display: block;
+		background: rgba(#fff, .5);
+		position: relative;
+		margin-top: 23px;
 		max-width: 270px;
+		
+		span {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 2px;
+			background: #fff;
+			display: block;
+		}
+	}
+	
+	&__pagination-wrap {
+		padding-left: 40px;
+	}
+	
+	@media all and (max-width: $screen-lg) {
+		margin-left: 0;
+		margin-bottom: 70px;
+		
+		&__container {
+			margin: 0 auto;
+		}
+		
+		&__pagination {
+			display: none;
+		}
+	}
+	
+	@media all and (max-width: $screen-md) {
+		&__container {
+			max-width: 768px;
+			margin-left: -50px;
+			margin-right: -50px;
+		}
+	}
+	
+	@media all and (max-width: $screen-sm) {
+		margin-bottom: 40px;
+		
+		&__button-prev,
+		&__button-next{
+			display: none;
+		}
+		
+		&__container {
+			margin: 0;
+			padding: 0;
+			
+		}
+		
+		.swiper-slide {
+			width: 75px!important;
+			height: 75px;
+		}
 	}
 }

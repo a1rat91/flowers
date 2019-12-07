@@ -2,7 +2,7 @@ import { TweenMax, Power0, Power1, Power2, Power4, Circ, Expo, Bounce, Back, Tim
 
 export function fadeInFlowerPage(title, text, btn, pagination, footer) {
 
-    const titleConfig: TweenConfig = { top: 0, delay: 0.5, opacity: 1, ease: Expo.easeOut};
+    const titleConfig: TweenConfig = { top: 0, opacity: 1, ease: Expo.easeOut};
     const textConfig: TweenConfig = { top: 0, opacity: 1, ease: Expo.easeOut};
     const btnConfig: TweenConfig = { top: 0, opacity: 1, ease: Expo.easeOut};
     const paginationConfig: TweenConfig = { top: 0, opacity: 1, ease: Expo.easeOut};

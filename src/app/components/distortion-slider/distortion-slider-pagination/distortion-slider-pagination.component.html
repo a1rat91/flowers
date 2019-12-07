@@ -20,12 +20,16 @@
 		<div class="swiper-button-next distortion-slider-pagination__button-next"></div>
 	</div>
 	
-	<div class="distortion-slider-pagination__container">
-		<div class="distortion-slider-pagination__pagination-wrap">
-			<div class="slider__pagination distortion-slider-pagination__pagination">
-				<!--<div class="slider__active-index">0{{curentProgress}}</div>-->
-				<div class="swiper-distortion-slider-pagination-progressbar"></div>
-				<!--<div class="slider__next-index">0{{totalProgress}}</div>-->
+	<div class="distortion-slider-pagination__pagination-wrap">
+		<div class="slider__pagination distortion-slider-pagination__pagination">
+			<div class="slider__active-index">
+				0{{curentProgress}}
+			</div>
+			<div class="swiper-distortion-slider-progressbar distortion-slider-pagination__progressbar">
+				<span #distortionSliderProgressbar></span>
+			</div>
+			<div class="slider__next-index">
+				0{{totalProgress}}
 			</div>
 		</div>
 	

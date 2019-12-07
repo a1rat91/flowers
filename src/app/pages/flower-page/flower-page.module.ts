@@ -23,7 +23,7 @@ import {SliderPaginationComponent} from '../../shared/components/slider-paginati
                 path: ':id',
                 component: FlowerPageComponent
             }
-        ])
+        ]),
     ],
     exports: [RouterModule]
 })

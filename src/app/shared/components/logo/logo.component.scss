@@ -2,9 +2,9 @@
 
 .logo {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   
-  @media all and (max-width: $screen-md) {
+  @media all and (max-width: $screen-md - 1) {
     max-width: 97px;
     
     &__pic {

@@ -18,4 +18,10 @@
 	&__footer-wrapper {
 		flex-shrink: 0;
 	}
+	
+	@media all and (max-width: $screen-sm) {
+		&__inner {
+			min-height: 100%;
+		}
+	}
 }
