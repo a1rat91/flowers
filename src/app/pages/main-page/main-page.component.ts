@@ -19,6 +19,7 @@ import {
 } from './main-page.animation';
 import {LoaderService} from '../../components/loader/loader.service';
 import {HeaderService} from '../../components/header/header.service';
+import {environment} from "../../../environments/environment";
 
 @Component({
     selector: 'app-main-page',
@@ -47,39 +48,41 @@ export class MainPageComponent implements OnInit, AfterViewInit {
         this.desctopMediaQuery = false;
         this.tabletMediaQuery = false;
 
-        if (window.innerWidth >= 992) {
-            this.config = {
-                licenseKey: 'OPEN-SOURCE-GPLV3-LICENSE',
-                anchors: ['firstSection', 'secondSection', 'lastSection'],
-                menu: '#menu',
-                afterResize: () => {
-                    // console.log("After resize");
-                },
-                onLeave: (origin, destination, direction) => {
-                    // animationReset
-                    // console.log('onLeave', origin);
-                    // console.log('onLeave', destination);
-                    // console.log('onLeave', direction);
-                    this.headerService.changeLoaderState(false);
+        this.config = {
+            licenseKey: environment.fullpage.apiKey,
+            anchors: ['firstSection', 'secondSection', 'lastSection'],
+            menu: '#menu',
+            responsiveHeight: 800,
+            afterResponsive: (isResponsive) => {
+                console.log(isResponsive, 'qwe');
+            },
+            afterResize: () => {
+                // console.log("After resize");
+            },
+            onLeave: (origin, destination, direction) => {
+                // animationReset
+                // console.log('onLeave', origin);
+                // console.log('onLeave', destination);
+                // console.log('onLeave', direction);
+                this.headerService.changeLoaderState(false);
 
-                    if (destination.index !== 0) {
-                        // Если не первая секция, не отыгрываем анимацию
-                        this.fadeOutMainSection();
-                    }
-                },
-                afterLoad: (origin, destination, direction) => {
-                    // fadeIn
-                    // console.log('afterLoad', origin);
-                    // console.log('afterLoad', destination);
-                    // console.log('afterLoad', direction);
-
-                    if (destination.index !== 0) {
-                        // Если не первая секция, не отыгрываем анимацию
-                        this.fadeInMainSection();
-                    }
+                if (destination.index !== 0) {
+                    // Если не первая секция, не отыгрываем анимацию
+                    this.fadeOutMainSection();
                 }
-            };
-        }
+            },
+            afterLoad: (origin, destination, direction) => {
+                // fadeIn
+                // console.log('afterLoad', origin);
+                // console.log('afterLoad', destination);
+                // console.log('afterLoad', direction);
+
+                if (destination.index !== 0) {
+                    // Если не первая секция, не отыгрываем анимацию
+                    this.fadeInMainSection();
+                }
+            }
+        };
     }
 
     ngOnInit() {
@@ -98,9 +101,9 @@ export class MainPageComponent implements OnInit, AfterViewInit {
             this.loaderService.changeLoaderState(false);
         });
         this.nav.currentNavigationState.subscribe(navigation => {
-            this.fullpage_api.setAutoScrolling(true);
+            // this.fullpage_api.setAutoScrolling(true);
             if (!this.navigation) {
-                this.fullpage_api.setAutoScrolling(false);
+                // this.fullpage_api.setAutoScrolling(false);
             }
 
             return this.navigation = navigation;
@@ -131,22 +134,24 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     get mainTitle() {
         return this._mainTitle.nativeElement;
     }
+
     get mainBtn() {
         return this._mainBtn.nativeElement;
     }
+
     get mouse() {
         return this._mouse.nativeElement;
     }
 
     fadeInMainSection() {
-        const tl =  new TimelineMax()
+        const tl = new TimelineMax()
             .add(fadeInMainSection(this.mainTitle, this.mainBtn, this.mouse));
 
         // gsapAnimationDebugTools(tl, 0.1, 0.1);
     }
 
     fadeOutMainSection() {
-        const tl =  new TimelineMax()
+        const tl = new TimelineMax()
             .add(fadeOutMainSection(this.mainTitle, this.mainBtn, this.mouse));
     }
 
