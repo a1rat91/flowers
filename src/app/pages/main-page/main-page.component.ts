@@ -18,8 +18,8 @@ import {
     fadeOutMainSection
 } from './main-page.animation';
 import {LoaderService} from '../../components/loader/loader.service';
-import {HeaderService} from '../../components/header/header.service';
 import {environment} from "../../../environments/environment";
+import {FadeService} from "../../services/fade.service";
 
 @Component({
     selector: 'app-main-page',
@@ -39,11 +39,12 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     loader: boolean;
     desctopMediaQuery;
     tabletMediaQuery;
+    sectionState: boolean;
 
-    constructor(private nav: NavigationService,
+    constructor(private navigationService: NavigationService,
                 private postsService: PostsService,
                 private loaderService: LoaderService,
-                private headerService: HeaderService) {
+                private fadeService: FadeService) {
 
         this.desctopMediaQuery = false;
         this.tabletMediaQuery = false;
@@ -64,7 +65,6 @@ export class MainPageComponent implements OnInit, AfterViewInit {
                 // console.log('onLeave', origin);
                 // console.log('onLeave', destination);
                 // console.log('onLeave', direction);
-                this.headerService.changeLoaderState(false);
 
                 if (destination.index !== 0) {
                     // Если не первая секция, не отыгрываем анимацию
@@ -86,8 +86,8 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        this.nav.currentNavigationState.subscribe(navigation => this.navigation = navigation);
-        // this.headerService.currentHeaderState.subscribe(header => this.header = header);
+        this.navigationService.currentNavigationState.subscribe(navigation => this.navigation = navigation);
+        this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState);
 
         this.posts$ = this.postsService.getAll();
 
@@ -100,7 +100,7 @@ export class MainPageComponent implements OnInit, AfterViewInit {
         window.addEventListener('load', () => {
             this.loaderService.changeLoaderState(false);
         });
-        this.nav.currentNavigationState.subscribe(navigation => {
+        this.navigationService.currentNavigationState.subscribe(navigation => {
             // this.fullpage_api.setAutoScrolling(true);
             if (!this.navigation) {
                 // this.fullpage_api.setAutoScrolling(false);
@@ -108,6 +108,7 @@ export class MainPageComponent implements OnInit, AfterViewInit {
 
             return this.navigation = navigation;
         });
+
     }
 
     handleChangeToDesctop(match: boolean) {
@@ -146,8 +147,6 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     fadeInMainSection() {
         const tl = new TimelineMax()
             .add(fadeInMainSection(this.mainTitle, this.mainBtn, this.mouse));
-
-        // gsapAnimationDebugTools(tl, 0.1, 0.1);
     }
 
     fadeOutMainSection() {

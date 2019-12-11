@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {SocService} from '../../soc.service';
+import {FadeService} from '../../../services/fade.service';
 
 @Component({
     selector: 'app-soc',
@@ -8,14 +9,15 @@ import {SocService} from '../../soc.service';
 })
 
 export class SocComponent implements OnInit {
-
-    constructor(public socService: SocService) {
-    }
-
     soc;
+    sectionState: boolean;
+    constructor(public socService: SocService,
+                private fadeService: FadeService) {
+    }
 
     ngOnInit() {
         this.soc = this.socService.getSocialLinks();
+        this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState);
     }
 
 }

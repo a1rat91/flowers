@@ -18,6 +18,7 @@ import {Power1} from 'gsap';
 import {DOCUMENT} from '@angular/common';
 import {GridToFullscreenEffect as GridToFullscreenEffect} from '../../../assets/js/GridToFullscreenEffect.js';
 import {LoaderService} from '../loader/loader.service';
+import {FadeService} from "../../services/fade.service";
 declare var imagesLoaded: any;
 
 @Component({
@@ -41,11 +42,13 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     @ViewChild('catalogProgressbar', {static : true}) private _catalogProgressbar: ElementRef;
     @Input() postImage;
     currentIndex;
+    sectionState: boolean;
 
     constructor(private router: Router,
                 private ngZone: NgZone,
                 @Inject(DOCUMENT) private document: Document,
-                private loaderService: LoaderService) {
+                private loaderService: LoaderService,
+                private fadeService: FadeService) {
     }
 
     get catalog() {
@@ -77,6 +80,8 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     ngOnInit() {
+        this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState);
+
         this.config = {
             direction: 'horizontal',
             slidesPerView: 4,
@@ -182,12 +187,13 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     nextPage(id) {
-
+        this.fadeService.changeSectionState(true);
         const tl = new TimelineMax()
             .add(catalogNextPageTransition(this.catalogTitle, this.catalogTransitionCurtain))
             .add(() => this.ngZone.run(() => {
                 this.router.navigate([`/post/${ id }`], { queryParams: { loader: false } });
                 // this.loaderService.changeLoaderState(false);
+
             }));
 
         // gsapAnimationDebugTools(tl, 0.1, 0.1);
