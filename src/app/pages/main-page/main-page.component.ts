@@ -20,6 +20,7 @@ import {
 import {LoaderService} from '../../components/loader/loader.service';
 import {environment} from "../../../environments/environment";
 import {FadeService} from "../../services/fade.service";
+import {FullpageMediaQueryService} from "../../services/fullpage-media-query.service";
 
 @Component({
     selector: 'app-main-page',
@@ -44,16 +45,21 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     constructor(private navigationService: NavigationService,
                 private postsService: PostsService,
                 private loaderService: LoaderService,
-                private fadeService: FadeService) {
+                private fadeService: FadeService,
+                private fullpageMediaQueryService: FullpageMediaQueryService) {
 
         this.desctopMediaQuery = false;
         this.tabletMediaQuery = false;
+
+        window.addEventListener('resize', () => {
+            return this.fullpageMinHeight();
+        });
 
         this.config = {
             licenseKey: environment.fullpage.apiKey,
             anchors: ['firstSection', 'secondSection', 'lastSection'],
             menu: '#menu',
-            responsiveHeight: 800,
+            responsiveHeight: this.fullpageMinHeight(),
             afterResponsive: (isResponsive) => {
                 console.log(isResponsive, 'qwe');
             },
@@ -109,6 +115,10 @@ export class MainPageComponent implements OnInit, AfterViewInit {
             return this.navigation = navigation;
         });
 
+    }
+
+    fullpageMinHeight() {
+        return this.fullpageMediaQueryService.windowHeightMath(window.innerWidth);
     }
 
     handleChangeToDesctop(match: boolean) {
