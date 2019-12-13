@@ -16,7 +16,7 @@ import {Observable, Subscribable, Subscription} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
 import {LoaderService} from '../../components/loader/loader.service';
-import {TweenMax, TimelineMax} from 'gsap';
+import {gsap} from 'gsap';
 import {fadeInMainSection} from "../main-page/main-page.animation";
 import {fadeInFlowerPage} from "./flower-page.animation";
 import {gsapAnimationDebugTools} from "../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools";
@@ -103,7 +103,7 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
 
     fadeInFlowerPage(event) {
         if (event === 'loaded') {
-            const tl =  new TimelineMax()
+            const tl =  gsap.timeline()
                 .add(fadeInFlowerPage(this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl));
 
             // GSDevTools.create();

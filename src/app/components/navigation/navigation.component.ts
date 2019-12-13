@@ -6,7 +6,7 @@ import {NavigationService} from '../../services/navigation.service';
 import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
 import {Observable} from 'rxjs';
-import { TimelineMax } from 'gsap';
+import { gsap } from 'gsap';
 import {
     fadeInNavigation,
     fadeOutNavigation
@@ -77,17 +77,17 @@ export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     fadeInNav() {
-        const tl =  new TimelineMax()
-            .add(fadeInNavigation(this.navigationEl, this.navigationMenu));
+        const tl =  gsap.timeline().add(fadeInNavigation(this.navigationEl, this.navigationMenu));
 
 
         // gsAnimationTools(tl, 0.1, 0.1);
     }
 
     fadeOutNav() {
-        const tl = new TimelineMax({delay: 0.5})
+        // const tl = new TimelineMax({delay: 0.5})
+        //     .add(fadeOutNavigation(this.navigationEl, this.navigationMenu));
+        const tl = gsap.timeline({delay: 0.5})
             .add(fadeOutNavigation(this.navigationEl, this.navigationMenu));
-
 
         // gsapAnimationDebugTools(tl, 0.1, 0.1);
     }

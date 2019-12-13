@@ -8,9 +8,8 @@ import {
 import {vertex as vertex} from './shader';
 import {fragment as fragment} from './shader';
 import {mod} from './utils';
-import {TweenMax, Expo} from 'gsap';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
-import {TimelineMax} from 'gsap';
+import {gsap, Expo} from 'gsap';
 
 
 
@@ -140,7 +139,8 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     render = () => this.renderer.render(this.scene, this.camera);
 
     transitionIn() {
-        this.currentTransition = TweenMax.to(this.mat.uniforms.dispFactor, this.speedIn, {
+        this.currentTransition = gsap.to(this.mat.uniforms.dispFactor, {
+            duration: this.speedIn,
             value: 1,
             ease: this.ease,
             onUpdate: this.render,
@@ -151,7 +151,8 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     transitionOut() {
-        this.currentTransition = TweenMax.to(this.mat.uniforms.dispFactor, this.speedOut, {
+        this.currentTransition = gsap.to(this.mat.uniforms.dispFactor, {
+            duration: this.speedOut,
             value: 0,
             ease: this.ease,
             onUpdate: this.render,
@@ -283,7 +284,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
             this.initShaderMaterial();
             this.onLoadEnd.emit('loaded');
 
-            new TimelineMax()
+            gsap.timeline()
                 .to(this.distortionSliderCurtain.nativeElement, 2, {x: '100%', ease: Expo.easeOut });
 
             this.render();

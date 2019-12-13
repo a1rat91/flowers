@@ -12,7 +12,7 @@ import {
 import {NavigationService} from '../../services/navigation.service';
 import {DOCUMENT} from '@angular/common';
 import {LoaderService} from '../loader/loader.service';
-import {TimelineMax} from 'gsap';
+import {gsap} from 'gsap';
 import {fadeInHeader} from './header.animation';
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
 import {FadeService} from "../../services/fade.service";
@@ -71,7 +71,7 @@ export class HeaderComponent implements OnInit, OnChanges {
     }
 
     fadeInHeader() {
-        const tl =  new TimelineMax()
+        const tl =  gsap.timeline()
             .add(fadeInHeader(this.logoEl, this.burgerEl));
         // GSDevTools.create();
     }

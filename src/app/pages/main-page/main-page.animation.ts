@@ -1,12 +1,12 @@
-import { TweenMax, Power0, Power1, Power2, Power4, Circ, Expo, Bounce, Back, TimelineMax, TweenConfig } from 'gsap';
+import { gsap, Expo } from 'gsap';
 
 export function fadeInMainSection(title, btn, mouse) {
 
-    const titleConfig: TweenConfig = { scale: 2, opacity: 0, delay: -1, ease: Expo.easeInOut};
-    const btnConfig: TweenConfig = { y: 20, opacity: 0, delay: -0.5, ease: Expo.easeInOut};
-    const mouseConfig: TweenConfig = { y: 20, opacity: 0, ease: Expo.easeInOut};
+    const titleConfig = { duration: 2, scale: 2, opacity: 0, delay: -1, ease: Expo.easeInOut};
+    const btnConfig = { duration: 1, y: 20, opacity: 0, delay: -0.5, ease: Expo.easeInOut};
+    const mouseConfig = { duration: 0.5, y: 20, opacity: 0, ease: Expo.easeInOut};
 
-    return new TimelineMax()
+    return gsap.timeline()
         .from(title, 2, titleConfig)
         .from(btn, 1, btnConfig)
         .from(mouse, 0.5, mouseConfig, '-=0.7');
@@ -14,13 +14,13 @@ export function fadeInMainSection(title, btn, mouse) {
 
 export function fadeOutMainSection(title, btn, mouse) {
 
-    const titleConfig: TweenConfig = { scale: 1, opacity: 1, delay: -1, ease: Expo.easeInOut};
-    const btnConfig: TweenConfig = { y: 0, opacity: 1, delay: -0.5, ease: Expo.easeInOut};
-    const mouseConfig: TweenConfig = { y: 0, opacity: 1, ease: Expo.easeInOut};
+    const titleConfig = { duration: 2, scale: 1, opacity: 1, delay: -1, ease: Expo.easeInOut};
+    const btnConfig = { duration: 1, y: 0, opacity: 1, delay: -0.5, ease: Expo.easeInOut};
+    const mouseConfig = { duration: 0.5, y: 0, opacity: 1, ease: Expo.easeInOut};
 
-    return new TimelineMax()
-        .from(title, 2, titleConfig)
-        .from(btn, 1, btnConfig)
-        .from(mouse, 0.5, mouseConfig, '-=0.7');
+    return gsap.timeline()
+        .from(title, titleConfig)
+        .from(btn, btnConfig)
+        .from(mouse, mouseConfig, '-=0.7');
 
 }

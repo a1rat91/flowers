@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {Power0} from 'gsap';
+import {gsap, Power0} from 'gsap';
 
 export class GridToFullscreenEffect {
     /**
@@ -259,10 +259,10 @@ export class GridToFullscreenEffect {
         this.isAnimating = true;
         if (this.options.onToGridStart)
             this.options.onToGridStart({ index: this.currentImageIndex });
-        this.tween = TweenLite.to(
+        this.tween = gsap.to(
             this.uniforms.uProgress,
-            this.options.timing.duration,
             {
+                duration: this.options.timing.duration,
                 value: 0,
                 ease: this.options.easings.toGrid,
                 onUpdate: () => {
@@ -368,10 +368,10 @@ export class GridToFullscreenEffect {
         if (this.options.onToFullscreenStart)
             this.options.onToFullscreenStart({ index: this.currentImageIndex });
 
-        this.tween = TweenLite.to(
+        this.tween = gsap.to(
             this.uniforms.uProgress,
-            this.options.timing.duration,
             {
+                duration: this.options.timing.duration,
                 value: 1,
                 ease: this.options.easings.toFullscreen,
                 onUpdate: () => {

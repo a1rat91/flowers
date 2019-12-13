@@ -11,7 +11,7 @@ import {
     ViewChildren
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { TimelineMax } from 'gsap';
+import { gsap } from 'gsap';
 import {catalogNextPageTransition, sliderProgrees} from './catalog.animation';
 import {gsapAnimationDebugTools} from '../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools';
 import {Power1} from 'gsap';
@@ -191,7 +191,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
 
     nextPage(id) {
         this.fadeService.changeSectionState(true);
-        const tl = new TimelineMax()
+        const tl = gsap.timeline()
             .add(catalogNextPageTransition(this.catalogTitle, this.catalogTransitionCurtain))
             .add(() => this.ngZone.run(() => {
                 this.router.navigate([`/post/${ id }`], { queryParams: { loader: false } });

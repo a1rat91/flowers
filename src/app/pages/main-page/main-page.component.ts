@@ -8,7 +8,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import {TweenMax, TimelineMax} from 'gsap';
+import {gsap} from 'gsap';
 import {NavigationService} from '../../services/navigation.service';
 import {PostsService} from '../../shared/posts.service';
 import {Observable} from 'rxjs/index';
@@ -155,12 +155,12 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     }
 
     fadeInMainSection() {
-        const tl = new TimelineMax()
+        const tl = gsap.timeline()
             .add(fadeInMainSection(this.mainTitle, this.mainBtn, this.mouse));
     }
 
     fadeOutMainSection() {
-        const tl = new TimelineMax()
+        const tl = gsap.timeline()
             .add(fadeOutMainSection(this.mainTitle, this.mainBtn, this.mouse));
     }
 
