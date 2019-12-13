@@ -17,11 +17,12 @@ import {switchMap} from 'rxjs/operators';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
 import {LoaderService} from '../../components/loader/loader.service';
 import {gsap} from 'gsap';
-import {fadeInMainSection} from "../main-page/main-page.animation";
-import {fadeInFlowerPage} from "./flower-page.animation";
-import {gsapAnimationDebugTools} from "../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools";
+import {fadeInMainSection} from '../main-page/main-page.animation';
+import {fadeInFlowerPage} from './flower-page.animation';
+import {gsapAnimationDebugTools} from '../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools';
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
-import {DOCUMENT} from "@angular/common";
+const gsapWithGSDevTools = gsap.registerPlugin(GSDevTools) || gsap;
+import {DOCUMENT} from '@angular/common';
 
 
 @Component({
@@ -103,10 +104,12 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
 
     fadeInFlowerPage(event) {
         if (event === 'loaded') {
-            const tl =  gsap.timeline()
+            const tl =  gsap.timeline({id: 'fadeInFlowerPage'})
                 .add(fadeInFlowerPage(this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl));
 
-            // GSDevTools.create();
+            setTimeout(() => {
+                GSDevTools.create({animation: tl, container: '#fadeInFlowerPage'});
+            }, 100);
         }
     }
 
