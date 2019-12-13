@@ -19,6 +19,8 @@ export class DistortionSliderPaginationComponent implements OnInit, OnChanges {
     totalProgress;
     slideIndex;
     index;
+    isPaginationDisable: boolean;
+
     get distortionSliderProgressbar() {
         return this._distortionSliderProgressbar.nativeElement;
     }
@@ -60,6 +62,8 @@ export class DistortionSliderPaginationComponent implements OnInit, OnChanges {
 
     customProgressBar(current: number, total: number) {
         const ratio: number = (current / total) * 100;
+        current === total ? this.isPaginationDisable = true : this.isPaginationDisable = false;
+
         setTimeout(() => {
             this.curentProgress = current;
             this.totalProgress = total;

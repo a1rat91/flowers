@@ -43,6 +43,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     @Input() postImage;
     currentIndex;
     sectionState: boolean;
+    isPaginationDisable: boolean;
 
     constructor(private router: Router,
                 private ngZone: NgZone,
@@ -177,6 +178,8 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
 
     customProgressBar(current: number, total: number) {
         const ratio: number = (current / total) * 100;
+
+        current === total ? this.isPaginationDisable = true : this.isPaginationDisable = false;
 
         setTimeout(() => {
             this.curentProgress = current;

@@ -2,6 +2,10 @@
 
 .distortion-slider-pagination {
 	margin-left: -40px;
+
+	&.disable {
+		display: none;
+	}
 	
 	&__container {
 		max-width: 636px;
