@@ -2,7 +2,7 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    Inject,
+    Inject, Input,
     OnChanges,
     OnInit,
     Output, SimpleChanges,
@@ -23,13 +23,14 @@ import {FadeService} from "../../services/fade.service";
     styleUrls: ['./header.component.scss', './burger.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnChanges {
 
     navigation: boolean;
     burger: boolean;
     @ViewChild('logoEl', {static: true}) private _logoEl: ElementRef;
     @ViewChild('burgerEl', {static: true}) private _burgerEl: ElementRef;
     sectionState: boolean;
+    @Input() receiveHeaderState;
 
     get logoEl() {
         return this._logoEl.nativeElement;
@@ -51,6 +52,10 @@ export class HeaderComponent implements OnInit {
         this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState);
     }
 
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(this.receiveHeaderState, 'receiveHeaderState');
+    }
+
     openNav() {
         this.nav.changeBurgerState(!this.burger);
         this.nav.changeNavigationState(!this.navigation);
@@ -70,4 +75,8 @@ export class HeaderComponent implements OnInit {
             .add(fadeInHeader(this.logoEl, this.burgerEl));
         // GSDevTools.create();
     }
+
+    // receiveHeaderState(event) {
+    //     console.log(event, 'receiveHeaderState');
+    // }
 }

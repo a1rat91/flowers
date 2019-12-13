@@ -27,6 +27,8 @@ import {AuthInterceptor} from './shared/auth.interceptor';
 import {NavigationLogoComponent} from './shared/components/navigation-logo/navigation-logo.component';
 import {MediaQueryWatcherModule} from 'ngx-media-query-watcher';
 import {ActionsComponent} from './components/actions/actions.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 const INTERCEPTOR_PROVIDER: Provider = {
     provide: HTTP_INTERCEPTORS,
@@ -58,7 +60,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
         AppRoutingModule,
         Fake3dModule,
         CatalogModule,
-        MediaQueryWatcherModule
+        MediaQueryWatcherModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
     ],
     providers: [
         NavigationService,
