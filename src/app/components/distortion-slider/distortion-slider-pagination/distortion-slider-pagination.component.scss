@@ -2,10 +2,6 @@
 
 .distortion-slider-pagination {
 	margin-left: -40px;
-
-	&.disable {
-		display: none;
-	}
 	
 	&__container {
 		max-width: 636px;
@@ -47,6 +43,10 @@
 	
 	&__pagination-wrap {
 		padding-left: 40px;
+
+		&.disable {
+			display: none;
+		}
 	}
 	
 	@media all and (max-width: $screen-lg) {
