@@ -2,25 +2,30 @@ import {
     AfterViewInit,
     Component,
     ElementRef,
-    EventEmitter,
     OnInit,
-    Output,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import {gsap} from 'gsap';
-import {NavigationService} from '../../services/navigation.service';
-import {PostsService} from '../../shared/posts.service';
 import {Observable} from 'rxjs/index';
+
+import {environment} from '../../../environments/environment';
+import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
+import {NavigationService} from '../../services/navigation.service';
+import {LoaderService} from '../../components/loader/loader.service';
+
+import {gsap} from 'gsap';
+//TODO Удалить GSDevTools
+import {GSDevTools} from '../../shared/plugins/GSDevTools';
+// @ts-ignore
+const gsapWithGSDevTools = gsap.registerPlugin(GSDevTools) || gsap;
+
 import {
     fadeInMainSection,
     fadeOutMainSection
 } from './main-page.animation';
-import {LoaderService} from '../../components/loader/loader.service';
-import {environment} from "../../../environments/environment";
-import {FadeService} from "../../services/fade.service";
-import {FullpageMediaQueryService} from "../../services/fullpage-media-query.service";
+
+import {FadeService} from '../../services/fade.service';
 
 @Component({
     selector: 'app-main-page',
@@ -45,23 +50,19 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     constructor(private navigationService: NavigationService,
                 private postsService: PostsService,
                 private loaderService: LoaderService,
-                private fadeService: FadeService,
-                private fullpageMediaQueryService: FullpageMediaQueryService) {
+                private fadeService: FadeService) {
 
         this.desctopMediaQuery = false;
         this.tabletMediaQuery = false;
-
-        window.addEventListener('resize', () => {
-            return this.fullpageMinHeight();
-        });
 
         this.config = {
             licenseKey: environment.fullpage.apiKey,
             anchors: ['firstSection', 'secondSection', 'lastSection'],
             menu: '#menu',
-            responsiveHeight: this.fullpageMinHeight(),
+            responsiveHeight: 800,
+            responsiveWidth: 992,
             afterResponsive: (isResponsive) => {
-                console.log(isResponsive, 'qwe');
+                console.info(isResponsive, 'Fullpage responsive mode');
             },
             afterResize: () => {
                 // console.log("After resize");
@@ -117,20 +118,6 @@ export class MainPageComponent implements OnInit, AfterViewInit {
 
     }
 
-    fullpageMinHeight() {
-        return this.fullpageMediaQueryService.windowHeightMath(window.innerWidth);
-    }
-
-    handleChangeToDesctop(match: boolean) {
-        setTimeout(() => {
-            if (match) {
-                this.desctopMediaQuery = true;
-            } else {
-                this.desctopMediaQuery = false;
-            }
-        }, 0);
-    }
-
 
     handleChangeToTablet(match: boolean) {
         setTimeout(() => {
@@ -155,13 +142,15 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     }
 
     fadeInMainSection() {
-        const tl = gsap.timeline()
+        const tl = gsap.timeline({id: 'fadeInMainSection'})
             .add(fadeInMainSection(this.mainTitle, this.mainBtn, this.mouse));
+        // GSDevTools.create({animation: tl, container: '#fadeInMainSection'});
     }
 
     fadeOutMainSection() {
-        const tl = gsap.timeline()
+        const tl = gsap.timeline({id: 'fadeOutMainSection'})
             .add(fadeOutMainSection(this.mainTitle, this.mainBtn, this.mouse));
+        // GSDevTools.create({animation: tl, container: '#fadeInMainSection'});
     }
 
 

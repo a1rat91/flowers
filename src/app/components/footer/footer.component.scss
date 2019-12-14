@@ -49,9 +49,11 @@
   
   @media all and (max-width: $screen-lg){
     padding-bottom: 40px;
+    padding-top: 40px;
     
     &__list {
       flex-direction: column;
+      margin-bottom: 30px;
     }
     
     &__item {
@@ -59,5 +61,11 @@
       margin-left: 0;
       margin-right: 0;
     }
+  }
+
+  @media all and (max-width: $screen-md) {
+    margin: 0 16px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }

@@ -11,14 +11,15 @@ import {
     ViewChildren
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { gsap } from 'gsap';
+import { gsap, Power1, Expo } from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+const gsapWithScrollToPlugin = gsap.registerPlugin(ScrollToPlugin) || gsap;
 import {catalogNextPageTransition, sliderProgrees} from './catalog.animation';
 import {gsapAnimationDebugTools} from '../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools';
-import {Power1} from 'gsap';
 import {DOCUMENT} from '@angular/common';
 import {GridToFullscreenEffect as GridToFullscreenEffect} from '../../../assets/js/GridToFullscreenEffect.js';
 import {LoaderService} from '../loader/loader.service';
-import {FadeService} from "../../services/fade.service";
+import {FadeService} from '../../services/fade.service';
 declare var imagesLoaded: any;
 
 @Component({
@@ -179,7 +180,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     customProgressBar(current: number, total: number) {
         const ratio: number = (current / total) * 100;
 
-        current === total ? this.isPaginationDisable = true : this.isPaginationDisable = false;
+        total === 1 ? this.isPaginationDisable = true : this.isPaginationDisable = false;
 
         setTimeout(() => {
             this.curentProgress = current;
@@ -191,10 +192,11 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
 
     nextPage(id) {
         this.fadeService.changeSectionState(true);
-        const tl = gsap.timeline()
+        let tl = gsap.timeline()
+            .to(window, {duration: 0.5, scrollTo: '#js-catalog', ease: Expo.easeInOut})
             .add(catalogNextPageTransition(this.catalogTitle, this.catalogTransitionCurtain))
             .add(() => this.ngZone.run(() => {
-                this.router.navigate([`/post/${ id }`], { queryParams: { loader: false } });
+                // this.router.navigate([`/post/${ id }`], { queryParams: { loader: false } });
                 // this.loaderService.changeLoaderState(false);
 
             }));

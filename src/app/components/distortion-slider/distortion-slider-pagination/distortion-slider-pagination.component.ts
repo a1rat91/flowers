@@ -62,7 +62,7 @@ export class DistortionSliderPaginationComponent implements OnInit, OnChanges {
 
     customProgressBar(current: number, total: number) {
         const ratio: number = (current / total) * 100;
-        current === total ? this.isPaginationDisable = true : this.isPaginationDisable = false;
+        total === 1 ? this.isPaginationDisable = true : this.isPaginationDisable = false;
 
         setTimeout(() => {
             this.curentProgress = current;

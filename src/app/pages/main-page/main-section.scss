@@ -45,8 +45,13 @@
     }
   }
   
-  @media all and (max-width: $screen-lg){
+  @media all and (max-width: $screen-lg - 1){
     padding-bottom: 180px;
+    height: 100vh;
+
+    &:after {
+      display: none;
+    }
     
     &__title {
       font-size: 70px;
@@ -69,7 +74,7 @@
     }
   }
   
-  @media all and (max-width: $screen-sm) {
+  @media all and (max-width: $screen-sm - 1) {
   
     padding-bottom: 100px;
     

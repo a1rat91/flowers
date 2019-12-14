@@ -135,6 +135,14 @@
 			width: 100%;
 			z-index: 100;
 			margin-top: 0;
+
+			.catalog-item:hover & {
+				opacity: 0;
+			}
+		}
+
+		&__title {
+			font-size: 14px;
 		}
 	}
 	

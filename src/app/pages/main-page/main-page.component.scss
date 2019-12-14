@@ -23,4 +23,19 @@
 		min-height: 100vh;
 		width: 100%;
 	}
+
+	&__soc-xs {
+		display: none;
+	}
+
+	@media all and (max-width: $screen-lg) {
+
+		&__soc-xs {
+			display: block;
+		}
+
+		&__soc-xl {
+			display: none;
+		}
+	}
 }

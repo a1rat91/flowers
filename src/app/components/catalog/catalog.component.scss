@@ -2,155 +2,165 @@
 @import "../../../assets/style/base/variables";
 
 .catalog-transition {
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  
-  span {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    background: $body-bg;
-  }
+	position: absolute;
+	z-index: -1;
+	top: 0;
+
+	span {
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+		background: $body-bg;
+	}
+
+	@media all and (max-width: $screen-lg - 1) {
+		top: -80px;
+	}
+
+	@media all and (max-width: $screen-md) {
+		top: -50px;
+	}
 }
 
 .catalog {
-  padding-top: 70px;
-  position: relative;
-  transition: .5s;
-  
-  &.go-to-next-page {
-    padding-top: 0;
-  }
-  
-  .hide-items {
-    overflow: auto !important;
-  }
-  
-  &__shadow {
-    @include title($fsz: 200px, $ls: 0.02em, $lh: 1, $fw: 700);
-    opacity: .03;
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-  }
-  
-  &__container {
-    width: 100%;
-    max-width: 1700px;
-    margin: 0 auto;
-    padding-left: 100px;
-    padding-right: 100px;
-    transition: .5s;
-    
-    .go-to-next-page & {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-  
-  &__button-next {
-    transform: translateX(33px);
-    margin-right: calc(100% / 10);
-  }
-  
-  &__button-prev {
-    transform: translateX(-33px);
-    margin-left: calc(100% / 10);
-  }
+	padding-top: 65px;
+	position: relative;
+	transition: .5s;
 
-  &__pagination {
-    &.disable {
-      display: none;
-    }
-  }
+	&.go-to-next-page {
+		padding-top: 0;
+	}
 
-  &__progressbar {
-    height: 2px;
-    width: 100%;
-    display: block;
-    background: rgba(#fff, .5);
-    position: relative;
-    margin-top: 23px;
+	.hide-items {
+		overflow: auto !important;
+	}
 
-    span {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 2px;
-      background: #fff;
-      display: block;
-    }
-  }
-  
-  @media all and (max-width: $screen-xxl) {
-    &__container {
-      max-width: 1430px;
-    }
-    
-    &__shadow {
-      font-size: 150px;
-    }
-  }
-  
-  @media all and (max-width: 1400px) {
-    &__container {
-      max-width: 1150px;
-      margin: 0 auto;
-    }
-  }
-  
-  @media all and (max-width: $screen-xl) {
-    &__shadow {
-      font-size: 120px;
-    }
-  }
-  
-  @media all and (max-width: $screen-lg) {
-    
-    &__shadow {
-      display: none;
-    }
-    
-    &__container {
-      padding-left: 50px;
-      padding-right: 50px;
-      max-width: 768px;
-      margin: 0 auto;
-      
-      .swiper-catalog-progressbar {
-        max-width: 100%;
-      }
-    }
-    
-    &__button-prev,
-    &__button-next {
-      display: none;
-    }
-  }
-  
-  @media all and (max-width: $screen-md) {
-    padding-top: 20px;
-    
-    &__container {
-      padding-left: 30px;
-      padding-right: 30px;
-      max-width: 550px;
-    }
-  }
-  
-  @media all and (max-width: 540px) {
-    &__container {
-      max-width: 350px;
-    }
-  }
-  
-  @media all and (max-width: 400px) {
-    &__container {
-      max-width: 280px;
-    }
-  }
+	&__shadow {
+		@include title($fsz: 200px, $ls: 0.02em, $lh: 1, $fw: 700);
+		opacity: .03;
+		position: absolute;
+		top: -20px;
+		left: 50%;
+		transform: translateX(-50%);
+		white-space: nowrap;
+	}
+
+	&__container {
+		width: 100%;
+		max-width: 1700px;
+		margin: 0 auto;
+		padding-left: 100px;
+		padding-right: 100px;
+		transition: .5s;
+
+		.go-to-next-page & {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
+	&__button-next {
+		transform: translateX(33px);
+		margin-right: calc(100% / 10);
+	}
+
+	&__button-prev {
+		transform: translateX(-33px);
+		margin-left: calc(100% / 10);
+	}
+
+	&__pagination {
+		margin-top: 20px;
+
+		&.disable {
+			display: none;
+		}
+	}
+
+	&__progressbar {
+		height: 2px;
+		width: 100%;
+		display: block;
+		background: rgba(#fff, .5);
+		position: relative;
+		margin-top: 23px;
+
+		span {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 2px;
+			background: #fff;
+			display: block;
+		}
+	}
+
+	@media all and (max-width: $screen-xxl) {
+		&__container {
+			max-width: 1430px;
+		}
+
+		&__shadow {
+			font-size: 150px;
+		}
+	}
+
+	@media all and (max-width: 1400px) {
+		&__container {
+			max-width: 1150px;
+			margin: 0 auto;
+		}
+	}
+
+	@media all and (max-width: $screen-xl) {
+		&__shadow {
+			font-size: 120px;
+		}
+	}
+
+	@media all and (max-width: $screen-lg - 1) {
+
+		&__shadow {
+			display: none;
+		}
+
+		&__container {
+			padding-left: 50px;
+			padding-right: 50px;
+			max-width: 768px;
+			margin: 0 auto;
+
+			.swiper-catalog-progressbar {
+				max-width: 100%;
+			}
+		}
+
+		&__button-prev,
+		&__button-next {
+			display: none;
+		}
+	}
+
+	@media all and (max-width: $screen-md - 1) {
+		padding-top: 20px;
+
+		&__container {
+			padding-left: 10px;
+			padding-right: 10px;
+			max-width: 550px;
+		}
+	}
+
+	@media all and (max-width: 540px) {
+		&__container {
+			max-width: 350px;
+		}
+	}
+
+	@media all and (max-width: 400px) {
+		&__container {
+			max-width: 280px;
+		}
+	}
 }

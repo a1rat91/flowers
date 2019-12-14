@@ -3,14 +3,9 @@
 <div class="main-page">
 	<div class="main-page__container">
 		<div class="main-page__inner">
-			<div media-query-watcher
-			     query="(min-width: 992px)"
-			     (mediaMatchChanged)="handleChangeToDesctop($event)">
-				<div *ngIf="desctopMediaQuery">
-					<app-soc></app-soc>
-				</div>
+			<div class="main-page__soc-xl">
+				<app-soc></app-soc>
 			</div>
-			
 			<app-next-section-link></app-next-section-link>
 		</div>
 	</div>
@@ -35,12 +30,8 @@
 				</div>
 				<button class="btn main-section__btn" #mainBtn>Cмотреть работы</button>
 				
-				<div media-query-watcher
-				     query="(max-width: 992px)"
-				     (mediaMatchChanged)="handleChangeToTablet($event)">
-					<div *ngIf="tabletMediaQuery">
-						<app-soc></app-soc>
-					</div>
+				<div class="main-page__soc-xs">
+					<app-soc></app-soc>
 				</div>
 				
 				<div class="main-section__mouse" #mouse>
@@ -49,18 +40,18 @@
 			</div>
 		</div>
 		
-		<div class="section fp-auto-height-responsive">
+		<div class="section is-catalog fp-auto-height-responsive" id="js-catalog">
 			<div class="section__title text-center">
 				Каталог услуг
 			</div>
 			<app-catalog *ngIf="posts$ | async as posts; else loading" [posts]="posts"></app-catalog>
 			
 			<ng-template #loading>
-				<p>Загрузка...</p>
+				<app-loader></app-loader>
 			</ng-template>
 		</div>
 		
-		<div class="section fp-auto-height-responsive">
+		<div class="section is-actions fp-auto-height-responsive">
 			<app-actions></app-actions>
 		</div>
 		

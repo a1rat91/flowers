@@ -27,7 +27,7 @@
 
   &__item-wrap {
     overflow: hidden;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     position: relative;
 
     &:last-child {
@@ -48,7 +48,7 @@
     
     a {
       @include title(
-        $fsz: 35px,
+        $fsz: 30px,
         $color: rgba($white, .5)
       );
       transition: .5s;
@@ -61,11 +61,16 @@
   }
   
   @media all and (max-width: $screen-sm) {
+
+    &__item-wrap {
+      margin-bottom: 25px;
+    }
+
     &__item {
       a {
         display: block;
         font-size: 20px;
-        max-width: 165px;
+        max-width: 220px;
         text-align: center;
         margin: 0 auto;
       }

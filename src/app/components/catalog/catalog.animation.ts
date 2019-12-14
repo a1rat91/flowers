@@ -2,6 +2,7 @@ import { gsap, Expo } from 'gsap';
 
 export function catalogNextPageTransition(title, curtain) {
 
+
     const catalogCurtainConfig = { duration: 2, width: '100%', delay: 1, ease: Expo.easeInOut};
 
     return gsap.timeline()

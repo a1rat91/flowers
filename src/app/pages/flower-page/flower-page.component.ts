@@ -89,27 +89,29 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
     get titleEl() {
         return this._titleEl.nativeElement;
     }
+
     get textEl() {
         return this._textEl.nativeElement;
     }
+
     get btnEl() {
         return this._btnEl.nativeElement;
     }
+
     get paginationEl() {
         return this._paginationEl.nativeElement;
     }
+
     get footerEl() {
         return this._footerEl.nativeElement;
     }
 
     fadeInFlowerPage(event) {
         if (event === 'loaded') {
-            const tl =  gsap.timeline({id: 'fadeInFlowerPage'})
+            const tl = gsap.timeline({id: 'fadeInFlowerPage'})
                 .add(fadeInFlowerPage(this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl));
 
-            setTimeout(() => {
-                GSDevTools.create({animation: tl, container: '#fadeInFlowerPage'});
-            }, 100);
+            GSDevTools.create({animation: tl, container: '#fadeInFlowerPage'});
         }
     }
 

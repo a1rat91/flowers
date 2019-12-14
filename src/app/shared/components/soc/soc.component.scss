@@ -27,14 +27,15 @@
 		}
 		
 		&__item {
-			width: 54px;
-			height: 54px;
+			width: 45px;
+			height: 45px;
 			border-radius: 50%;
 			background: $body-bg;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			margin: 0 40px;
+			margin: 0 20px;
+			position: relative;
 			
 			&:first-child {
 				margin-left: 0;
@@ -43,9 +44,19 @@
 				margin-right: 0;
 			}
 		}
+
+		&__link {
+			max-width: 15px;
+
+			img {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+		}
 	}
 	
-	@media all and (max-width: $screen-md) {
+	@media all and (max-width: $screen-md - 1) {
 		bottom: 100px;
 		
 		&__item {
@@ -64,7 +75,7 @@
 		}
 	}
 	
-	@media all and (max-width: $screen-sm) {
+	@media all and (max-width: $screen-sm - 1) {
 	
 	}
 }
