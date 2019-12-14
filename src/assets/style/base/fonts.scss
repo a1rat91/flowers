@@ -1,5 +1,7 @@
 //TODO Почистить перед продакшеном
 
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700&display=swap&subset=cyrillic');
+
 @font-face {
 	font-family: 'SFUIDisplay';
 	src: url("assets/fonts/SFUIDisplay/SFUIDisplay-Light.woff");
@@ -22,19 +24,6 @@
 	font-family: 'SFUIDisplay';
 	src: url("assets/fonts/SFUIDisplay/SFUIDisplay-Bold.woff");
 	src: url("assets/fonts/SFUIDisplay/SFUIDisplay-Bold.woff2");
-	font-weight: 700;
-}
-
-@font-face {
-	font-family: 'PlayfairDisplay';
-	src: url("assets/fonts/PlayfairDisplay/playfairdisplay-regular.woff");
-	src: url("assets/fonts/PlayfairDisplay/playfairdisplay-regular.woff2");
-	font-weight: 400;
-}
-@font-face {
-	font-family: 'PlayfairDisplay';
-	src: url("assets/fonts/PlayfairDisplay/playfairdisplay-bold.woff");
-	src: url("assets/fonts/PlayfairDisplay/playfairdisplay-bold.woff2");
 	font-weight: 700;
 }
 

@@ -11,7 +11,6 @@ export class FadeService {
     }
 
     changeSectionState(sectionState: boolean) {
-        console.log(sectionState, 'sectionState===');
         this.sectionState.next(sectionState);
     }
 

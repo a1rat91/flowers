@@ -1,5 +1,10 @@
 @import "variables";
 
+html,
+body {
+	overflow-x: hidden!important;
+}
+
 body {
 	font-family: $font-family;
 	font-size: $font-size;

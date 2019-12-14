@@ -11,11 +11,11 @@ import {
     ViewChildren
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { gsap, Power1, Expo } from 'gsap';
+import { EaselPlugin, gsap } from 'gsap/all';
+gsap.registerPlugin(EaselPlugin);
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-const gsapWithScrollToPlugin = gsap.registerPlugin(ScrollToPlugin) || gsap;
+const gsapWithScrollToPlugin = gsap.registerPlugin(ScrollToPlugin);
 import {catalogNextPageTransition, sliderProgrees} from './catalog.animation';
-import {gsapAnimationDebugTools} from '../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools';
 import {DOCUMENT} from '@angular/common';
 import {GridToFullscreenEffect as GridToFullscreenEffect} from '../../../assets/js/GridToFullscreenEffect.js';
 import {LoaderService} from '../loader/loader.service';
@@ -143,8 +143,8 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
             },
             seed: 800,
             easings: {
-                toFullscreen: Power1.easeOut,
-                toGrid: Power1.easeInOut
+                toFullscreen: 'power1',
+                toGrid: 'power1'
             }
         });
         transitionEffect.init();
@@ -193,10 +193,10 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     nextPage(id) {
         this.fadeService.changeSectionState(true);
         let tl = gsap.timeline()
-            .to(window, {duration: 0.5, scrollTo: '#js-catalog', ease: Expo.easeInOut})
+            .to(window, {duration: 0.5, scrollTo: '#js-catalog', ease: 'Expo.inOut'})
             .add(catalogNextPageTransition(this.catalogTitle, this.catalogTransitionCurtain))
             .add(() => this.ngZone.run(() => {
-                // this.router.navigate([`/post/${ id }`], { queryParams: { loader: false } });
+                this.router.navigate([`/post/${ id }`], { queryParams: { loader: false } });
                 // this.loaderService.changeLoaderState(false);
 
             }));

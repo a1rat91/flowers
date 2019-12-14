@@ -4,9 +4,9 @@
 	<div class="main-page__container">
 		<div class="main-page__inner">
 			<div class="main-page__soc-xl">
-				<app-soc></app-soc>
+				<app-soc [receiveSocState]="sectionState"></app-soc>
 			</div>
-			<app-next-section-link></app-next-section-link>
+			<app-next-section-link [receiveNextSectionLinkState]="sectionState"></app-next-section-link>
 		</div>
 	</div>
 	

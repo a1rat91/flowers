@@ -6,14 +6,12 @@ import {NavigationService} from '../../services/navigation.service';
 import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
 import {Observable} from 'rxjs';
-import { gsap } from 'gsap';
+import { EaselPlugin, gsap } from 'gsap/all';
+gsap.registerPlugin(EaselPlugin);
 import {
     fadeInNavigation,
     fadeOutNavigation
 } from './navigation.animation';
-
-// TODO: For animation debug
-import {gsapAnimationDebugTools as gsapAnimationDebugTools} from '../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools';
 import {LoaderService} from '../loader/loader.service';
 
 

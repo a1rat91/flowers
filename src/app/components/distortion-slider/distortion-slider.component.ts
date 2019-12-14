@@ -9,7 +9,8 @@ import {vertex as vertex} from './shader';
 import {fragment as fragment} from './shader';
 import {mod} from './utils';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
-import {gsap, Expo} from 'gsap';
+import { EaselPlugin, gsap } from 'gsap/all';
+gsap.registerPlugin(EaselPlugin);
 
 
 
@@ -55,7 +56,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
         this.intensity = 0.2;
         this.speedIn = 1;
         this.speedOut = 1;
-        this.ease = 'Expo.easeOut';
+        this.ease = 'expo';
         this.preserveAspectRatio = true;
         this.interactionVelocity = {
             x: 7,
@@ -285,7 +286,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
             this.onLoadEnd.emit('loaded');
 
             gsap.timeline()
-                .to(this.distortionSliderCurtain.nativeElement, 2, {x: '100%', ease: Expo.easeOut });
+                .to(this.distortionSliderCurtain.nativeElement, 2, {x: '100%', ease: 'expo' });
 
             this.render();
         });

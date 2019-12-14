@@ -16,13 +16,14 @@ import {Observable, Subscribable, Subscription} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
 import {LoaderService} from '../../components/loader/loader.service';
-import {gsap} from 'gsap';
+import { EaselPlugin, gsap } from 'gsap/all';
+gsap.registerPlugin(EaselPlugin);
 import {fadeInMainSection} from '../main-page/main-page.animation';
 import {fadeInFlowerPage} from './flower-page.animation';
-import {gsapAnimationDebugTools} from '../../../assets/js/gsap-animation-debug-tools/gsap-animation-debug-tools';
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
-const gsapWithGSDevTools = gsap.registerPlugin(GSDevTools) || gsap;
+// const gsapWithGSDevTools = gsap.registerPlugin(GSDevTools);
 import {DOCUMENT} from '@angular/common';
+import {FadeService} from "../../services/fade.service";
 
 
 @Component({
@@ -43,11 +44,13 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
     @ViewChild('footerEl', {static: true}) private _footerEl: ElementRef;
     isFirstTimeCalled: boolean;
     private routeSubscription: Subscription;
+    sectionState;
 
     constructor(private route: ActivatedRoute,
                 private postsService: PostsService,
                 private distortionSliderService: DistortionSliderService,
                 private loaderService: LoaderService,
+                private fadeService: FadeService,
                 @Inject(DOCUMENT) private document: Document) {
 
         this.isFirstTimeCalled = true;
@@ -69,6 +72,7 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
 
         this.distortionSliderService.currentIndex.subscribe(slideIndex => this.slideIndex = slideIndex);
         this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader);
+        this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState);
         this.document.body.classList.remove('hidden');
     }
 
@@ -111,8 +115,9 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
             const tl = gsap.timeline({id: 'fadeInFlowerPage'})
                 .add(fadeInFlowerPage(this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl));
 
-            GSDevTools.create({animation: tl, container: '#fadeInFlowerPage'});
+            // GSDevTools.create({animation: tl, container: '#fadeInFlowerPage'});
         }
+        this.fadeService.changeSectionState(false);
     }
 
 }

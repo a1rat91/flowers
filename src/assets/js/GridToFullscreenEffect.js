@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {gsap, Power0} from 'gsap';
+import {gsap, Power0} from 'gsap/all';
 
 export class GridToFullscreenEffect {
     /**
@@ -35,8 +35,8 @@ export class GridToFullscreenEffect {
 
         options.easings = options.easings || {};
         options.easings.toFullscreen =
-            options.easings.toFullscreen || Power0.easeNone;
-        options.easings.toGrid = options.easings.toGrid || Power0.easeNone;
+            options.easings.toFullscreen || 'power0';
+        options.easings.toGrid = options.easings.toGrid || 'power0';
 
         options.flipBeizerControls = options.flipBeizerControls || {};
 

@@ -12,10 +12,11 @@ import {
 import {NavigationService} from '../../services/navigation.service';
 import {DOCUMENT} from '@angular/common';
 import {LoaderService} from '../loader/loader.service';
-import {gsap} from 'gsap';
-import {fadeInHeader} from './header.animation';
+import { EaselPlugin, gsap } from 'gsap/all';
+gsap.registerPlugin(EaselPlugin);
+import {fadeInHeader, fadeOutHeader} from './header.animation';
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
-import {FadeService} from "../../services/fade.service";
+import {FadeService} from '../../services/fade.service';
 
 @Component({
     selector: 'app-header',
@@ -48,12 +49,16 @@ export class HeaderComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.nav.currentNavigationState.subscribe(navigation => this.navigation = navigation);
         this.nav.currentBurgerState.subscribe(burger => this.burger = burger);
-        this.fadeInHeader();
         this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState);
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         console.log(this.receiveHeaderState, 'receiveHeaderState');
+        if (this.receiveHeaderState) {
+            this.fadeOutHeader();
+        } else {
+            this.fadeInHeader();
+        }
     }
 
     openNav() {
@@ -73,6 +78,12 @@ export class HeaderComponent implements OnInit, OnChanges {
     fadeInHeader() {
         const tl =  gsap.timeline()
             .add(fadeInHeader(this.logoEl, this.burgerEl));
+        // GSDevTools.create();
+    }
+
+    fadeOutHeader() {
+        const tl =  gsap.timeline()
+            .add(fadeOutHeader(this.logoEl, this.burgerEl));
         // GSDevTools.create();
     }
 
