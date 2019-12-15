@@ -47,7 +47,6 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     @ViewChild('mouse', {static: true}) private _mouse: ElementRef;
     loader: boolean;
     desctopMediaQuery;
-    tabletMediaQuery;
     sectionState: boolean;
 
     constructor(private navigationService: NavigationService,
@@ -55,8 +54,9 @@ export class MainPageComponent implements OnInit, AfterViewInit {
                 private loaderService: LoaderService,
                 private fadeService: FadeService) {
 
-        this.desctopMediaQuery = false;
-        this.tabletMediaQuery = false;
+        this.isDesctop();
+
+        window.addEventListener('resize', () => this.isDesctop());
 
         this.config = {
             licenseKey: environment.fullpage.apiKey,
@@ -111,13 +111,6 @@ export class MainPageComponent implements OnInit, AfterViewInit {
 
     }
 
-
-    handleChangeToTablet(match: boolean) {
-        setTimeout(() => {
-            match ? this.tabletMediaQuery = true : this.tabletMediaQuery = false;
-        });
-    }
-
     getRef(fullPageRef) {
         this.fullpage_api = fullPageRef;
     }
@@ -146,6 +139,10 @@ export class MainPageComponent implements OnInit, AfterViewInit {
         const tl = gsap.timeline({id: 'fadeOutMainSection'})
             .add(fadeOutMainSection(this.mainTitle, this.mainBtn, this.mouse));
         // GSDevTools.create({animation: tl, container: '#fadeOutMainSection'});
+    }
+
+    isDesctop() {
+        (window.innerWidth >= 992) ? this.desctopMediaQuery = true : this.desctopMediaQuery = false;
     }
 
 

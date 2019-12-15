@@ -16,6 +16,7 @@
 			
 			<div class="main-section__bg">
 				<app-fake3d
+					*ngIf="desctopMediaQuery"
 					[image]="'assets/images/main.jpg'"
 					[depf]="'assets/images/main-map.jpg'"
 					[horizontalThreshold]="35"
