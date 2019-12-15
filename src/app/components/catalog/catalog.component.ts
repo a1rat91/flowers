@@ -11,10 +11,12 @@ import {
     ViewChildren
 } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { EaselPlugin, gsap } from 'gsap/all';
 gsap.registerPlugin(EaselPlugin);
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 const gsapWithScrollToPlugin = gsap.registerPlugin(ScrollToPlugin);
+
 import {catalogNextPageTransition, sliderProgrees} from './catalog.animation';
 import {DOCUMENT} from '@angular/common';
 import {GridToFullscreenEffect as GridToFullscreenEffect} from '../../../assets/js/GridToFullscreenEffect.js';
@@ -38,6 +40,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     @ViewChildren('thumbsItems') private _thumbsItems: QueryList<ElementRef>;
     @ViewChildren('fullviewItems') private _fullviewItems: QueryList<ElementRef>;
     @ViewChildren('wrapper') private _wrapper: QueryList<ElementRef>;
+    @ViewChildren('catalogItemBtns') private _catalogItemBtns: QueryList<ElementRef>;
     @ViewChild('catalogTransition', {static: true}) private _catalogTransition: ElementRef;
     @ViewChild('catalogTransitionCurtain', {static: true}) private _catalogTransitionCurtain: ElementRef;
     @ViewChild('catalogProgressbar', {static : true}) private _catalogProgressbar: ElementRef;
@@ -70,6 +73,9 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     }
     get wrappers() {
         return this._wrapper.map((element) => element.nativeElement);
+    }
+    get catalogItemBtns() {
+        return this._catalogItemBtns.map((element) => element.nativeElement);
     }
     get catalogTransition() {
         return this._catalogTransition.nativeElement;
@@ -225,6 +231,17 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
         );
 
         return transitionEffect;
+    }
+
+    enter(event, index) {
+        // gsap.timeline()
+        //     .to(this.catalogItemBtns[index].parentNode.childNodes[0], {duration: 0.8, delay: 0.3, x: '100%', ease: 'expo'});
+    }
+
+    leave(event, index) {
+        // console.log('leave', event);
+        // gsap.timeline()
+        //     .to(this.catalogItemBtns[index].parentNode.childNodes[0], {duration: 0.5, x: '-100%', ease: 'expo'});
     }
 
 }

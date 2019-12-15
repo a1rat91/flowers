@@ -46,7 +46,7 @@
 		z-index: 100;
 	}
 	
-	@media all and (max-width: $screen-lg) {
+	@media all and (max-width: $screen-lg - 1) {
 		height: 112px;
 		
 		&__inner {
@@ -54,7 +54,7 @@
 		}
 	}
 	
-	@media all and (max-width: $screen-md -1) {
+	@media all and (max-width: $screen-md - 1) {
 		
 		&__inner {
 			padding: 35px 16px 0;

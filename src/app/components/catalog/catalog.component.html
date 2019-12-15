@@ -1,47 +1,53 @@
 <div class="catalog-transition" #catalogTransition>
-  <span #catalogTransitionCurtain></span>
+	<span #catalogTransitionCurtain></span>
 </div>
-<div class="catalog" #catalog >
+<div class="catalog" #catalog>
 	<div class="catalog__shadow" #catalogTitle>
 		каталог услуг
 	</div>
-
+	
 	<div class="catalog__container">
 		<div class="swiper-container" [swiper]="config">
-			<div class="swiper-wrapper" >
+			<div class="swiper-wrapper">
 				<div class="swiper-slide" *ngFor="let post of posts; let i = index" style="position: relative;">
-
-					<div class="catalog-item">
+					
+					<div class="catalog-item" (mouseenter)="enter($event, i)" (mouseleave)="leave($event, i)">
 						<div class="catalog-item__index-wrap">
 							<div class="catalog-item__index">
 								0{{i + 1 }}
 							</div>
 						</div>
-
+						
 						<div class="catalog-item__pic">
 							<div #wrapper>
 								<figure>
-									<img class="grid__item-img catalog-item__img" [src]="post.catalogImg[0]" crossorigin = "anonymous"/>
-									<img class="grid__item-img grid__item-img--large" style="display: none;" #thumbsItems [src]="post.catalogTransitionImg[0]" crossorigin = "anonymous"/>
+									<img class="grid__item-img catalog-item__img" [src]="post.catalogImg[0]" crossorigin="anonymous"/>
+									<img class="grid__item-img grid__item-img--large" style="display: none;" #thumbsItems
+									     [src]="post.catalogTransitionImg[0]" crossorigin="anonymous"/>
 								</figure>
 							</div>
 						</div>
 						<div class="catalog-item__heading">
-
+							
 							<div class="catalog-item__title">
 								{{post.title}}
 							</div>
-
-							<button (click)="nextPage(post.id)"
-									class="btn btn-dark catalog-item__btn">
-								смотреть работы
-							</button>
-
-
+							
+							<div class="catalog-item__btn-wrap">
+								<div class="catalog-item__btn-curtain"></div>
+								<button (click)="nextPage(post.id)"
+				        #catalogItemBtns
+								        class="btn btn-dark catalog-item__btn">
+									смотреть работы
+								</button>
+							</div>
+							
+							
+							
 							<div class="fullview">
 								<div class="fullview__item" #fullviewItems></div>
 							</div>
-
+						
 						</div>
 					</div>
 				</div>
@@ -50,7 +56,7 @@
 		<div class="swiper-button-prev catalog__button-prev"></div>
 		<div class="swiper-button-next catalog__button-next"></div>
 	</div>
-
+	
 	<div class="catalog__container">
 		<div class="slider__pagination catalog__pagination" [ngClass]="{'disable' : isPaginationDisable}">
 			<div class="slider__active-index">
