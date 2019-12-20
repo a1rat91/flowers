@@ -8,7 +8,7 @@
 						<div class="distortion-slider-pagination__right">
 							<div class="distortion-slider-pagination__pic">
 								<a (click)="setActiveSlide(i)">
-									<img [src]="postImage" alt="" class="distortion-slider-pagination__img img-responsive">
+									<img [src]="postImage" [lazyLoad]="postImage" alt="" class="distortion-slider-pagination__img img-responsive">
 								</a>
 							</div>
 						</div>

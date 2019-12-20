@@ -286,7 +286,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
             this.onLoadEnd.emit('loaded');
 
             gsap.timeline()
-                .to(this.distortionSliderCurtain.nativeElement, 2, {x: '100%', ease: 'expo' });
+                .to(this.distortionSliderCurtain.nativeElement, {duration: 1.5, x: '100%', ease: 'expo' });
 
             this.render();
         });

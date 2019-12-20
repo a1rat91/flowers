@@ -53,7 +53,6 @@ export class HeaderComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log(this.receiveHeaderState, 'receiveHeaderState');
         if (this.receiveHeaderState) {
             this.fadeOutHeader();
         } else {

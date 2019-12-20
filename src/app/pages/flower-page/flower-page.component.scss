@@ -4,12 +4,12 @@
 .flower-page {
 	height: 100vh;
 	min-height: 650px;
-	
+
 	&__container {
 		display: flex;
 		height: 100%;
 	}
-	
+
 	&__left,
 	&__right {
 		width: 50%;
@@ -32,7 +32,7 @@
 			right: -30px;
 		}
 	}
-	
+
 	&__left-inner {
 		overflow: hidden;
 	}
@@ -44,7 +44,7 @@
 		padding: 75px calc(100% / 10) 75px 115px;
 		min-height: 700px;
 	}
-	
+
 	&__left-inner {
 		height: 100%;
 	}
@@ -58,19 +58,19 @@
 
 	&__title,
 	&__text,
-	&__footer,
-    &__btn,
-    &__pagination {
+	&__footer {
 		position: relative;
-		top: 30px;
+		opacity: 0;
+		transform: translate(0px, 10%);
+	}
+
+	&__btn,
+	&__pagination {
+		position: relative;
+		top: 10px;
 		opacity: 0;
 	}
 
-    &__btn,
-    &__pagination {
-      top: 10px;
-    }
-	
 	&__title {
 		margin-bottom: 30px;
 
@@ -78,8 +78,8 @@
 			@include title($fsz: 55px, $lh: 1.2);
 		}
 	}
-	
-	&__text{
+
+	&__text {
 
 		p {
 			max-width: 555px;
@@ -98,17 +98,17 @@
 		bottom: 45px;
 		right: 94px;
 	}
-	
+
 	&__more {
 		color: #fff;
 		position: relative;
 		padding-right: 30px;
 		line-height: 1.5;
-		
+
 		&:hover {
 			text-decoration: none;
 		}
-		
+
 		&:after {
 			content: '';
 			position: absolute;
@@ -122,23 +122,15 @@
 			transform: translateY(-50%);
 		}
 	}
-	
+
 	&__content {
 		margin-top: -18px;
 	}
-	
-	// Ширины
-	//$screen-xs:                   0;
-	//$screen-sm:                   480px;
-	//$screen-md:                   768px;
-	//$screen-lg:                   992px;
-	//$screen-xl:                   1200px;
-	//$screen-xxl:                  1800px;
-	
+
 	@media all and (max-width: 1400px) {
 		&__left {
 			width: 45%;
-			
+
 			&:after {
 				display: none;
 			}
@@ -149,110 +141,103 @@
 			padding-right: 50px;
 		}
 	}
-	
+
 	@media all and (max-width: $screen-xl) {
-		
+
 		&__footer-wrap {
 			right: 80px;
 		}
 	}
-	
+
 	@media all and (max-width: $screen-lg) {
-		
+
 		height: 100%;
 		padding-top: 110px;
-		
+
 		&:after {
 			display: none;
 		}
-		
+
 		&__title {
 			span {
 				font-size: 40px;
 			}
 		}
-		
+
 		&__text p {
 			max-width: 100%;
 			font-size: 20px;
 		}
-		
+
 		&__container {
 			display: flex;
 			flex-direction: column;
 		}
-		
+
 		&__left,
 		&__right {
 			width: 100%;
 		}
-		
+
 		&__left {
 			height: 520px;
 			margin: 0;
 		}
-		
+
 		&__right {
 			padding: 30px 50px 50px;
 			min-height: 100%;
 		}
-		
+
 		&__footer-wrap {
 			position: static;
 		}
-		
+
 		&__content {
 			display: flex;
 			flex-direction: column-reverse;
 			margin-top: 0;
 		}
-		
+
 		&__btn {
 			width: 260px;
 			font-size: 15px;
 			margin-top: 20px;
 			margin-bottom: 50px;
 		}
-		
+
 		&__more {
 			font-size: 18px;
 		}
 	}
-	
+
 	@media all and (max-width: $screen-sm) {
 		padding-top: 64px;
-		
+
 		&__left {
 			height: 340px;
 		}
-		
+
 		&__right {
 			padding: 30px 20px 50px;
 		}
-		
+
 		&__title {
 			margin-bottom: 20px;
-			
+
 			span {
 				font-size: 20px;
 			}
 		}
-		
+
 		&__text p {
 			font-size: 16px;
 		}
-		
+
 		&__more {
 			font-size: 16px;
 		}
 	}
 }
-//
-//$screen-xs:                   0;
-//$screen-sm:                   480px;
-//$screen-md:                   768px;
-//$screen-lg:                   992px;
-//$screen-xl:                   1200px;
-//$screen-xxl:                  1800px;
 
 
