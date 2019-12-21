@@ -8,10 +8,12 @@
 
 	span {
 		position: absolute;
-		left: 0;
+		left: -50%;
 		top: 0;
 		height: 100%;
+		width: 100%;
 		background: $body-bg;
+		will-change: transform;
 	}
 
 	@media all and (max-width: $screen-lg - 1) {

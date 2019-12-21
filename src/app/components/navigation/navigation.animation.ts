@@ -3,8 +3,8 @@ gsap.registerPlugin(EaselPlugin);
 
 export function fadeInNavigation(nav, navItems) {
 
-    const navConfig = { duration: 1, top: '0', ease: 'expo.inOut'};
-    const positionConfig = { duration: 0.5, top: '0', delay: 0.3, stagger: 0.1, ease: 'expo'};
+    const navConfig = { duration: 1, y: 0, ease: 'expo.inOut'};
+    const positionConfig = { duration: 0.5, y: 0, delay: 0.3, stagger: 0.1, ease: 'expo'};
 
     return gsap.timeline()
         .to(nav, navConfig)
@@ -13,8 +13,8 @@ export function fadeInNavigation(nav, navItems) {
 
 export function fadeOutNavigation(nav, navItems) {
 
-    const navConfig = { duration: 1, top: '-130%', ease: 'expo.inOut'};
-    const positionConfig = {duration: 0.5, top: '-150px', delay: 0.3, stagger: 0.1, ease: 'expo'};
+    const navConfig = { duration: 1, y: '-130%', ease: 'expo.inOut'};
+    const positionConfig = {duration: 0.5, y: '-100%', delay: 0.3, stagger: 0.1, ease: 'expo'};
 
     return gsap.timeline()
         .to(navItems, positionConfig)

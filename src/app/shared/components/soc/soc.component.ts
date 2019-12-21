@@ -5,13 +5,13 @@ import {
     OnChanges,
     OnInit,
     QueryList,
-    SimpleChanges,
+    SimpleChanges, ViewChild,
     ViewChildren
 } from '@angular/core';
 import {SocService} from '../../soc.service';
 import {FadeService} from '../../../services/fade.service';
-import {fadeInSoc, fadeOutSoc} from './soc.animation';
-import {gsap} from "gsap/gsap-core";
+import {startSoc, fadeInSoc, fadeOutInSoc, fadeOutSoc} from './soc.animation';
+import {gsap} from 'gsap/all';
 
 @Component({
     selector: 'app-soc',
@@ -21,12 +21,11 @@ import {gsap} from "gsap/gsap-core";
 
 export class SocComponent implements OnInit, OnChanges {
     soc;
-    sectionState: boolean;
+    sectionState: string;
     @Input() receiveSocState;
-    @ViewChildren('socItems') private _socItems: QueryList<ElementRef>;
-
+    @ViewChild('socItems', {static: true}) private _socItems: ElementRef;
     get socItems() {
-        return this._socItems.map((element) => element.nativeElement);
+        return this._socItems.nativeElement;
     }
 
     constructor(public socService: SocService,
@@ -39,11 +38,27 @@ export class SocComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (this.receiveSocState) {
-            this.fadeOutSoc();
-        } else {
-            this.fadeInSoc();
+
+        switch (changes.receiveSocState.currentValue) {
+            case 'fadeInMainPage':
+                this.startSoc();
+                break;
+            case 'fadeOutMainPage':
+                this.fadeOutSoc();
+                break;
+            case 'fadeInFlowerPage':
+                this.fadeInSoc();
+                break;
+            default:
+                this.fadeOutInSoc();
+                break;
         }
+    }
+
+    startSoc() {
+        const tl =  gsap.timeline()
+            .add(startSoc(this.socItems));
+        // GSDevTools.create();
     }
 
     fadeInSoc() {
@@ -55,6 +70,12 @@ export class SocComponent implements OnInit, OnChanges {
     fadeOutSoc() {
         const tl =  gsap.timeline()
             .add(fadeOutSoc(this.socItems));
+        // GSDevTools.create();
+    }
+
+    fadeOutInSoc() {
+        const tl =  gsap.timeline()
+            .add(fadeOutInSoc(this.socItems));
         // GSDevTools.create();
     }
 

@@ -1,7 +1,7 @@
 import {
     AfterViewInit,
     Component,
-    ElementRef,
+    ElementRef, OnDestroy,
     OnInit,
     ViewChild,
     ViewEncapsulation
@@ -19,13 +19,18 @@ import {EaselPlugin, gsap} from 'gsap/all';
 gsap.registerPlugin(EaselPlugin);
 //TODO Удалить GSDevTools
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
-
-const gsapWithGSDevTools = gsap.registerPlugin(GSDevTools);
+gsap.registerPlugin(GSDevTools);
 
 import {
     fadeInMainSection,
     fadeOutMainSection
 } from './main-page.animation';
+import {
+    fadeInCatalogSection,
+    fadeOutCatalogSection
+} from '../../components/catalog/catalog.animation';
+
+
 
 import {FadeService} from '../../services/fade.service';
 import set = Reflect.set;
@@ -36,7 +41,7 @@ import set = Reflect.set;
     styleUrls: ['./main-page.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class MainPageComponent implements OnInit, AfterViewInit {
+export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     config: any;
     fullpage_api: any;
@@ -47,7 +52,7 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     @ViewChild('mouse', {static: true}) private _mouse: ElementRef;
     loader: boolean;
     desctopMediaQuery;
-    sectionState: boolean;
+    sectionState: string;
 
     constructor(private navigationService: NavigationService,
                 private postsService: PostsService,
@@ -71,13 +76,20 @@ export class MainPageComponent implements OnInit, AfterViewInit {
                 // console.log("After resize");
             },
             onLeave: (origin, destination, direction) => {
-                console.group('animationReset', [origin, destination, direction]);
-
+                // console.log(origin, destination, direction, 'onLeave');
                 if (origin.index === 0 && direction === 'down') {
                     // Если не первая секция, не отыгрываем анимацию
+                    this.fadeService.changeSectionState('fadeOutMainSection');
                     this.fadeOutMainSection();
                 } else if (origin.index === 1 && direction === 'up') {
+                    this.fadeService.changeSectionState('fadeInMainSection');
                     this.fadeInMainSection();
+                } else if (origin.index === 1 && direction === 'down') {
+                    this.fadeService.changeSectionState('fadeOutCatalogSection');
+                    this.fadeOutCatalogSection();
+                } else if (origin.index === 2 && direction === 'up') {
+                    this.fadeService.changeSectionState('fadeInCatalogSection');
+                    this.fadeInCatalogSection();
                 }
             },
             afterLoad: (origin, destination, direction) => {
@@ -87,6 +99,7 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+
         this.navigationService.currentNavigationState.subscribe(navigation => this.navigation = navigation);
         this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState);
 
@@ -98,8 +111,10 @@ export class MainPageComponent implements OnInit, AfterViewInit {
         this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader);
         window.addEventListener('load', () => {
             this.loaderService.changeLoaderState(false);
+            this.fadeService.changeSectionState('fadeInMainPage');
             this.fadeInMainSection();
         });
+        this.fadeService.changeSectionState('fadeInMainPage');
         this.navigationService.currentNavigationState.subscribe(navigation => {
             // this.fullpage_api.setAutoScrolling(true);
             if (!this.navigation) {
@@ -109,6 +124,11 @@ export class MainPageComponent implements OnInit, AfterViewInit {
             return this.navigation = navigation;
         });
 
+        this.fullpage_api.setScrollingSpeed(1200);
+
+    }
+
+    ngOnDestroy(): void {
     }
 
     getRef(fullPageRef) {
@@ -128,18 +148,25 @@ export class MainPageComponent implements OnInit, AfterViewInit {
     }
 
     fadeInMainSection() {
-        this.fadeService.changeSectionState(false);
         const tl = gsap.timeline({id: 'fadeInMainSection'})
             .add(fadeInMainSection(this.mainTitle, this.mainBtn, this.mouse));
-        GSDevTools.create({animation: tl, container: '#fadeInMainSection'});
     }
 
     fadeOutMainSection() {
-        this.fadeService.changeSectionState(true);
         const tl = gsap.timeline({id: 'fadeOutMainSection'})
             .add(fadeOutMainSection(this.mainTitle, this.mainBtn, this.mouse));
-        // GSDevTools.create({animation: tl, container: '#fadeOutMainSection'});
     }
+
+    fadeInCatalogSection() {
+        const tl = gsap.timeline({id: 'fadeInCatalogSection'})
+            .add(fadeInCatalogSection());
+    }
+
+    fadeOutCatalogSection() {
+        const tl = gsap.timeline({id: 'fadeOutCatalogSection'})
+            .add(fadeOutCatalogSection());
+    }
+
 
     isDesctop() {
         (window.innerWidth >= 992) ? this.desctopMediaQuery = true : this.desctopMediaQuery = false;

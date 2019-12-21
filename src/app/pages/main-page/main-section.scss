@@ -33,6 +33,7 @@
     max-width: 940px;
     margin: 60px auto 35px;
     opacity: 1;
+    will-change: transform;
   }
   
   &__btn {
@@ -40,6 +41,7 @@
     max-width: 210px;
     padding: 0 30px;
     margin: 0 auto;
+    will-change: transform;
   }
   
   &__mouse {
@@ -47,6 +49,7 @@
     bottom: 80px;
     left: 50%;
     transform: translateX(-50%) translateY(0);
+    will-change: transform;
   }
   
   @media all and (max-width: $screen-xl){

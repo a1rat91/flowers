@@ -1,4 +1,4 @@
-<div class="navigation" #navigation style="top: -100%;">
+<div class="navigation" #navigation style="transform: translateY(-130%)">
 	<app-navigation-logo routerLink="/" (click)="closeNav()"></app-navigation-logo>
 	<div *ngIf="posts$ | async as posts; else loading">
 		<nav class="navigation__menu">

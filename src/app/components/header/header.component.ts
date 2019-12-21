@@ -1,11 +1,11 @@
 import {
     Component,
     ElementRef,
-    EventEmitter,
-    Inject, Input,
+    Inject,
+    Input,
     OnChanges,
     OnInit,
-    Output, SimpleChanges,
+    SimpleChanges,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -14,8 +14,9 @@ import {DOCUMENT} from '@angular/common';
 import {LoaderService} from '../loader/loader.service';
 import { EaselPlugin, gsap } from 'gsap/all';
 gsap.registerPlugin(EaselPlugin);
-import {fadeInHeader, fadeOutHeader} from './header.animation';
+import {startHeader, fadeInHeader, fadeOutHeader, fadeOutInHeader} from './header.animation';
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
+gsap.registerPlugin(GSDevTools);
 import {FadeService} from '../../services/fade.service';
 
 @Component({
@@ -30,7 +31,7 @@ export class HeaderComponent implements OnInit, OnChanges {
     burger: boolean;
     @ViewChild('logoEl', {static: true}) private _logoEl: ElementRef;
     @ViewChild('burgerEl', {static: true}) private _burgerEl: ElementRef;
-    sectionState: boolean;
+    sectionState: string;
     @Input() receiveHeaderState;
 
     get logoEl() {
@@ -53,10 +54,20 @@ export class HeaderComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (this.receiveHeaderState) {
-            this.fadeOutHeader();
-        } else {
-            this.fadeInHeader();
+
+        switch (changes.receiveHeaderState.currentValue) {
+            case 'fadeInMainPage':
+                this.startHeader();
+                break;
+            case 'fadeOutMainPage':
+                this.fadeOutHeader();
+                break;
+            case 'fadeInFlowerPage':
+                this.fadeInHeader();
+                break;
+            default:
+                this.fadeOutInHeader();
+                break;
         }
     }
 
@@ -72,6 +83,13 @@ export class HeaderComponent implements OnInit, OnChanges {
 
     goToMainPage() {
         this.loaderService.changeLoaderState(false);
+        this.fadeService.changeSectionState('startMainPage');
+    }
+
+    startHeader() {
+        const tl =  gsap.timeline()
+            .add(startHeader(this.logoEl, this.burgerEl));
+        // GSDevTools.create();
     }
 
     fadeInHeader() {
@@ -83,6 +101,12 @@ export class HeaderComponent implements OnInit, OnChanges {
     fadeOutHeader() {
         const tl =  gsap.timeline()
             .add(fadeOutHeader(this.logoEl, this.burgerEl));
+        // GSDevTools.create();
+    }
+
+    fadeOutInHeader() {
+        const tl =  gsap.timeline()
+            .add(fadeOutInHeader(this.logoEl, this.burgerEl));
         // GSDevTools.create();
     }
 

@@ -1,5 +1,5 @@
 <div class="catalog-transition" #catalogTransition>
-	<span #catalogTransitionCurtain></span>
+	<span style="transform: scaleX(0)" #catalogTransitionCurtain></span>
 </div>
 <div class="catalog" #catalog>
 	<div class="catalog__shadow" #catalogTitle>
@@ -21,8 +21,8 @@
 						<div class="catalog-item__pic">
 							<div #wrapper>
 								<figure>
-									<img class="grid__item-img catalog-item__img" [src]="post.catalogImg[0]" crossorigin="anonymous"/>
-									<img class="grid__item-img grid__item-img--large" style="display: none;" #thumbsItems
+									<img class="grid__item-img catalog-item__img" [src]="post.catalogImg[0]" [lazyLoad]="post.catalogImg[0]" crossorigin="anonymous"/>
+									<img class="grid__item-img grid__item-img--large" style="display: none;" #thumbsItems [lazyLoad]
 									     [src]="post.catalogTransitionImg[0]" crossorigin="anonymous"/>
 								</figure>
 							</div>

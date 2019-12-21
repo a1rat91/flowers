@@ -84,11 +84,11 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
         window.addEventListener('resize', this.onResize);
         window.addEventListener('mousemove', this.onMouseMove);
 
-        // setInterval(() => {
-        //     if (!this.slideIndex) {
-        //         this.next();
-        //     }
-        // }, 2500);
+        setInterval(() => {
+            if (!this.slideIndex) {
+                this.next();
+            }
+        }, 3000);
 
         this.distortionSliderService.currentIndex.subscribe(slideIndex => {
             this.goTo(slideIndex);

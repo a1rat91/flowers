@@ -1,6 +1,6 @@
 <div class="soc">
-	<ul class="soc__list">
-		<li #socItems class="soc__item" *ngFor="let socItem of soc">
+	<ul class="soc__list" #socItems>
+		<li class="soc__item" *ngFor="let socItem of soc">
 			<a href="{{socItem.link}}" class="soc__link" target="_blank">
 				<img src="../../../../assets/images/soc/{{socItem.icon}}" alt="">
 			</a>

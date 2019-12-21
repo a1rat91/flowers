@@ -46,7 +46,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     @ViewChild('catalogProgressbar', {static : true}) private _catalogProgressbar: ElementRef;
     @Input() postImage;
     currentIndex;
-    sectionState: boolean;
+    sectionState: string;
     isPaginationDisable: boolean;
 
     constructor(private router: Router,
@@ -197,7 +197,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     nextPage(id) {
-        this.fadeService.changeSectionState(true);
+        this.fadeService.changeSectionState('fadeOutMainPage');
         let tl = gsap.timeline()
             .to(window, {duration: 0.5, scrollTo: '#js-catalog', ease: 'Expo.inOut'})
             .add(catalogNextPageTransition(this.catalogTitle, this.catalogTransitionCurtain))

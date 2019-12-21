@@ -7,7 +7,7 @@ import {FadeService} from '../../../services/fade.service';
   styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent implements OnInit {
-  sectionState: boolean;
+  sectionState: string;
   constructor(private fadeService: FadeService) { }
 
   ngOnInit() {

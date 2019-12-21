@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {Subject} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class FadeService {
 
-    private sectionState = new BehaviorSubject<boolean>(false);
+    private sectionState = new Subject<string>();
     currentSectionState = this.sectionState.asObservable();
 
     constructor() {
     }
 
-    changeSectionState(sectionState: boolean) {
+    changeSectionState(sectionState: string) {
         this.sectionState.next(sectionState);
     }
 

@@ -1,29 +1,25 @@
 import {
-    AfterViewChecked,
     AfterViewInit,
     Component,
     ElementRef, Inject,
-    Input,
-    OnChanges,
-    OnInit, SimpleChanges,
+    OnInit,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
-import {Observable, Subscribable, Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
 import {LoaderService} from '../../components/loader/loader.service';
 import { EaselPlugin, gsap } from 'gsap/all';
 gsap.registerPlugin(EaselPlugin);
-import {fadeInMainSection} from '../main-page/main-page.animation';
 import {fadeInFlowerPage} from './flower-page.animation';
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
-// const gsapWithGSDevTools = gsap.registerPlugin(GSDevTools);
+gsap.registerPlugin(GSDevTools);
 import {DOCUMENT} from '@angular/common';
-import {FadeService} from "../../services/fade.service";
+import {FadeService} from '../../services/fade.service';
 
 
 @Component({
@@ -117,7 +113,7 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
 
             // GSDevTools.create({animation: tl, container: '#fadeInFlowerPage'});
         }
-        this.fadeService.changeSectionState(false);
+        this.fadeService.changeSectionState('fadeInFlowerPage');
     }
 
 }

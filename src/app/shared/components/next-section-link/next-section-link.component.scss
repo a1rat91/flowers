@@ -6,6 +6,13 @@
 	bottom: 184px;
 	z-index: 80;
 	transform: rotate(90deg);
+	overflow: hidden;
+
+	.fp-viewing-secondSection &,
+	.fp-viewing-lastSection & {
+		right: -155px!important;
+		bottom: 274px!important;
+	}
 	
 	&__link {
 		font-size: 20px;
@@ -14,6 +21,8 @@
 		color: #ffffff;
 		padding-right: 40px;
 		cursor: pointer;
+		display: block;
+		will-change: transform;
 		
 		&:hover {
 			text-decoration: none;

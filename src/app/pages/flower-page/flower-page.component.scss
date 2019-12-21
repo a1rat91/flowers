@@ -19,18 +19,17 @@
 	&__left {
 		margin-left: -4px;
 		position: relative;
+	}
 
-		&:after {
-			content: '';
-			display: block;
-			width: 100%;
-			border: 1px solid rgba(#fff, 0.2);
-			position: absolute;
-			top: 30px;
-			left: 30px;
-			bottom: 30px;
-			right: -30px;
-		}
+	&__border {
+		display: block;
+		width: 100%;
+		border: 1px solid rgba(#fff, 0.2);
+		position: absolute;
+		top: 30px;
+		left: 30px;
+		bottom: 30px;
+		right: -30px;
 	}
 
 	&__left-inner {
@@ -130,11 +129,12 @@
 	@media all and (max-width: 1400px) {
 		&__left {
 			width: 45%;
-
-			&:after {
-				display: none;
-			}
 		}
+
+		&__border {
+			display: none;
+		}
+
 		&__right {
 			width: 55%;
 			padding-left: 50px;
