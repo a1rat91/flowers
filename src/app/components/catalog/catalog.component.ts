@@ -4,17 +4,19 @@ import {
     ElementRef,
     Inject,
     Input,
-    NgZone,
+    NgZone, OnDestroy,
     OnInit,
     QueryList,
     ViewChild,
     ViewChildren
 } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
-import { EaselPlugin, gsap } from 'gsap/all';
+import {EaselPlugin, gsap} from 'gsap/all';
+
 gsap.registerPlugin(EaselPlugin);
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
+
 const gsapWithScrollToPlugin = gsap.registerPlugin(ScrollToPlugin);
 
 import {catalogNextPageTransition, sliderProgrees} from './catalog.animation';
@@ -22,6 +24,8 @@ import {DOCUMENT} from '@angular/common';
 import {GridToFullscreenEffect as GridToFullscreenEffect} from '../../../assets/js/GridToFullscreenEffect.js';
 import {LoaderService} from '../loader/loader.service';
 import {FadeService} from '../../services/fade.service';
+import {Subscription} from "rxjs";
+
 declare var imagesLoaded: any;
 
 @Component({
@@ -29,7 +33,7 @@ declare var imagesLoaded: any;
     templateUrl: './catalog.component.html',
     styleUrls: ['./catalog.component.scss', './catalog-item.scss']
 })
-export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
+export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() posts;
     config;
     curentProgress;
@@ -43,11 +47,13 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     @ViewChildren('catalogItemBtns') private _catalogItemBtns: QueryList<ElementRef>;
     @ViewChild('catalogTransition', {static: true}) private _catalogTransition: ElementRef;
     @ViewChild('catalogTransitionCurtain', {static: true}) private _catalogTransitionCurtain: ElementRef;
-    @ViewChild('catalogProgressbar', {static : true}) private _catalogProgressbar: ElementRef;
+    @ViewChild('catalogProgressbar', {static: true}) private _catalogProgressbar: ElementRef;
     @Input() postImage;
     currentIndex;
     sectionState: string;
     isPaginationDisable: boolean;
+
+    private subscription = new Subscription();
 
     constructor(private router: Router,
                 private ngZone: NgZone,
@@ -59,36 +65,47 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
     get catalog() {
         return this._catalog.nativeElement;
     }
+
     get catalogItems() {
         return this._catalogItems.map((element) => element.nativeElement);
     }
+
     get catalogTitle() {
         return this._catalogTitle.nativeElement;
     }
+
     get thumbsItems() {
         return this._thumbsItems.map((element) => element.nativeElement);
     }
+
     get fullviewItems() {
         return this._fullviewItems.map((element) => element.nativeElement);
     }
+
     get wrappers() {
         return this._wrapper.map((element) => element.nativeElement);
     }
+
     get catalogItemBtns() {
         return this._catalogItemBtns.map((element) => element.nativeElement);
     }
+
     get catalogTransition() {
         return this._catalogTransition.nativeElement;
     }
+
     get catalogTransitionCurtain() {
-      return this._catalogTransitionCurtain.nativeElement;
+        return this._catalogTransitionCurtain.nativeElement;
     }
+
     get catalogProgressbar() {
         return this._catalogProgressbar.nativeElement;
     }
 
     ngOnInit() {
-        this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState);
+        this.subscription.add(
+            this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
+        );
 
         this.config = {
             direction: 'horizontal',
@@ -180,7 +197,8 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
         });
     }
 
-    ngDoCheck() {
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     customProgressBar(current: number, total: number) {
@@ -202,7 +220,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, DoCheck {
             .to(window, {duration: 0.5, scrollTo: '#js-catalog', ease: 'Expo.inOut'})
             .add(catalogNextPageTransition(this.catalogTitle, this.catalogTransitionCurtain))
             .add(() => this.ngZone.run(() => {
-                this.router.navigate([`/post/${ id }`], { queryParams: { loader: false } });
+                this.router.navigate([`/post/${id}`], {queryParams: {loader: false}});
                 // this.loaderService.changeLoaderState(false);
 
             }));

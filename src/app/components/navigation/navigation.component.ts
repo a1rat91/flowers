@@ -1,11 +1,21 @@
 import {
-    AfterViewChecked, AfterViewInit, Component, DoCheck, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren,
+    AfterViewChecked,
+    AfterViewInit,
+    Component,
+    DoCheck,
+    ElementRef,
+    Input,
+    OnDestroy,
+    OnInit,
+    QueryList,
+    ViewChild,
+    ViewChildren,
     ViewEncapsulation
 } from '@angular/core';
 import {NavigationService} from '../../services/navigation.service';
 import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import { EaselPlugin, gsap } from 'gsap/all';
 gsap.registerPlugin(EaselPlugin);
 import {
@@ -21,7 +31,7 @@ import {LoaderService} from '../loader/loader.service';
     styleUrls: ['./navigation.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
+export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('navigation', {static: true}) private _navigationSections: ElementRef;
     @ViewChildren('navMenuItems') private _navMenuItems: QueryList<ElementRef>;
@@ -30,6 +40,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
     public burger: boolean;
     public flowers = [];
     public posts$: Observable<Post[]>;
+    private subscription = new Subscription();
 
     constructor(
         private postsService: PostsService,
@@ -44,19 +55,22 @@ export class NavigationComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     ngAfterViewInit() {
-        this.nav.currentNavigationState.subscribe(navigation => {
-            if (!this.navigation) {
-                this.fadeOutNav();
-            } else {
-                this.fadeInNav();
-            }
-            return this.navigation = navigation;
-        });
-        this.nav.currentBurgerState.subscribe(burger => this.burger = burger);
+        this.subscription.add(
+            this.nav.currentNavigationState.subscribe(navigation => {
+                if (!this.navigation) {
+                    this.fadeOutNav();
+                } else {
+                    this.fadeInNav();
+                }
+                return this.navigation = navigation;
+            })
+        ).add(
+            this.nav.currentBurgerState.subscribe(burger => this.burger = burger)
+        );
     }
 
-    ngDoCheck() {
-        // TODO для дебага, потом удалить
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     closeNav() {

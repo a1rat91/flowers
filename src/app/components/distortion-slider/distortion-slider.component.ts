@@ -10,6 +10,7 @@ import {fragment as fragment} from './shader';
 import {mod} from './utils';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
 import { EaselPlugin, gsap } from 'gsap/all';
+import {Subscription} from "rxjs";
 gsap.registerPlugin(EaselPlugin);
 
 
@@ -50,6 +51,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     camera;
     slideIndex;
     newImagesArr;
+    private subscription = new Subscription();
 
     constructor(private distortionSliderService: DistortionSliderService) {
         this.displacement = 'assets/images/displacement/4.png';
@@ -90,10 +92,12 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
             }
         }, 3000);
 
-        this.distortionSliderService.currentIndex.subscribe(slideIndex => {
-            this.goTo(slideIndex);
-            return this.slideIndex = slideIndex;
-        });
+        this.subscription.add(
+            this.distortionSliderService.currentIndex.subscribe(slideIndex => {
+                this.goTo(slideIndex);
+                return this.slideIndex = slideIndex;
+            })
+        );
     }
 
     mouseEnter() {
@@ -115,6 +119,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     ngOnDestroy() {
         window.removeEventListener('resize', this.onResize);
         window.removeEventListener('resize', this.onResize);
+        this.subscription.unsubscribe();
     }
 
     cameraInit() {

@@ -6,7 +6,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import {Observable} from 'rxjs/index';
+import {Observable, Subscription} from 'rxjs/index';
 
 import {environment} from '../../../environments/environment';
 import {PostsService} from '../../shared/posts.service';
@@ -19,6 +19,7 @@ import {EaselPlugin, gsap} from 'gsap/all';
 gsap.registerPlugin(EaselPlugin);
 //TODO Удалить GSDevTools
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
+
 gsap.registerPlugin(GSDevTools);
 
 import {
@@ -29,7 +30,6 @@ import {
     fadeInCatalogSection,
     fadeOutCatalogSection
 } from '../../components/catalog/catalog.animation';
-
 
 
 import {FadeService} from '../../services/fade.service';
@@ -53,6 +53,8 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     loader: boolean;
     desctopMediaQuery;
     sectionState: string;
+
+    private subscription = new Subscription();
 
     constructor(private navigationService: NavigationService,
                 private postsService: PostsService,
@@ -99,36 +101,40 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.subscription
+            .add(
+                this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
+            ).add(
+                this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader)
+            ).add(
+            this.navigationService.currentNavigationState.subscribe(navigation => {
+                // this.fullpage_api.setAutoScrolling(true);
+                if (!this.navigation) {
+                    // this.fullpage_api.setAutoScrolling(false);
+                }
 
-        this.navigationService.currentNavigationState.subscribe(navigation => this.navigation = navigation);
-        this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState);
+                return this.navigation = navigation;
+            }));
 
         this.posts$ = this.postsService.getAll();
 
     }
 
     ngAfterViewInit(): void {
-        this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader);
-        window.addEventListener('load', () => {
+
+        window.addEventListener('DOMContentLoaded', () => {
             this.loaderService.changeLoaderState(false);
             this.fadeService.changeSectionState('fadeInMainPage');
             this.fadeInMainSection();
         });
         this.fadeService.changeSectionState('fadeInMainPage');
-        this.navigationService.currentNavigationState.subscribe(navigation => {
-            // this.fullpage_api.setAutoScrolling(true);
-            if (!this.navigation) {
-                // this.fullpage_api.setAutoScrolling(false);
-            }
-
-            return this.navigation = navigation;
-        });
 
         this.fullpage_api.setScrollingSpeed(1200);
 
     }
 
     ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     getRef(fullPageRef) {

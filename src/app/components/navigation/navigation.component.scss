@@ -13,6 +13,7 @@
   @include flexCenter();
   flex-direction: column;
   text-align: center;
+  will-change: transform;
   
   &__menu {
     padding: 0;
@@ -39,6 +40,7 @@
     transition: .5s;
     position: relative;
     transform: translateY(-100%);
+    will-change: transform;
 
     &.active a {
       transform: scale(1.22);

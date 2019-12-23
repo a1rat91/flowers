@@ -3,7 +3,7 @@ import {
     ElementRef,
     Inject,
     Input,
-    OnChanges,
+    OnChanges, OnDestroy,
     OnInit,
     SimpleChanges,
     ViewChild,
@@ -18,6 +18,7 @@ import {startHeader, fadeInHeader, fadeOutHeader, fadeOutInHeader} from './heade
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
 gsap.registerPlugin(GSDevTools);
 import {FadeService} from '../../services/fade.service';
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-header',
@@ -25,7 +26,7 @@ import {FadeService} from '../../services/fade.service';
     styleUrls: ['./header.component.scss', './burger.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class HeaderComponent implements OnInit, OnChanges {
+export class HeaderComponent implements OnInit, OnChanges, OnDestroy {
 
     navigation: boolean;
     burger: boolean;
@@ -33,6 +34,7 @@ export class HeaderComponent implements OnInit, OnChanges {
     @ViewChild('burgerEl', {static: true}) private _burgerEl: ElementRef;
     sectionState: string;
     @Input() receiveHeaderState;
+    private subscription = new Subscription();
 
     get logoEl() {
         return this._logoEl.nativeElement;
@@ -48,9 +50,11 @@ export class HeaderComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.nav.currentNavigationState.subscribe(navigation => this.navigation = navigation);
-        this.nav.currentBurgerState.subscribe(burger => this.burger = burger);
-        this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState);
+        this.subscription
+            .add(this.nav.currentNavigationState.subscribe(navigation => this.navigation = navigation))
+            .add(this.nav.currentBurgerState.subscribe(burger => this.burger = burger))
+            .add(this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState));
+
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -69,6 +73,10 @@ export class HeaderComponent implements OnInit, OnChanges {
                 this.fadeOutInHeader();
                 break;
         }
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     openNav() {

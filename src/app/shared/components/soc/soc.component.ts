@@ -2,7 +2,7 @@ import {
     AfterViewInit,
     Component, ElementRef,
     Input,
-    OnChanges,
+    OnChanges, OnDestroy,
     OnInit,
     QueryList,
     SimpleChanges, ViewChild,
@@ -12,6 +12,7 @@ import {SocService} from '../../soc.service';
 import {FadeService} from '../../../services/fade.service';
 import {startSoc, fadeInSoc, fadeOutInSoc, fadeOutSoc} from './soc.animation';
 import {gsap} from 'gsap/all';
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-soc',
@@ -19,7 +20,7 @@ import {gsap} from 'gsap/all';
     styleUrls: ['./soc.component.scss']
 })
 
-export class SocComponent implements OnInit, OnChanges {
+export class SocComponent implements OnInit, OnChanges, OnDestroy {
     soc;
     sectionState: string;
     @Input() receiveSocState;
@@ -27,6 +28,7 @@ export class SocComponent implements OnInit, OnChanges {
     get socItems() {
         return this._socItems.nativeElement;
     }
+    private subscription = new Subscription();
 
     constructor(public socService: SocService,
                 private fadeService: FadeService) {
@@ -34,7 +36,9 @@ export class SocComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.soc = this.socService.getSocialLinks();
-        this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState);
+        this.subscription.add(
+            this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
+        );
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -53,6 +57,10 @@ export class SocComponent implements OnInit, OnChanges {
                 this.fadeOutInSoc();
                 break;
         }
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     startSoc() {

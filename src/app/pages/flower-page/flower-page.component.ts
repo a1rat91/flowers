@@ -1,7 +1,7 @@
 import {
     AfterViewInit,
     Component,
-    ElementRef, Inject,
+    ElementRef, Inject, OnDestroy,
     OnInit,
     ViewChild,
     ViewEncapsulation
@@ -28,7 +28,7 @@ import {FadeService} from '../../services/fade.service';
     styleUrls: ['./flower-page.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class FlowerPageComponent implements OnInit, AfterViewInit {
+export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     post$: Observable<Post>;
     slideIndex;
@@ -42,6 +42,8 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
     private routeSubscription: Subscription;
     sectionState;
 
+    private subscription = new Subscription();
+
     constructor(private route: ActivatedRoute,
                 private postsService: PostsService,
                 private distortionSliderService: DistortionSliderService,
@@ -51,13 +53,15 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
 
         this.isFirstTimeCalled = true;
 
-        this.routeSubscription = route.queryParams.subscribe((queryParam: any) => {
-            this.loader = queryParam['loader'];
-            if (queryParam['loader']) {
-                this.isFirstTimeCalled = false;
-            }
-            return this.loader;
-        });
+        this.subscription.add(
+            this.routeSubscription = route.queryParams.subscribe((queryParam: any) => {
+                this.loader = queryParam['loader'];
+                if (queryParam['loader']) {
+                    this.isFirstTimeCalled = false;
+                }
+                return this.loader;
+            })
+        );
     }
 
     ngOnInit() {
@@ -66,9 +70,15 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
                 return this.postsService.getById(params['id']);
             }));
 
-        this.distortionSliderService.currentIndex.subscribe(slideIndex => this.slideIndex = slideIndex);
-        this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader);
-        this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState);
+        this.subscription.add(
+            this.distortionSliderService.currentIndex.subscribe(slideIndex => this.slideIndex = slideIndex)
+        );
+        this.subscription.add(
+            this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader)
+        );
+        this.subscription.add(
+            this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
+        );
         this.document.body.classList.remove('hidden');
     }
 
@@ -84,6 +94,10 @@ export class FlowerPageComponent implements OnInit, AfterViewInit {
                 this.loaderService.changeLoaderState(false);
             }, 0);
         });
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     get titleEl() {

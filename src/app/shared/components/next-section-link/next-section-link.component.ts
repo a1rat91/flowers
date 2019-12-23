@@ -2,7 +2,7 @@ import {
     Component,
     ElementRef,
     Input,
-    OnChanges,
+    OnChanges, OnDestroy,
     OnInit,
     SimpleChanges,
     ViewChild,
@@ -12,6 +12,7 @@ import {FadeService} from '../../../services/fade.service';
 import { EaselPlugin, gsap } from 'gsap/all';
 gsap.registerPlugin(EaselPlugin);
 import {startNextSectionLink, fadeInNextSectionLink, fadeOutNextSectionLink, fadeOutInNextSectionLink} from './next-section-link.animation';
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-next-section-link',
@@ -19,11 +20,13 @@ import {startNextSectionLink, fadeInNextSectionLink, fadeOutNextSectionLink, fad
     styleUrls: ['./next-section-link.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class NextSectionLinkComponent implements OnInit, OnChanges {
+export class NextSectionLinkComponent implements OnInit, OnChanges, OnDestroy {
     sectionState: string;
     @Input() receiveNextSectionLinkState;
     @ViewChild('nextSectionLink', {static: true}) private _nextSectionLink: ElementRef;
     linkText: string;
+
+    private subscription = new Subscription();
 
     get nextSectionLink() {
         return this._nextSectionLink.nativeElement;
@@ -34,11 +37,12 @@ export class NextSectionLinkComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState);
+        this.subscription.add(
+            this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
+        );
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes.receiveNextSectionLinkState.currentValue);
         switch (changes.receiveNextSectionLinkState.currentValue) {
             case 'fadeInMainPage':
                 this.startNextSectionLink();
@@ -68,6 +72,10 @@ export class NextSectionLinkComponent implements OnInit, OnChanges {
                 this.fadeOutInNextSectionLink();
                 break;
         }
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     startNextSectionLink() {

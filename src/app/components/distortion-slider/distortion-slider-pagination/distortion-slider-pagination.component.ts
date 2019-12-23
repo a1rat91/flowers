@@ -1,14 +1,25 @@
-import {Component, DoCheck, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {
+    Component,
+    DoCheck,
+    ElementRef,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    SimpleChanges,
+    ViewChild
+} from '@angular/core';
 import {DistortionSliderService} from '../../../services/distortion-slider.service';
 import {SwiperComponent, SwiperConfigInterface, SwiperDirective} from 'ngx-swiper-wrapper';
 import {sliderProgrees} from './distortion-slider-pagination.animation';
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-distortion-slider-pagination',
     templateUrl: './distortion-slider-pagination.component.html',
     styleUrls: ['./distortion-slider-pagination.component.scss']
 })
-export class DistortionSliderPaginationComponent implements OnInit, OnChanges {
+export class DistortionSliderPaginationComponent implements OnInit, OnChanges, OnDestroy {
     @ViewChild(SwiperDirective, {static: true}) swiperView: SwiperDirective;
     @ViewChild('distortionSliderProgressbar', {static: true}) private _distortionSliderProgressbar: ElementRef;
 
@@ -24,6 +35,8 @@ export class DistortionSliderPaginationComponent implements OnInit, OnChanges {
     get distortionSliderProgressbar() {
         return this._distortionSliderProgressbar.nativeElement;
     }
+
+    private subscription = new Subscription();
 
     constructor(private distortionSliderService: DistortionSliderService) {
     }
@@ -52,12 +65,17 @@ export class DistortionSliderPaginationComponent implements OnInit, OnChanges {
                 }
             }
         };
-
-        this.distortionSliderService.currentIndex.subscribe(slideIndex => this.slideIndex = slideIndex);
+        this.subscription.add(
+            this.distortionSliderService.currentIndex.subscribe(slideIndex => this.slideIndex = slideIndex)
+        );
     }
 
     ngOnChanges(): void {
         this.swiperView.update();
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     customProgressBar(current: number, total: number) {
