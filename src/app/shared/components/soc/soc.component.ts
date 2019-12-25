@@ -1,18 +1,16 @@
 import {
-    AfterViewInit,
     Component, ElementRef,
     Input,
     OnChanges, OnDestroy,
     OnInit,
-    QueryList,
-    SimpleChanges, ViewChild,
-    ViewChildren
+    SimpleChanges, ViewChild
 } from '@angular/core';
 import {SocService} from '../../soc.service';
 import {FadeService} from '../../../services/fade.service';
 import {startSoc, fadeInSoc, fadeOutInSoc, fadeOutSoc} from './soc.animation';
 import {gsap} from 'gsap/all';
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
+gsap.ticker.lagSmoothing(1000, 16);
 
 @Component({
     selector: 'app-soc',

@@ -1,8 +1,8 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Post} from '../../admin/shared/interfaces';
 import {Observable} from 'rxjs';
-import {PostsService} from "../../shared/posts.service";
-import {SocService} from "../../shared/soc.service";
+import {PostsService} from '../../shared/posts.service';
+import {SocService} from '../../shared/soc.service';
 
 @Component({
     selector: 'app-footer',

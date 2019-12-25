@@ -12,13 +12,14 @@ import {
 import {NavigationService} from '../../services/navigation.service';
 import {DOCUMENT} from '@angular/common';
 import {LoaderService} from '../loader/loader.service';
-import { EaselPlugin, gsap } from 'gsap/all';
-gsap.registerPlugin(EaselPlugin);
+import { gsap } from 'gsap/all';
 import {startHeader, fadeInHeader, fadeOutHeader, fadeOutInHeader} from './header.animation';
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
 gsap.registerPlugin(GSDevTools);
 import {FadeService} from '../../services/fade.service';
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
+
+gsap.ticker.lagSmoothing(1000, 16);
 
 @Component({
     selector: 'app-header',

@@ -9,10 +9,10 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import {FadeService} from '../../../services/fade.service';
-import { EaselPlugin, gsap } from 'gsap/all';
-gsap.registerPlugin(EaselPlugin);
+import { gsap } from 'gsap/all';
+gsap.ticker.lagSmoothing(1000, 16);
 import {startNextSectionLink, fadeInNextSectionLink, fadeOutNextSectionLink, fadeOutInNextSectionLink} from './next-section-link.animation';
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-next-section-link',

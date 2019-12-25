@@ -1,18 +1,16 @@
 import {
     Component,
-    DoCheck,
     ElementRef,
     Input,
     OnChanges,
     OnDestroy,
     OnInit,
-    SimpleChanges,
     ViewChild
 } from '@angular/core';
 import {DistortionSliderService} from '../../../services/distortion-slider.service';
-import {SwiperComponent, SwiperConfigInterface, SwiperDirective} from 'ngx-swiper-wrapper';
+import {SwiperDirective} from 'ngx-swiper-wrapper';
 import {sliderProgrees} from './distortion-slider-pagination.animation';
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-distortion-slider-pagination',

@@ -14,9 +14,9 @@ import {Post} from '../../admin/shared/interfaces';
 import {NavigationService} from '../../services/navigation.service';
 import {LoaderService} from '../../components/loader/loader.service';
 
-import {EaselPlugin, gsap} from 'gsap/all';
+import {gsap} from 'gsap/all';
 
-gsap.registerPlugin(EaselPlugin);
+gsap.ticker.lagSmoothing(1000, 16);
 //TODO Удалить GSDevTools
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
 

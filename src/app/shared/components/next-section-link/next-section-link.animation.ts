@@ -1,5 +1,5 @@
-import { EaselPlugin, gsap } from 'gsap/all';
-gsap.registerPlugin(EaselPlugin);
+import { gsap } from 'gsap/all';
+gsap.ticker.lagSmoothing(1000, 16);
 
 export function startNextSectionLink(link) {
 

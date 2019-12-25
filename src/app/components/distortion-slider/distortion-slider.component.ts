@@ -9,11 +9,10 @@ import {vertex as vertex} from './shader';
 import {fragment as fragment} from './shader';
 import {mod} from './utils';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
-import { EaselPlugin, gsap } from 'gsap/all';
+import { gsap } from 'gsap/all';
 import {Subscription} from "rxjs";
-gsap.registerPlugin(EaselPlugin);
 
-
+gsap.ticker.lagSmoothing(1000, 16);
 
 @Component({
     selector: 'app-distortion-slider',

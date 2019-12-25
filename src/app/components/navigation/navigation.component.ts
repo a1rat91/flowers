@@ -16,8 +16,8 @@ import {NavigationService} from '../../services/navigation.service';
 import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
 import {Observable, Subscription} from 'rxjs';
-import { EaselPlugin, gsap } from 'gsap/all';
-gsap.registerPlugin(EaselPlugin);
+import { gsap } from 'gsap/all';
+gsap.ticker.lagSmoothing(1000, 16);
 import {
     fadeInNavigation,
     fadeOutNavigation

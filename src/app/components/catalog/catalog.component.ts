@@ -12,12 +12,12 @@ import {
 } from '@angular/core';
 import {Router} from '@angular/router';
 
-import {EaselPlugin, gsap} from 'gsap/all';
+import {gsap} from 'gsap/all';
 
-gsap.registerPlugin(EaselPlugin);
 import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
 
-const gsapWithScrollToPlugin = gsap.registerPlugin(ScrollToPlugin);
+gsap.registerPlugin(ScrollToPlugin);
+gsap.ticker.lagSmoothing(1000, 16);
 
 import {catalogNextPageTransition, sliderProgrees} from './catalog.animation';
 import {DOCUMENT} from '@angular/common';
