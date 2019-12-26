@@ -33,7 +33,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": ["src/assets/js/imagesloaded.pkgd.min.js"]
+            "scripts": ["src/assets/js/imagesloaded.pkgd.min.js", "src/assets/js/fullpage/fullpage.fadingEffect.min.js"]
           },
           "configurations": {
             "production": {
@@ -100,7 +100,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": ["src/assets/js/imagesloaded.pkgd.min.js"]
+            "scripts": ["src/assets/js/imagesloaded.pkgd.min.js", "src/assets/js/fullpage/fullpage.fadingEffect.min.js"]
           }
         },
         "lint": {

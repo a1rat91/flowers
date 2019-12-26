@@ -16,7 +16,8 @@ export const environment = {
         appId: '1:28597777161:web:837bf432fc4636d98b59d8'
     },
     fullpage: {
-        apiKey: '1776F746-BA4440A8-9E51D190-761CE70C'
+        apiKey: '1776F746-BA4440A8-9E51D190-761CE70C',
+        fadingEffectKey: 'Z2l0aHViLmlvX3ZkOFptRmthVzVuUldabVpXTjBLS2o='
     }
 };
 

@@ -69,6 +69,8 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
             licenseKey: environment.fullpage.apiKey,
             anchors: ['firstSection', 'secondSection', 'lastSection'],
             menu: '#menu',
+            fadingEffectKey: environment.fullpage.fadingEffectKey,
+            fadingEffect: true,
             responsiveHeight: 800,
             responsiveWidth: 992,
             afterResponsive: (isResponsive) => {
