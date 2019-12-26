@@ -1,5 +1,5 @@
 import {
-    AfterViewInit,
+    AfterViewInit, ChangeDetectionStrategy,
     Component, DoCheck,
     ElementRef,
     Inject,
@@ -31,7 +31,8 @@ declare var imagesLoaded: any;
 @Component({
     selector: 'app-catalog',
     templateUrl: './catalog.component.html',
-    styleUrls: ['./catalog.component.scss', './catalog-item.scss']
+    styleUrls: ['./catalog.component.scss', './catalog-item.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() posts;

@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     Component, ElementRef,
     Input,
     OnChanges, OnDestroy,
@@ -15,7 +16,8 @@ gsap.ticker.lagSmoothing(1000, 16);
 @Component({
     selector: 'app-soc',
     templateUrl: './soc.component.html',
-    styleUrls: ['./soc.component.scss']
+    styleUrls: ['./soc.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class SocComponent implements OnInit, OnChanges, OnDestroy {

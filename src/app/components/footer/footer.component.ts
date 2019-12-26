@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Post} from '../../admin/shared/interfaces';
 import {Observable} from 'rxjs';
 import {PostsService} from '../../shared/posts.service';
@@ -16,6 +16,7 @@ import {SocService} from '../../shared/soc.service';
       `
     ],
     styleUrls: ['./footer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent implements OnInit {
 

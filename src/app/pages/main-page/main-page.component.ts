@@ -1,5 +1,5 @@
 import {
-    AfterViewInit,
+    AfterViewInit, ChangeDetectionStrategy,
     Component,
     ElementRef, OnDestroy,
     OnInit,
@@ -39,7 +39,8 @@ import set = Reflect.set;
     selector: 'app-main-page',
     templateUrl: './main-page.component.html',
     styleUrls: ['./main-page.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
 

@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     Component,
     ElementRef,
     Inject,
@@ -25,7 +26,8 @@ gsap.ticker.lagSmoothing(1000, 16);
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss', './burger.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit, OnChanges, OnDestroy {
 
