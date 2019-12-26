@@ -1,7 +1,7 @@
 import {
     AfterViewInit,
     Component,
-    ElementRef, OnDestroy,
+    ElementRef, Inject, OnDestroy,
     OnInit,
     ViewChild,
     ViewEncapsulation
@@ -34,6 +34,7 @@ import {
 
 import {FadeService} from '../../services/fade.service';
 import set = Reflect.set;
+import {DOCUMENT} from "@angular/common";
 
 @Component({
     selector: 'app-main-page',
@@ -59,7 +60,8 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(private navigationService: NavigationService,
                 private postsService: PostsService,
                 private loaderService: LoaderService,
-                private fadeService: FadeService) {
+                private fadeService: FadeService,
+                @Inject(DOCUMENT) private document: Document) {
 
         this.isDesctop();
 
@@ -124,10 +126,12 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit(): void {
 
-        window.addEventListener('DOMContentLoaded', () => {
-            this.loaderService.changeLoaderState(false);
-            this.fadeService.changeSectionState('fadeInMainPage');
-            this.fadeInMainSection();
+        document.addEventListener('DOMContentLoaded', () => {
+            window.onload = () => {
+                this.loaderService.changeLoaderState(false);
+                this.fadeService.changeSectionState('fadeInMainPage');
+                this.fadeInMainSection();
+            };
         });
         this.fadeService.changeSectionState('fadeInMainPage');
 
