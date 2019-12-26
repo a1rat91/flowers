@@ -17,7 +17,7 @@ export const environment = {
     },
     fullpage: {
         apiKey: '1776F746-BA4440A8-9E51D190-761CE70C',
-        fadingEffectKey: 'Z2l0aHViLmlvX3ZkOFptRmthVzVuUldabVpXTjBLS2o='
+        fadingEffectKey: 'YWx2YXJvdHJpZ28uY29tXzAzN1ptRmthVzVuUldabVpXTjBiNXo='
     }
 };
 
