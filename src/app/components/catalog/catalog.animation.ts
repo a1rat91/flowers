@@ -1,7 +1,5 @@
 import { gsap } from 'gsap/all';
 
-gsap.ticker.lagSmoothing(1000, 16);
-
 export function catalogNextPageTransition(title, curtain) {
 
     const catalogCurtainConfig = { duration: 2, scaleX: 2, delay: 1, ease: 'expo.inOut'};

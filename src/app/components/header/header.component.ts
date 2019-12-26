@@ -19,8 +19,6 @@ gsap.registerPlugin(GSDevTools);
 import {FadeService} from '../../services/fade.service';
 import {Subscription} from 'rxjs';
 
-gsap.ticker.lagSmoothing(1000, 16);
-
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -51,6 +49,10 @@ export class HeaderComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnInit() {
+
+        gsap.ticker.lagSmoothing(1000, 16);
+        gsap.ticker.fps(35);
+
         this.subscription
             .add(this.nav.currentNavigationState.subscribe(navigation => this.navigation = navigation))
             .add(this.nav.currentBurgerState.subscribe(burger => this.burger = burger))

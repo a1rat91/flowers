@@ -1,5 +1,4 @@
 import { gsap } from 'gsap/all';
-gsap.ticker.lagSmoothing(1000, 16);
 
 export function startSoc(socItem) {
 

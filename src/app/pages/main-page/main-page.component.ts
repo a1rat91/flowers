@@ -16,7 +16,6 @@ import {LoaderService} from '../../components/loader/loader.service';
 
 import {gsap} from 'gsap/all';
 
-gsap.ticker.lagSmoothing(1000, 16);
 //TODO Удалить GSDevTools
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
 
@@ -33,7 +32,6 @@ import {
 
 
 import {FadeService} from '../../services/fade.service';
-import set = Reflect.set;
 import {DOCUMENT} from "@angular/common";
 
 @Component({
@@ -105,6 +103,10 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
+
+        gsap.ticker.lagSmoothing(1000, 16);
+        gsap.ticker.fps(35);
+
         this.subscription
             .add(
                 this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)

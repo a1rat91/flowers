@@ -10,7 +10,6 @@ import {FadeService} from '../../../services/fade.service';
 import {startSoc, fadeInSoc, fadeOutInSoc, fadeOutSoc} from './soc.animation';
 import {gsap} from 'gsap/all';
 import {Subscription} from 'rxjs';
-gsap.ticker.lagSmoothing(1000, 16);
 
 @Component({
     selector: 'app-soc',
@@ -33,6 +32,10 @@ export class SocComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnInit() {
+
+        gsap.ticker.lagSmoothing(1000, 16);
+        gsap.ticker.fps(35);
+
         this.soc = this.socService.getSocialLinks();
         this.subscription.add(
             this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)

@@ -17,7 +17,6 @@ import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
 import {Observable, Subscription} from 'rxjs';
 import { gsap } from 'gsap/all';
-gsap.ticker.lagSmoothing(1000, 16);
 import {
     fadeInNavigation,
     fadeOutNavigation
@@ -55,6 +54,10 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
+
+        gsap.ticker.lagSmoothing(1000, 16);
+        gsap.ticker.fps(35);
+
         this.subscription.add(
             this.nav.currentNavigationState.subscribe(navigation => {
                 if (!this.navigation) {

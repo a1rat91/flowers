@@ -10,9 +10,7 @@ import {fragment as fragment} from './shader';
 import {mod} from './utils';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
 import { gsap } from 'gsap/all';
-import {Subscription} from "rxjs";
-
-gsap.ticker.lagSmoothing(1000, 16);
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-distortion-slider',
@@ -79,6 +77,10 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnInit() {
+
+        gsap.ticker.lagSmoothing(1000, 16);
+        gsap.ticker.fps(35);
+
         this.cameraInit();
         this.animate();
 

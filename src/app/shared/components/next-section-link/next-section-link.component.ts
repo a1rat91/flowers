@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import {FadeService} from '../../../services/fade.service';
 import { gsap } from 'gsap/all';
-gsap.ticker.lagSmoothing(1000, 16);
 import {startNextSectionLink, fadeInNextSectionLink, fadeOutNextSectionLink, fadeOutInNextSectionLink} from './next-section-link.animation';
 import {Subscription} from 'rxjs';
 
@@ -37,6 +36,10 @@ export class NextSectionLinkComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnInit() {
+
+        gsap.ticker.lagSmoothing(1000, 16);
+        gsap.ticker.fps(35);
+
         this.subscription.add(
             this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
         );

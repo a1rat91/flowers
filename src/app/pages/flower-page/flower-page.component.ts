@@ -14,7 +14,6 @@ import {switchMap} from 'rxjs/operators';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
 import {LoaderService} from '../../components/loader/loader.service';
 import { gsap } from 'gsap/all';
-gsap.ticker.lagSmoothing(1000, 16);
 import {fadeInFlowerPage} from './flower-page.animation';
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
 gsap.registerPlugin(GSDevTools);
@@ -83,6 +82,10 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
+
+        gsap.ticker.lagSmoothing(1000, 16);
+        gsap.ticker.fps(35);
+
         setTimeout(() => {
             if (!this.isFirstTimeCalled) {
                 this.loaderService.changeLoaderState(false);

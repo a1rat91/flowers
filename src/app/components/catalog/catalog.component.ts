@@ -17,14 +17,13 @@ import {gsap} from 'gsap/all';
 import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
 
 gsap.registerPlugin(ScrollToPlugin);
-gsap.ticker.lagSmoothing(1000, 16);
 
 import {catalogNextPageTransition, sliderProgrees} from './catalog.animation';
 import {DOCUMENT} from '@angular/common';
 import {GridToFullscreenEffect as GridToFullscreenEffect} from '../../../assets/js/GridToFullscreenEffect.js';
 import {LoaderService} from '../loader/loader.service';
 import {FadeService} from '../../services/fade.service';
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
 
 declare var imagesLoaded: any;
 
@@ -140,6 +139,10 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
+
+        gsap.ticker.lagSmoothing(1000, 16);
+        gsap.ticker.fps(35);
+
         const itemsWrapper = this.wrappers;
         const thumbs = this.thumbsItems;
         const fullviewItems = this.fullviewItems;
