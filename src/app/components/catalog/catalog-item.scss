@@ -6,7 +6,7 @@
 	&.active {
 		opacity: 1;
 	}
-	
+
 	&__index-wrap {
 		position: absolute;
 		top: 29px;
@@ -114,24 +114,6 @@
 			height: 50px;
 			opacity: 1;
 		}
-	}
-
-	&__btn-wrap {
-		overflow: hidden;
-		position: absolute;
-		left: 18px;
-		bottom: 21px;
-		height: 50px;
-	}
-
-	&__btn-curtain {
-		width: 100%;
-		height: 100%;
-		position: absolute;
-		background: red;
-		transform: translateX(-100%);
-		left: 0;
-		top: 0;
 	}
 	
 	@media all and (max-width: $screen-lg) {

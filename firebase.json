@@ -1,7 +1,6 @@
 {
   "hosting": {
     "public": "dist/flowers",
-    //TODO Разобраться с headers
     "headers": [
       {
         "source": "**/*.@(js|jpg|jpeg|png|css|svg|eot|otf|ttf|ttc|woff|font.css)",
