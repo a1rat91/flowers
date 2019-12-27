@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     Component,
     ElementRef,
     Input,
@@ -17,7 +18,8 @@ import {Subscription} from 'rxjs';
     selector: 'app-next-section-link',
     templateUrl: './next-section-link.component.html',
     styleUrls: ['./next-section-link.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NextSectionLinkComponent implements OnInit, OnChanges, OnDestroy {
     sectionState: string;

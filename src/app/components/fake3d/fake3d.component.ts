@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 
 import {fragmentGlsl as fragment} from './shaders/fragment';
 import {vertexGlsl as vertex} from './shaders/vertex';
@@ -17,7 +17,8 @@ import {Uniform, Rect, loadImages, clamp} from './utils';
         <div class="fake3d" #fake3d>
         </div>
     `,
-    styleUrls: ['./fake3d.component.scss']
+    styleUrls: ['./fake3d.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Fake3dComponent implements OnInit {
     public container;

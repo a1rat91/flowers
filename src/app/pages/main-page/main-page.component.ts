@@ -1,5 +1,5 @@
 import {
-    AfterViewInit,
+    AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef,
     Component,
     ElementRef, Inject, OnDestroy,
     OnInit,
@@ -32,13 +32,14 @@ import {
 
 
 import {FadeService} from '../../services/fade.service';
-import {DOCUMENT} from "@angular/common";
+import {DOCUMENT} from '@angular/common';
 
 @Component({
     selector: 'app-main-page',
     templateUrl: './main-page.component.html',
     styleUrls: ['./main-page.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -59,6 +60,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
                 private postsService: PostsService,
                 private loaderService: LoaderService,
                 private fadeService: FadeService,
+                private cdr: ChangeDetectorRef,
                 @Inject(DOCUMENT) private document: Document) {
 
         this.isDesctop();
@@ -106,7 +108,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
         gsap.ticker.lagSmoothing(1000, 16);
         gsap.ticker.fps(35);
-
+        this.cdr.detectChanges();
         this.subscription
             .add(
                 this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
@@ -127,7 +129,6 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-
         document.addEventListener('DOMContentLoaded', () => {
             window.onload = () => {
                 this.loaderService.changeLoaderState(false);

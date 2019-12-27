@@ -1,6 +1,6 @@
 import {
     AfterViewChecked,
-    AfterViewInit,
+    AfterViewInit, ChangeDetectionStrategy,
     Component,
     DoCheck,
     ElementRef,
@@ -28,7 +28,8 @@ import {LoaderService} from '../loader/loader.service';
     selector: 'app-navigation',
     templateUrl: './navigation.component.html',
     styleUrls: ['./navigation.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 

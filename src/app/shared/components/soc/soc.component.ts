@@ -1,4 +1,5 @@
 import {
+    ChangeDetectionStrategy,
     Component, ElementRef,
     Input,
     OnChanges, OnDestroy,
@@ -14,7 +15,8 @@ import {Subscription} from 'rxjs';
 @Component({
     selector: 'app-soc',
     templateUrl: './soc.component.html',
-    styleUrls: ['./soc.component.scss']
+    styleUrls: ['./soc.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class SocComponent implements OnInit, OnChanges, OnDestroy {

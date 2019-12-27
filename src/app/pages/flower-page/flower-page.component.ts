@@ -1,5 +1,5 @@
 import {
-    AfterViewInit,
+    AfterViewInit, ChangeDetectionStrategy,
     Component,
     ElementRef, Inject, OnDestroy,
     OnInit,
@@ -25,7 +25,8 @@ import {FadeService} from '../../services/fade.service';
     selector: 'app-flower-page',
     templateUrl: './flower-page.component.html',
     styleUrls: ['./flower-page.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
 

@@ -1,5 +1,5 @@
 import {
-    AfterViewInit,
+    AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef,
     Component, DoCheck,
     ElementRef,
     Inject,
@@ -30,7 +30,8 @@ declare var imagesLoaded: any;
 @Component({
     selector: 'app-catalog',
     templateUrl: './catalog.component.html',
-    styleUrls: ['./catalog.component.scss', './catalog-item.scss']
+    styleUrls: ['./catalog.component.scss', './catalog-item.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() posts;
@@ -58,11 +59,8 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
                 private ngZone: NgZone,
                 @Inject(DOCUMENT) private document: Document,
                 private loaderService: LoaderService,
-                private fadeService: FadeService) {
-    }
-
-    get catalog() {
-        return this._catalog.nativeElement;
+                private fadeService: FadeService,
+                private cdr: ChangeDetectorRef) {
     }
 
     get catalogItems() {
@@ -209,12 +207,10 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
 
         total === 1 ? this.isPaginationDisable = true : this.isPaginationDisable = false;
 
-        setTimeout(() => {
-            this.curentProgress = current;
-            this.totalProgress = total;
-
-            sliderProgrees(this.catalogProgressbar, ratio);
-        });
+        this.curentProgress = current;
+        this.totalProgress = total;
+        this.cdr.detectChanges();
+        sliderProgrees(this.catalogProgressbar, ratio);
     }
 
     nextPage(id) {

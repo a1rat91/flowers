@@ -1,6 +1,8 @@
 import {
+    ChangeDetectionStrategy,
     Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild,
-    ViewEncapsulation } from '@angular/core';
+    ViewEncapsulation
+} from '@angular/core';
 
 import {
     Scene, WebGLRenderer, OrthographicCamera, TextureLoader, LinearFilter, RepeatWrapping, ShaderMaterial,
@@ -16,7 +18,8 @@ import {Subscription} from 'rxjs';
     selector: 'app-distortion-slider',
     templateUrl: './distortion-slider.component.html',
     styleUrls: ['./distortion-slider.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
