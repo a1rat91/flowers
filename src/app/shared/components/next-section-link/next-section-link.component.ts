@@ -34,7 +34,6 @@ export class NextSectionLinkComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     constructor(private fadeService: FadeService) {
-        this.linkText = 'Cмотреть каталог';
     }
 
     ngOnInit() {
@@ -55,18 +54,6 @@ export class NextSectionLinkComponent implements OnInit, OnChanges, OnDestroy {
             case 'fadeOutMainPage':
                 this.fadeOutNextSectionLink();
                 break;
-            case 'fadeInMainSection':
-                this.fadeOutInNextSectionLink();
-                this.linkText = 'Cмотреть каталог';
-                break;
-            case 'fadeOutMainSection':
-                this.linkText = 'Cмотреть акционное предложение';
-                this.fadeOutInNextSectionLink();
-                break;
-            case 'fadeInCatalogSection':
-                this.fadeInNextSectionLink();
-                this.linkText = 'Cмотреть акционное предложение';
-                break;
             case 'fadeOutCatalogSection':
                 this.fadeOutNextSectionLink();
                 break;
@@ -84,22 +71,22 @@ export class NextSectionLinkComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     startNextSectionLink() {
-        const tl =  gsap.timeline()
+        gsap.timeline()
             .add(startNextSectionLink(this.nextSectionLink));
     }
 
     fadeInNextSectionLink() {
-        const tl =  gsap.timeline()
+        gsap.timeline()
             .add(fadeInNextSectionLink(this.nextSectionLink));
     }
 
     fadeOutNextSectionLink() {
-        const tl =  gsap.timeline()
+        gsap.timeline()
             .add(fadeOutNextSectionLink(this.nextSectionLink));
     }
 
     fadeOutInNextSectionLink() {
-        const tl =  gsap.timeline()
+        gsap.timeline()
             .add(fadeOutInNextSectionLink(this.nextSectionLink));
     }
 
