@@ -1,4 +1,4 @@
-<app-loader *ngIf="!loader"></app-loader>
+<app-loader [loader]="loader"></app-loader>
 
 <div class="flower-page">
     <div class="flower-page__container">
@@ -6,7 +6,8 @@
             <div class="flower-page__left-inner">
                 <div class="flower-page__border" #border></div>
                 <div class="flower-page__left-inner" *ngIf="post$ | async as post;">
-                    <app-distortion-slider [images]="post.distortionSliderImg" (onLoadEnd)="fadeInFlowerPage($event)"></app-distortion-slider>
+                    <app-distortion-slider [images]="post.distortionSliderImg"
+                                           (onLoadEnd)="fadeInFlowerPage($event)"></app-distortion-slider>
                 </div>
             </div>
         </div>

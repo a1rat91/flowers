@@ -1,17 +1,12 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  EventEmitter,
   Input, OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
+  OnInit, SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {LoaderService} from './loader.service';
-import {Subscription} from 'rxjs';
+import { gsap } from 'gsap/all';
 
 @Component({
   selector: 'app-loader',
@@ -19,13 +14,27 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./loader.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoaderComponent implements OnInit {
-  @ViewChild('loaderEl', {static: true}) private loaderEl: ElementRef;
+export class LoaderComponent implements OnInit, OnChanges {
+  @ViewChild('loaderEl', {static: true}) private _loaderEl: ElementRef;
   @Input() loader;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes.loader.currentValue) {
+      this.fadeOut();
+    }
+  }
+
+  get loaderEl() {
+    return this._loaderEl.nativeElement;
+  }
+
+  fadeOut() {
+    gsap.to(this.loaderEl, {duration: 1, opacity: 0, ease: 'expo'});
   }
 
 }
