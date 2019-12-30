@@ -84,8 +84,8 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit(): void {
 
-        gsap.ticker.lagSmoothing(1000, 16);
-        gsap.ticker.fps(35);
+        // gsap.ticker.lagSmoothing(1000, 16);
+        // gsap.ticker.fps(35);
 
         setTimeout(() => {
             if (!this.isFirstTimeCalled) {

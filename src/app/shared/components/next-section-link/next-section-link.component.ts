@@ -38,8 +38,8 @@ export class NextSectionLinkComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit() {
 
-        gsap.ticker.lagSmoothing(1000, 16);
-        gsap.ticker.fps(35);
+        // gsap.ticker.lagSmoothing(1000, 16);
+        // gsap.ticker.fps(35);
 
         this.subscription.add(
             this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)

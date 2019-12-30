@@ -138,8 +138,8 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
 
-        gsap.ticker.lagSmoothing(1000, 16);
-        gsap.ticker.fps(35);
+        // gsap.ticker.lagSmoothing(1000, 16);
+        // gsap.ticker.fps(35);
 
         const itemsWrapper = this.wrappers;
         const thumbs = this.thumbsItems;

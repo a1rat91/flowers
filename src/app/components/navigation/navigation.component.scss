@@ -46,6 +46,7 @@
       transform: scale(1.22);
       display: block;
       transition: .5s;
+      will-change: transform;
     }
     
     a {

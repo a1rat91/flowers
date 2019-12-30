@@ -106,8 +106,8 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnInit() {
 
-        gsap.ticker.lagSmoothing(1000, 16);
-        gsap.ticker.fps(35);
+        // gsap.ticker.lagSmoothing(1000, 16);
+        // gsap.ticker.fps(35);
         this.cdr.detectChanges();
         this.subscription
             .add(
