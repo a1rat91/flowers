@@ -1,6 +1,12 @@
-//TODO Почистить перед продакшеном
-
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700&display=swap&subset=cyrillic');
+
+@font-face {
+	font-family: 'SFUIDisplay';
+	src: url("assets/fonts/SFUIDisplay/SFUIDisplay-Regular.woff");
+	src: url("assets/fonts/SFUIDisplay/SFUIDisplay-Regular.woff2");
+	font-weight: 400;
+}
+
 
 @font-face {
 	font-family: 'SFUIDisplay';
@@ -8,36 +14,10 @@
 	src: url("assets/fonts/SFUIDisplay/SFUIDisplay-Light.woff2");
 	font-weight: 300;
 }
-@font-face {
-	font-family: 'SFUIDisplay';
-	src: url("assets/fonts/SFUIDisplay/SFUIDisplay-Regular.woff");
-	src: url("assets/fonts/SFUIDisplay/SFUIDisplay-Regular.woff2");
-	font-weight: 400;
-}
+
 @font-face {
 	font-family: 'SFUIDisplay';
 	src: url("assets/fonts/SFUIDisplay/SFUIDisplay-Medium.woff");
 	src: url("assets/fonts/SFUIDisplay/SFUIDisplay-Medium.woff2");
 	font-weight: 500;
-}
-@font-face {
-	font-family: 'SFUIDisplay';
-	src: url("assets/fonts/SFUIDisplay/SFUIDisplay-Bold.woff");
-	src: url("assets/fonts/SFUIDisplay/SFUIDisplay-Bold.woff2");
-	font-weight: 700;
-}
-
-@font-face {
-	font-family: 'SFUIText';
-	src: url("assets/fonts/SFUIText/SFUIText-Bold.woff");
-	src: url("assets/fonts/SFUIText/SFUIText-Bold.woff2");
-	font-weight: 700;
-	font-style: normal;
-}
-@font-face {
-	font-family: 'SFUIText';
-	src: url("assets/fonts/SFUIText/SFUIText-BoldItalic.woff");
-	src: url("assets/fonts/SFUIText/SFUIText-BoldItalic.woff2");
-	font-weight: 700;
-	font-style: italic;
 }
