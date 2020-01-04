@@ -1,26 +1,38 @@
 import { gsap } from 'gsap/all';
 
-export function fadeInMainSection(title, btn, mouse) {
+const titleConfigFrom = {scale: 2, opacity: 0};
+const titleConfigTo = {duration: 2, scale: 1, opacity: 1};
+const btnAndMouseConfigFrom = { y: 20, opacity: 0};
+const btnAndMouseConfigTo = { duration: 0.2, y: 0, opacity: 1, stagger: .2};
 
-    const titleConfig = { duration: 2, scale: 2, opacity: 0, ease: 'expo.inOut'};
-    const btnConfig = { duration: 0.5, y: 0, opacity: 1, ease: 'expo.in'};
-    const mouseConfig = { duration: 0.5, y: 20, opacity: 0, ease: 'expo.inOut'};
+export function startMainSection(title, btn, mouse) {
 
-    return gsap.timeline()
-        .from(title, titleConfig)
-        .to(btn, btnConfig, '-=1')
-        .from(mouse, mouseConfig, '-=0.2');
+    return gsap.timeline({defaults: {
+            ease: 'expo.inOut'
+        }})
+        .fromTo(title, titleConfigFrom, titleConfigTo)
+        .fromTo([btn, mouse], btnAndMouseConfigFrom, btnAndMouseConfigTo);
 }
 
-export function fadeOutMainSection(title, btn, mouse) {
+export function fadeInMainSection(curtain, title, btn, mouse) {
 
-    const titleConfig = { duration: 0.1, scale: 1, opacity: 1, ease: 'expo.inOut'};
-    const btnConfig = { duration: 0.1, y: 20, opacity: 0, ease: 'expo.inOut'};
-    const mouseConfig = { duration: 0.1, y: 0, opacity: 1, ease: 'expo.inOut'};
+    const mainSectionCurtainConfig = { duration: 1.5, x: '-100%'};
 
-    return gsap.timeline()
-        .from(title, titleConfig)
-        .to(btn, btnConfig)
-        .from(mouse, mouseConfig);
+    return gsap.timeline({defaults: {
+            ease: 'expo.inOut'
+        }})
+        .to(curtain, mainSectionCurtainConfig)
+        .fromTo(title,  titleConfigFrom, titleConfigTo)
+        .fromTo([btn, mouse], btnAndMouseConfigFrom, btnAndMouseConfigTo);
+}
+
+export function fadeOutMainSection(curtain) {
+
+    const mainSectionCurtainConfig = { duration: 1.5, x: 0};
+
+    return gsap.timeline({defaults: {
+            ease: 'expo.inOut'
+        }})
+        .to(curtain, mainSectionCurtainConfig);
 
 }

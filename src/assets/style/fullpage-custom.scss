@@ -7,4 +7,11 @@
 
 .fp-section {
 	transition: none!important;
+	opacity: 1!important;
+	visibility: visible!important;
+}
+
+.fullpage-wrapper {
+	transform: translate3d(0, 0, 0) !important;
+	transition: 0ms!important;
 }

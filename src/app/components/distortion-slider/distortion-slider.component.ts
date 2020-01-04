@@ -81,9 +81,6 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit() {
 
-        // gsap.ticker.lagSmoothing(1000, 16);
-        // gsap.ticker.fps(35);
-
         this.cameraInit();
         this.animate();
 
@@ -94,7 +91,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
             if (!this.slideIndex) {
                 this.next();
             }
-        }, 3000);
+        }, 4000);
 
         this.subscription.add(
             this.distortionSliderService.currentIndex.subscribe(slideIndex => {

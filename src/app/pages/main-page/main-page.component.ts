@@ -16,14 +16,15 @@ import {LoaderService} from '../../components/loader/loader.service';
 
 import {gsap} from 'gsap/all';
 
-//TODO Удалить GSDevTools
+// TODO Удалить GSDevTools
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
 
 gsap.registerPlugin(GSDevTools);
 
 import {
     fadeInMainSection,
-    fadeOutMainSection
+    fadeOutMainSection,
+    startMainSection
 } from './main-page.animation';
 import {
     fadeInCatalogSection,
@@ -48,10 +49,13 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     navigation: boolean;
     posts$: Observable<Post[]>;
     @ViewChild('mainTitle', {static: true}) private _mainTitle: ElementRef;
+    @ViewChild('mainSectionCurtain', {static: true}) private _mainSectionCurtain: ElementRef;
     @ViewChild('mainBtn', {static: true}) private _mainBtn: ElementRef;
     @ViewChild('mouse', {static: true}) private _mouse: ElementRef;
+    @ViewChild('catalogSection', {static: true}) private _catalogSection: ElementRef;
     loader: boolean;
-    desctopMediaQuery;
+    desctopMediaQuery: boolean;
+    mainSectionActive: boolean;
     sectionState: string;
 
     private subscription = new Subscription();
@@ -66,6 +70,8 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
         this.isDesctop();
 
         window.addEventListener('resize', () => this.isDesctop());
+
+        this.loaderService.changeLoaderState(true);
 
         this.config = {
             licenseKey: environment.fullpage.apiKey,
@@ -87,16 +93,19 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
                     // Если не первая секция, не отыгрываем анимацию
                     this.fadeService.changeSectionState('fadeOutMainSection');
                     this.fadeOutMainSection();
+                    this.mainSectionActive = false;
                 } else if (origin.index === 1 && direction === 'up') {
                     this.fadeService.changeSectionState('fadeInMainSection');
                     this.fadeInMainSection();
-                } else if (origin.index === 1 && direction === 'down') {
-                    this.fadeService.changeSectionState('fadeOutCatalogSection');
-                    this.fadeOutCatalogSection();
-                } else if (origin.index === 2 && direction === 'up') {
-                    this.fadeService.changeSectionState('fadeInCatalogSection');
-                    this.fadeInCatalogSection();
+                    this.mainSectionActive = true;
                 }
+                // else if (origin.index === 1 && direction === 'down') {
+                //     this.fadeService.changeSectionState('fadeOutCatalogSection');
+                //     this.fadeOutCatalogSection();
+                // } else if (origin.index === 2 && direction === 'up') {
+                //     this.fadeService.changeSectionState('fadeInCatalogSection');
+                //     this.fadeInCatalogSection();
+                // }
             },
             afterLoad: (origin, destination, direction) => {
                 // console.group('afterLoad', [origin, destination, direction]);
@@ -106,8 +115,6 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnInit() {
 
-        // gsap.ticker.lagSmoothing(1000, 16);
-        // gsap.ticker.fps(35);
         this.cdr.detectChanges();
         this.subscription
             .add(
@@ -129,17 +136,23 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
+        this.mainSectionActive = true;
         document.addEventListener('DOMContentLoaded', () => {
             window.onload = () => {
-                this.loaderService.changeLoaderState(false);
-                this.fadeService.changeSectionState('fadeInMainPage');
-                this.fadeInMainSection();
+                setTimeout(() => {
+                    this.loaderService.changeLoaderState(false);
+                    this.fadeService.changeSectionState('fadeInMainPage');
+                    this.startMainSection();
+                }, 500);
             };
         });
         this.fadeService.changeSectionState('fadeInMainPage');
 
-        this.fullpage_api.setScrollingSpeed(1200);
+        this.fullpage_api.setScrollingSpeed(2000);
 
+        if (!this.isDesctop()) {
+            this.fullpage_api.destroy('all');
+        }
     }
 
     ngOnDestroy(): void {
@@ -162,29 +175,45 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
         return this._mouse.nativeElement;
     }
 
+    get mainSectionCurtain() {
+        return this._mainSectionCurtain.nativeElement;
+    }
+
+    get catalogSection() {
+        return this._catalogSection.nativeElement;
+    }
+
+    startMainSection() {
+        const tl = gsap.timeline({id: 'fadeInMainSection'})
+            .add(startMainSection(this.mainTitle, this.mainBtn, this.mouse));
+    }
+
     fadeInMainSection() {
         const tl = gsap.timeline({id: 'fadeInMainSection'})
-            .add(fadeInMainSection(this.mainTitle, this.mainBtn, this.mouse));
+            .add(fadeOutCatalogSection(this.catalogSection))
+            .add(fadeInMainSection(this.mainSectionCurtain, this.mainTitle, this.mainBtn, this.mouse));
     }
 
     fadeOutMainSection() {
         const tl = gsap.timeline({id: 'fadeOutMainSection'})
-            .add(fadeOutMainSection(this.mainTitle, this.mainBtn, this.mouse));
+            .add(fadeOutMainSection(this.mainSectionCurtain))
+            .add(fadeInCatalogSection(this.catalogSection));
     }
 
     fadeInCatalogSection() {
         const tl = gsap.timeline({id: 'fadeInCatalogSection'})
-            .add(fadeInCatalogSection());
+            .add(fadeInCatalogSection(this.catalogSection));
     }
 
     fadeOutCatalogSection() {
         const tl = gsap.timeline({id: 'fadeOutCatalogSection'})
-            .add(fadeOutCatalogSection());
+            .add(fadeOutCatalogSection(this.catalogSection));
     }
 
 
     isDesctop() {
         (window.innerWidth >= 992) ? this.desctopMediaQuery = true : this.desctopMediaQuery = false;
+        return this.desctopMediaQuery;
     }
 
 

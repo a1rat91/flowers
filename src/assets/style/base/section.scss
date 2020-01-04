@@ -37,6 +37,12 @@
 			}
 		}
 	}
+
+	&.is-actions {
+		.fp-tableCell {
+			padding-bottom: 125px;
+		}
+	}
 	
 	@media all and (max-width: $screen-lg) {
 
@@ -57,6 +63,9 @@
 	}
 
 	@media all and (max-width: $screen-md) {
+		-webkit-transform: translate3d(0,0,0)!important;
+		transform: translate3d(0,0,0)!important;
+
 		&.is-catalog,
 		&.is-actions {
 			padding: 50px 0;

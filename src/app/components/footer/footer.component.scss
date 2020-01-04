@@ -1,11 +1,15 @@
 @import "../../../assets/style/base/variables";
 
 .footer {
-  position: relative;
+  position: absolute;
   z-index: 1;
   border-top: 1px solid rgba(#fff, .2);
   margin: 0 50px;
   padding: 17px 15px 10px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 1850px;
   
   &__nav,
   &__list {

@@ -24,9 +24,10 @@ export class LoaderComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!changes.loader.currentValue) {
+    if (changes.loader.currentValue) {
       this.fadeOut();
     }
+    this.loader = false;
   }
 
   get loaderEl() {

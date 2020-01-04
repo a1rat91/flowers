@@ -8,12 +8,13 @@ export function catalogNextPageTransition(title, curtain) {
         .to(curtain, catalogCurtainConfig);
 }
 
-export function fadeInCatalogSection() {
+export function fadeInCatalogSection(catalog) {
+    return gsap.timeline().fromTo(catalog, {opacity: 0, ease: 'expo.inOut'}, {duration: 1, opacity: 1, ease: 'expo.inOut'});
 
 }
 
-export function fadeOutCatalogSection() {
-
+export function fadeOutCatalogSection(catalog) {
+    return gsap.timeline().fromTo(catalog, {opacity: 1, ease: 'expo.inOut'}, {duration: 1, opacity: 0, ease: 'expo.inOut'});
 }
 
 export function sliderProgrees(progressEl, progress) {

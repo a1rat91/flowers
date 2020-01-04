@@ -52,9 +52,6 @@ export class HeaderComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit() {
 
-        // gsap.ticker.lagSmoothing(1000, 16);
-        // gsap.ticker.fps(35);
-
         this.subscription
             .add(this.nav.currentNavigationState.subscribe(navigation => this.navigation = navigation))
             .add(this.nav.currentBurgerState.subscribe(burger => this.burger = burger))
@@ -63,7 +60,7 @@ export class HeaderComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-
+        console.log(changes.receiveHeaderState.currentValue);
         switch (changes.receiveHeaderState.currentValue) {
             case 'fadeInMainPage':
                 this.startHeader();

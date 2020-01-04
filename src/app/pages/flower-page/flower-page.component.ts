@@ -14,7 +14,6 @@ import {switchMap} from 'rxjs/operators';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
 import {LoaderService} from '../../components/loader/loader.service';
 import { gsap } from 'gsap/all';
-import {fadeInFlowerPage} from './flower-page.animation';
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
 gsap.registerPlugin(GSDevTools);
 import {DOCUMENT} from '@angular/common';
@@ -51,15 +50,15 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
                 private fadeService: FadeService,
                 @Inject(DOCUMENT) private document: Document) {
 
-        this.isFirstTimeCalled = true;
-
         this.subscription.add(
+            this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader)
+        ).add(
             this.routeSubscription = route.queryParams.subscribe((queryParam: any) => {
-                this.loader = queryParam['loader'];
-                if (queryParam['loader']) {
-                    this.isFirstTimeCalled = false;
+                if (queryParam['loader'] === 'false') {
+                    this.loaderService.changeLoaderState(true);
+                } else {
+                    this.loaderService.changeLoaderState(false);
                 }
-                return this.loader;
             })
         );
     }
@@ -74,30 +73,15 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
             this.distortionSliderService.currentIndex.subscribe(slideIndex => this.slideIndex = slideIndex)
         );
         this.subscription.add(
-            this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader)
-        );
-        this.subscription.add(
             this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
         );
         this.document.body.classList.remove('hidden');
     }
 
     ngAfterViewInit(): void {
-
-        // gsap.ticker.lagSmoothing(1000, 16);
-        // gsap.ticker.fps(35);
-
         setTimeout(() => {
-            if (!this.isFirstTimeCalled) {
-                this.loaderService.changeLoaderState(false);
-            }
-        }, 0);
-
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                this.loaderService.changeLoaderState(false);
-            }, 0);
-        });
+            this.loaderService.changeLoaderState(true);
+        }, 500);
     }
 
     ngOnDestroy(): void {
@@ -127,7 +111,8 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
     fadeInFlowerPage(event) {
         if (event === 'loaded') {
             const tl = gsap.timeline({id: 'fadeInFlowerPage'})
-                .add(fadeInFlowerPage(this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl));
+                .to([this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl],
+                    { duration: 2, delay: 1, y: 0, opacity: 1, stagger: .3, ease: 'expo'});
 
             // GSDevTools.create({animation: tl, container: '#fadeInFlowerPage'});
         }

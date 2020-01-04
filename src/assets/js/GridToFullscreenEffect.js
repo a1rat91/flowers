@@ -1,5 +1,18 @@
-import * as THREE from 'three';
-import {gsap, Power0} from 'gsap/all';
+import {Scene,
+    PerspectiveCamera,
+    Mesh,
+    Uniform,
+    Vector2,
+    Vector4,
+    Texture,
+    PlaneBufferGeometry,
+    ShaderMaterial,
+    DoubleSide,
+    ClampToEdgeWrapping,
+    LinearFilter,
+    WebGLRenderer
+} from 'three';
+import {gsap} from 'gsap';
 
 export class GridToFullscreenEffect {
     /**
@@ -51,27 +64,27 @@ export class GridToFullscreenEffect {
         this.options = options;
 
         this.uniforms = {
-            uImage: new THREE.Uniform(null),
-            uImageRes: new THREE.Uniform(new THREE.Vector2(1, 1)),
-            uImageLarge: new THREE.Uniform(null),
-            uImageLargeRes: new THREE.Uniform(new THREE.Vector2(1, 1)),
+            uImage: new Uniform(null),
+            uImageRes: new Uniform(new Vector2(1, 1)),
+            uImageLarge: new Uniform(null),
+            uImageLargeRes: new Uniform(new Vector2(1, 1)),
 
             // Calculated Uniforms
-            uProgress: new THREE.Uniform(0),
-            uMeshScale: new THREE.Uniform(new THREE.Vector2(1, 1)),
-            uPlaneCenter: new THREE.Uniform(new THREE.Vector2(0, 0)),
-            uViewSize: new THREE.Uniform(new THREE.Vector2(1, 1)),
-            uScaleToViewSize: new THREE.Uniform(new THREE.Vector2(1, 1)),
-            uClosestCorner: new THREE.Uniform(0),
-            uMouse: new THREE.Uniform(new THREE.Vector2(0, 0)),
+            uProgress: new Uniform(0),
+            uMeshScale: new Uniform(new Vector2(1, 1)),
+            uPlaneCenter: new Uniform(new Vector2(0, 0)),
+            uViewSize: new Uniform(new Vector2(1, 1)),
+            uScaleToViewSize: new Uniform(new Vector2(1, 1)),
+            uClosestCorner: new Uniform(0),
+            uMouse: new Uniform(new Vector2(0, 0)),
 
             // Option Uniforms
-            uSeed: new THREE.Uniform(options.seed),
-            uProgressByParts: new THREE.Uniform(options.timing.type === "sections"),
-            uActivationParts: new THREE.Uniform(options.timing.sections),
-            uSyncLatestStart: new THREE.Uniform(options.timing.latestStart),
-            uBeizerControls: new THREE.Uniform(
-                new THREE.Vector4(
+            uSeed: new Uniform(options.seed),
+            uProgressByParts: new Uniform(options.timing.type === "sections"),
+            uActivationParts: new Uniform(options.timing.sections),
+            uSyncLatestStart: new Uniform(options.timing.latestStart),
+            uBeizerControls: new Uniform(
+                new Vector4(
                     options.flipBeizerControls.c0.x,
                     options.flipBeizerControls.c0.y,
                     options.flipBeizerControls.c1.x,
@@ -89,16 +102,16 @@ export class GridToFullscreenEffect {
         this.onResize = this.onResize = this.onResize.bind(this);
     }
     resetUniforms() {
-        this.uniforms.uMeshScale.value = new THREE.Vector2(1, 1);
-        this.uniforms.uPlaneCenter.value = new THREE.Vector2(0, 0);
-        this.uniforms.uScaleToViewSize.value = new THREE.Vector2(1, 1);
+        this.uniforms.uMeshScale.value = new Vector2(1, 1);
+        this.uniforms.uPlaneCenter.value = new Vector2(0, 0);
+        this.uniforms.uScaleToViewSize.value = new Vector2(1, 1);
         this.uniforms.uClosestCorner.value = 0;
-        this.uniforms.uMouse.value = new THREE.Vector2(0, 0);
+        this.uniforms.uMouse.value = new Vector2(0, 0);
 
         this.uniforms.uImage.value = null;
-        this.uniforms.uImageRes.value = new THREE.Vector2(1, 1);
+        this.uniforms.uImageRes.value = new Vector2(1, 1);
         this.uniforms.uImageLarge.value = null;
-        this.uniforms.uImageLargeRes.value = new THREE.Vector2(1, 1);
+        this.uniforms.uImageLargeRes.value = new Vector2(1, 1);
 
         const mesh = this.mesh;
         mesh.scale.x = 0.00001;
@@ -126,17 +139,17 @@ export class GridToFullscreenEffect {
         for (let i = 0; i < images.length; i++) {
             const imageSet = images[i];
             imageSet.crossOrigin = '';
-            const largeTexture = new THREE.Texture(imageSet.large.image);
+            const largeTexture = new Texture(imageSet.large.image);
 
             // So It doesnt get resized to the power of 2
             largeTexture.generateMipmaps = false;
-            largeTexture.wrapS = largeTexture.wrapT = THREE.ClampToEdgeWrapping;
-            largeTexture.minFilter = THREE.LinearFilter;
+            largeTexture.wrapS = largeTexture.wrapT = ClampToEdgeWrapping;
+            largeTexture.minFilter = LinearFilter;
             largeTexture.needsUpdate = true;
-            const smallTexture = new THREE.Texture(imageSet.small.image);
+            const smallTexture = new Texture(imageSet.small.image);
             smallTexture.generateMipmaps = false;
-            smallTexture.wrapS = smallTexture.wrapT = THREE.ClampToEdgeWrapping;
-            smallTexture.minFilter = THREE.LinearFilter;
+            smallTexture.wrapS = smallTexture.wrapT = ClampToEdgeWrapping;
+            smallTexture.minFilter = LinearFilter;
             smallTexture.needsUpdate = true;
             const textureSet = {
                 large: {
@@ -178,7 +191,7 @@ export class GridToFullscreenEffect {
      Initiates THREEJS objects and adds listeners to the items
      */
     init() {
-        this.renderer = new THREE.WebGLRenderer({
+        this.renderer = new WebGLRenderer({
             alpha: true,
             antialias: true
         });
@@ -186,24 +199,24 @@ export class GridToFullscreenEffect {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.container.appendChild(this.renderer.domElement);
 
-        this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera(
+        this.scene = new Scene();
+        this.camera = new PerspectiveCamera(
             45,
             window.innerWidth / window.innerHeight,
             0.1,
-            10000
+            1000
         );
         this.camera.position.z = 50;
         this.camera.lookAt = this.scene.position;
 
         const viewSize = this.getViewSize();
-        this.uniforms.uViewSize.value = new THREE.Vector2(
+        this.uniforms.uViewSize.value = new Vector2(
             viewSize.width,
             viewSize.height
         );
 
         const segments = 128;
-        var geometry = new THREE.PlaneBufferGeometry(1, 1, segments, segments);
+        var geometry = new PlaneBufferGeometry(1, 1, segments, segments);
         function isFunction(functionToCheck) {
             return (
                 functionToCheck &&
@@ -220,13 +233,13 @@ export class GridToFullscreenEffect {
             transformation
         );
 
-        var material = new THREE.ShaderMaterial({
+        var material = new ShaderMaterial({
             uniforms: this.uniforms,
             vertexShader: shaders.vertex,
             fragmentShader: shaders.fragment,
-            side: THREE.DoubleSide
+            side: DoubleSide
         });
-        this.mesh = new THREE.Mesh(geometry, material);
+        this.mesh = new Mesh(geometry, material);
         this.scene.add(this.mesh);
 
         window.addEventListener("resize", this.onResize);
@@ -235,7 +248,6 @@ export class GridToFullscreenEffect {
                 this.recalculateUniforms(ev);
             });
         }
-// TODO: That bitch
         for (let i = 0; i < this.itemsWrapper.length; i++) {
             const btn = this.itemsWrapper[i].parentNode.parentNode.querySelector('.btn');
 	        btn.addEventListener("click", this.createOnMouseDown(i));
@@ -264,7 +276,6 @@ export class GridToFullscreenEffect {
             {
                 duration: this.options.timing.duration,
                 value: 0,
-                ease: this.options.easings.toGrid,
                 onUpdate: () => {
                     this.render();
                 },
@@ -299,7 +310,7 @@ export class GridToFullscreenEffect {
 
         const closestCorner = xIndex * 2 + yIndex;
         this.uniforms.uClosestCorner.value = closestCorner;
-        this.uniforms.uMouse.value = new THREE.Vector2(
+        this.uniforms.uMouse.value = new Vector2(
             mouseNormalized.x,
             mouseNormalized.y
         );
@@ -362,18 +373,16 @@ export class GridToFullscreenEffect {
             this.uniforms.uImageLargeRes.value.y =
                 textureSet.large.texture.image.naturalHeight;
         }
-        this.itemsWrapper[this.currentImageIndex].style.zIndex = 0;
+        this.itemsWrapper[this.currentImageIndex].style.zIndex = 2;
         this.container.style.zIndex = 2;
 
         if (this.options.onToFullscreenStart)
             this.options.onToFullscreenStart({ index: this.currentImageIndex });
-
         this.tween = gsap.to(
             this.uniforms.uProgress,
             {
                 duration: this.options.timing.duration,
                 value: 1,
-                ease: this.options.easings.toFullscreen,
                 onUpdate: () => {
                     this.render();
                 },
@@ -517,34 +526,7 @@ function ensureFloat(num) {
 }
 const transformations = {
     none: () => null,
-    flipX: () => {
-        // Only works with sync ending
-        return `
-    
-        float beizerProgress = cubicBezier(vertexProgress,
-        uBeizerControls.x,uBeizerControls.y,
-        uBeizerControls.z,uBeizerControls.w);
-        float flippedX = -transformedPos.x;
-        transformedPos.x = mix (transformedPos.x, flippedX,beizerProgress );
-          
-          // Flip texture on flipped sections 
-        // float activationAtX0 = getActivation(vec2(0.,transformedUV.y));
-        // float activationAtX1 = getActivation(vec2(1.,transformedUV.y));
-        //   float syncDifference = 
-        //     activationAtX1 * uSyncLatestStart - activationAtX0 * uSyncLatestStart;
-          float syncDifference =  uSyncLatestStart;
-            
-            // Flip the controls because who knows why
-            // But it works exactly
-          // Multiply by aspect ratio to account for mesh scaling
-          float aspectRatio = (uMeshScale.x / uMeshScale.y);
-          float stepFormula = 0.5 - (syncDifference * uSyncLatestStart * uSyncLatestStart) * aspectRatio;
-          transformedUV.x = mix(transformedUV.x,1.-transformedUV.x,
-              step(stepFormula,beizerProgress));
-      `;
-    },
     simplex: props => {
-        let seed = ensureFloat(props.seed || 0);
         let amplitudeX = ensureFloat(props.amplitudeX || 0.5);
         let amplitudeY = ensureFloat(props.amplitudeY || 0.5);
         let frequencyX = ensureFloat(props.frequencyX || 1);
@@ -557,38 +539,6 @@ const transformations = {
       float noiseY = snoise(vec2(transformedPos.y +uSeed, transformedPos.x + uSeed + simplexProgress * 1.) * ${frequencyY}) ;
       transformedPos.x += ${amplitudeX} * noiseX * simplexProgress;
       transformedPos.y += ${amplitudeY} * noiseY * simplexProgress;
-  `;
-    },
-    wavy: props => {
-        const seed = ensureFloat(props.seed || 0);
-        const amplitude = ensureFloat(props.amplitude || 0.5);
-        const frequency = ensureFloat(props.frequency || 4);
-        return `
-      float limit = 0.5;
-      float wavyProgress = min(clamp((vertexProgress) / limit,0.,1.),clamp((1.-vertexProgress) / (1.-limit),0.,1.));
-      float dist = length(transformedPos.xy);
-      
-      float angle = atan(transformedPos.x,transformedPos.y);
-      float nextDist = dist * (${amplitude} * (sin(angle * ${frequency} + ${seed}) /2.+0.5)+ 1.);
-      transformedPos.x = mix(transformedPos.x,sin(angle) * nextDist ,  wavyProgress);
-      transformedPos.y = mix(transformedPos.y,cos(angle) * nextDist,  wavyProgress);
-    `;
-    },
-    circle: props => {
-        return `
-      float limit = 0.5;
-      float circleProgress = min(clamp((vertexProgress) / limit,0.,1.),clamp((1.-vertexProgress) / (1.-limit),0.,1.));
-      float maxDistance = 0.5;
-      float dist = length(transformedPos.xy);
-      
-      float nextDist = min(maxDistance,dist);
-      float overload = step(maxDistance,dist);
-      float angle = atan(transformedPos.x,transformedPos.y);
-      
-      transformedPos.x = mix(transformedPos.x,sin(angle) * nextDist ,  circleProgress );
-      transformedPos.y = mix(transformedPos.y,cos(angle) * nextDist,  circleProgress);
-      transformedPos.z += -0.5 * overload * circleProgress;
-    
   `;
     }
 };
@@ -613,9 +563,7 @@ var vertexUniforms = `
 function generateShaders(activation, transform) {
     var vertex = `
     ${vertexUniforms}
-    ${cubicBeizer}
     ${simplex}
-    ${quadraticBezier}
     
     ${activation}
 float linearStep(float edge0, float edge1, float val) {
@@ -709,51 +657,6 @@ float linearStep(float edge0, float edge1, float val) {
     return { fragment, vertex };
 }
 
-var cubicBeizer = `
-// Helper functions:
-float slopeFromT (float t, float A, float B, float C){
-  float dtdx = 1.0/(3.0*A*t*t + 2.0*B*t + C); 
-  return dtdx;
-}
-float xFromT (float t, float A, float B, float C, float D){
-  float x = A*(t*t*t) + B*(t*t) + C*t + D;
-  return x;
-}
-float yFromT (float t, float E, float F, float G, float H){
-  float y = E*(t*t*t) + F*(t*t) + G*t + H;
-  return y;
-}
-float cubicBezier (float x, float a, float b, float c, float d){
-  float y0a = 0.00; // initial y
-  float x0a = 0.00; // initial x 
-  float y1a = b;    // 1st influence y   
-  float x1a = a;    // 1st influence x 
-  float y2a = d;    // 2nd influence y
-  float x2a = c;    // 2nd influence x
-  float y3a = 1.00; // final y 
-  float x3a = 1.00; // final x 
-  float A =   x3a - 3.*x2a + 3.*x1a - x0a;
-  float B = 3.*x2a - 6.*x1a + 3.*x0a;
-  float C = 3.*x1a - 3.*x0a;   
-  float D =   x0a;
-  float E =   y3a - 3.*y2a + 3.*y1a - y0a;    
-  float F = 3.*y2a - 6.*y1a + 3.*y0a;             
-  float G = 3.*y1a - 3.*y0a;             
-  float H =   y0a;
-  // Solve for t given x (using Newton-Raphelson), then solve for y given t.
-  // Assume for the first guess that t = x.
-  float currentt = x;
-  const int nRefinementIterations = 5;
-  for (int i=0; i < nRefinementIterations; i++){
-    float currentx = xFromT (currentt, A,B,C,D); 
-    float currentslope = slopeFromT (currentt, A,B,C);
-    currentt -= (currentx - x)*(currentslope);
-    currentt = clamp(currentt, 0.,1.);
-  } 
-  float y = yFromT (currentt,  E,F,G,H);
-  return y;
-}
-`;
 var simplex = `
 vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
 float snoise(vec2 v){
@@ -781,25 +684,5 @@ float snoise(vec2 v){
   g.x  = a0.x  * x0.x  + h.x  * x0.y;
   g.yz = a0.yz * x12.xz + h.yz * x12.yw;
   return 130.0 * dot(m, g);
-}
-`;
-
-var quadraticBezier = `
-float quadraticBezier (float x, float a, float b){
-  // adapted from BEZMATH.PS (1993)
-  // by Don Lancaster, SYNERGETICS Inc. 
-  // http://www.tinaja.com/text/bezmath.html
-  float epsilon = 0.00001;
-  a = max(0., min(1., a)); 
-  b = max(0., min(1., b)); 
-  if (a == 0.5){
-    a += epsilon;
-  }
-  
-  // solve t from x (an inverse operation)
-  float om2a = 1. - 2.*a;
-  float t = (sqrt(a*a + om2a*x) - a)/om2a;
-  float y = (1.-2.*b)*(t*t) + (2.*b)*t;
-  return y;
 }
 `;

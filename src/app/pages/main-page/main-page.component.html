@@ -14,9 +14,11 @@
 	<div fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
 		<div class="section fp-auto-height-responsive">
 			
+			<div class="main-section__curtain" style="transform: translateX(-100%)" #mainSectionCurtain></div>
+			
 			<div class="main-section__bg">
 				<app-fake3d
-					*ngIf="desctopMediaQuery"
+					*ngIf="desctopMediaQuery && mainSectionActive"
 					[image]="'assets/images/main.jpg'"
 					[depf]="'assets/images/main-map.jpg'"
 					[horizontalThreshold]="35"
@@ -25,7 +27,7 @@
 			</div>
 			
 			<div class="main-section">
-				<div class="main-section__title text-center" #mainTitle>
+				<div class="main-section__title text-center" style="transform: scale(2); opacity: 0" #mainTitle>
 					Флористика<br>
 					с душой
 				</div>
@@ -37,29 +39,33 @@
 					<app-soc></app-soc>
 				</div>
 				
-				<div class="main-section__mouse" #mouse>
+				<div class="main-section__mouse" #mouse style="transform: translate(-50%, 20px); opacity: 0;">
 					<app-mouse></app-mouse>
 				</div>
 			</div>
 		</div>
 		
 		<div class="section is-catalog fp-auto-height-responsive" id="js-catalog">
-			<div class="section__title text-center">
-				Каталог услуг
-			</div>
-			<app-catalog *ngIf="posts$ | async as posts; else loading" [posts]="posts"></app-catalog>
 			
-			<ng-template #loading>
-				<app-loader></app-loader>
-			</ng-template>
+			<div style="opacity: 0; z-index: 2;" #catalogSection> <!-- position: relative нельзя;-->
+
+				<div class="section__title text-center">
+					Каталог услуг
+				</div>
+				<app-catalog *ngIf="posts$ | async as posts; else loading" [posts]="posts"></app-catalog>
+				
+				<ng-template #loading>
+					<app-loader></app-loader>
+				</ng-template>
+			</div>
+			
 		</div>
 		
-		<div class="section is-actions fp-auto-height-responsive">
-			<app-actions></app-actions>
-		</div>
-		
-		<div class="section fp-auto-height">
-			<app-footer></app-footer>
+		<div class="section is-actions">
+			<div style="opacity: 0;">
+				<app-actions></app-actions>
+				<app-footer></app-footer>
+			</div>
 		</div>
 	</div>
 </div>

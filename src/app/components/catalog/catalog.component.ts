@@ -52,6 +52,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
     currentIndex;
     sectionState: string;
     isPaginationDisable: boolean;
+    loader: boolean;
 
     private subscription = new Subscription();
 
@@ -102,6 +103,8 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnInit() {
         this.subscription.add(
             this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
+        ).add(
+            this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader)
         );
 
         this.config = {
@@ -153,7 +156,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
             transformation: {
                 type: 'simplex',
                 props: {
-                    seed: '8000',
+                    seed: '1000',
                     frequencyX: 0.2,
                     frequencyY: 0.2,
                     amplitudeX: 0.3,
@@ -165,11 +168,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
                 transitionEffect.uniforms.uSeed.value = index * 10;
                 toggleFullview();
             },
-            seed: 800,
-            easings: {
-                toFullscreen: 'power1',
-                toGrid: 'power1'
-            }
+            seed: 80
         });
         transitionEffect.init();
         const toggleFullview = () => {
@@ -215,16 +214,13 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
 
     nextPage(id) {
         this.fadeService.changeSectionState('fadeOutMainPage');
+        this.loaderService.changeLoaderState(true);
         let tl = gsap.timeline()
             .to(window, {duration: 0.5, scrollTo: '#js-catalog', ease: 'Expo.inOut'})
             .add(catalogNextPageTransition(this.catalogTitle, this.catalogTransitionCurtain))
             .add(() => this.ngZone.run(() => {
                 this.router.navigate([`/post/${id}`], {queryParams: {loader: false}});
-                // this.loaderService.changeLoaderState(false);
-
             }));
-
-        // gsapAnimationDebugTools(tl, 0.1, 0.1);
     }
 
     createTransitionEffect(options) {
