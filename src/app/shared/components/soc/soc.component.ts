@@ -19,13 +19,13 @@ import {Subscription} from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class SocComponent implements OnInit, OnChanges, OnDestroy {
+export class SocComponent implements OnInit, OnDestroy {
     soc;
     sectionState: string;
     @Input() receiveSocState;
-    @ViewChild('socItems', {static: true}) private _socItems: ElementRef;
-    get socItems() {
-        return this._socItems.nativeElement;
+    @ViewChild('socElement', {static: true}) private _socElement: ElementRef;
+    get socElement() {
+        return this._socElement.nativeElement;
     }
     private subscription = new Subscription();
 
@@ -35,31 +35,27 @@ export class SocComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit() {
 
-        // gsap.ticker.lagSmoothing(1000, 16);
-        // gsap.ticker.fps(35);
-
         this.soc = this.socService.getSocialLinks();
         this.subscription.add(
-            this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
+            this.fadeService.currentSectionState.subscribe(sectionState => {
+                switch (sectionState) {
+                    case 'fadeInMainPage':
+                        this.startSoc();
+                        break;
+                    case 'fadeOutMainPage':
+                        this.fadeOutSoc();
+                        break;
+                    case 'fadeInFlowerPage':
+                        this.fadeInSoc();
+                        break;
+                    default:
+                        this.fadeOutInSoc();
+                        break;
+                }
+
+                return this.sectionState = sectionState;
+            })
         );
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-
-        switch (changes.receiveSocState.currentValue) {
-            case 'fadeInMainPage':
-                this.startSoc();
-                break;
-            case 'fadeOutMainPage':
-                this.fadeOutSoc();
-                break;
-            case 'fadeInFlowerPage':
-                this.fadeInSoc();
-                break;
-            default:
-                this.fadeOutInSoc();
-                break;
-        }
     }
 
     ngOnDestroy(): void {
@@ -68,25 +64,25 @@ export class SocComponent implements OnInit, OnChanges, OnDestroy {
 
     startSoc() {
         const tl =  gsap.timeline()
-            .add(startSoc(this.socItems));
+            .add(startSoc(this.socElement));
         // GSDevTools.create();
     }
 
     fadeInSoc() {
         const tl =  gsap.timeline()
-            .add(fadeInSoc(this.socItems));
+            .add(fadeInSoc(this.socElement));
         // GSDevTools.create();
     }
 
     fadeOutSoc() {
         const tl =  gsap.timeline()
-            .add(fadeOutSoc(this.socItems));
+            .add(fadeOutSoc(this.socElement));
         // GSDevTools.create();
     }
 
     fadeOutInSoc() {
         const tl =  gsap.timeline()
-            .add(fadeOutInSoc(this.socItems));
+            .add(fadeOutInSoc(this.socElement));
         // GSDevTools.create();
     }
 

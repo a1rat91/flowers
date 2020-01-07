@@ -3,9 +3,8 @@ import {
     Component,
     ElementRef,
     Input,
-    OnChanges, OnDestroy,
+    OnDestroy,
     OnInit,
-    SimpleChanges,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -21,7 +20,7 @@ import {Subscription} from 'rxjs';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NextSectionLinkComponent implements OnInit, OnChanges, OnDestroy {
+export class NextSectionLinkComponent implements OnInit, OnDestroy {
     sectionState: string;
     @Input() receiveNextSectionLinkState;
     @ViewChild('nextSectionLink', {static: true}) private _nextSectionLink: ElementRef;
@@ -38,32 +37,29 @@ export class NextSectionLinkComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit() {
 
-        // gsap.ticker.lagSmoothing(1000, 16);
-        // gsap.ticker.fps(35);
-
         this.subscription.add(
-            this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
-        );
-    }
+            this.fadeService.currentSectionState.subscribe(sectionState => {
+                switch (sectionState) {
+                    case 'fadeInMainPage':
+                        this.startNextSectionLink();
+                        break;
+                    case 'fadeOutMainPage':
+                        this.fadeOutNextSectionLink();
+                        break;
+                    case 'fadeOutCatalogSection':
+                        this.fadeOutNextSectionLink();
+                        break;
+                    case 'fadeInFlowerPage':
+                        this.fadeInNextSectionLink();
+                        break;
+                    default:
+                        this.fadeOutInNextSectionLink();
+                        break;
+                }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        switch (changes.receiveNextSectionLinkState.currentValue) {
-            case 'fadeInMainPage':
-                this.startNextSectionLink();
-                break;
-            case 'fadeOutMainPage':
-                this.fadeOutNextSectionLink();
-                break;
-            case 'fadeOutCatalogSection':
-                this.fadeOutNextSectionLink();
-                break;
-            case 'fadeInFlowerPage':
-                this.fadeInNextSectionLink();
-                break;
-            default:
-                this.fadeOutInNextSectionLink();
-                break;
-        }
+                return this.sectionState = sectionState;
+            })
+        );
     }
 
     ngOnDestroy(): void {

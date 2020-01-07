@@ -54,11 +54,11 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
             this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader)
         ).add(
             this.routeSubscription = route.queryParams.subscribe((queryParam: any) => {
-                if (queryParam['loader'] === 'false') {
-                    this.loaderService.changeLoaderState(true);
-                } else {
-                    this.loaderService.changeLoaderState(false);
-                }
+                // if (queryParam['loader'] === 'false') {
+                //     this.loaderService.changeLoaderState(true);
+                // } else {
+                //     this.loaderService.changeLoaderState(false);
+                // }
             })
         );
     }

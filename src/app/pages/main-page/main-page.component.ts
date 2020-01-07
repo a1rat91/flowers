@@ -71,8 +71,6 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
         window.addEventListener('resize', () => this.isDesctop());
 
-        this.loaderService.changeLoaderState(true);
-
         this.config = {
             licenseKey: environment.fullpage.apiKey,
             anchors: ['firstSection', 'secondSection', 'lastSection'],
@@ -89,12 +87,12 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
             },
             onLeave: (origin, destination, direction) => {
                 // console.log(origin, destination, direction, 'onLeave');
-                if (origin.index === 0 && direction === 'down') {
+                if (origin.index === 0 && destination.index === 1) {
                     // Если не первая секция, не отыгрываем анимацию
                     this.fadeService.changeSectionState('fadeOutMainSection');
                     this.fadeOutMainSection();
                     this.mainSectionActive = false;
-                } else if (origin.index === 1 && direction === 'up') {
+                } else if (origin.index === 1 && destination.index === 0) {
                     this.fadeService.changeSectionState('fadeInMainSection');
                     this.fadeInMainSection();
                     this.mainSectionActive = true;
@@ -120,8 +118,6 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
             .add(
                 this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
             ).add(
-                this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader)
-            ).add(
             this.navigationService.currentNavigationState.subscribe(navigation => {
                 // this.fullpage_api.setAutoScrolling(true);
                 if (!this.navigation) {
@@ -137,15 +133,13 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit(): void {
         this.mainSectionActive = true;
-        document.addEventListener('DOMContentLoaded', () => {
-            window.onload = () => {
-                setTimeout(() => {
-                    this.loaderService.changeLoaderState(false);
-                    this.fadeService.changeSectionState('fadeInMainPage');
-                    this.startMainSection();
-                }, 500);
-            };
-        });
+        this.subscription.add(
+            this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader)
+        );
+        setTimeout(() => {
+            this.fadeService.changeSectionState('fadeInMainPage');
+            this.startMainSection();
+        }, 500);
         this.fadeService.changeSectionState('fadeInMainPage');
 
         this.fullpage_api.setScrollingSpeed(2000);

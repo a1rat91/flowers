@@ -1,16 +1,17 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 
 @Injectable()
 export class LoaderService {
 
-    private loaderSource = new BehaviorSubject<boolean>(true);
+    private loaderSource = new Subject<boolean>();
     currentLoaderState = this.loaderSource.asObservable();
 
     constructor() {
     }
 
     changeLoaderState(loader: boolean) {
+        console.log(loader, 'changeLoaderState');
         this.loaderSource.next(loader);
     }
 

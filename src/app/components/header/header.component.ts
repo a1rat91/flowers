@@ -4,9 +4,8 @@ import {
     ElementRef,
     Inject,
     Input,
-    OnChanges, OnDestroy,
+    OnDestroy,
     OnInit,
-    SimpleChanges,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -27,7 +26,7 @@ import {Subscription} from 'rxjs';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit, OnChanges, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy {
 
     navigation: boolean;
     burger: boolean;
@@ -55,26 +54,23 @@ export class HeaderComponent implements OnInit, OnChanges, OnDestroy {
         this.subscription
             .add(this.nav.currentNavigationState.subscribe(navigation => this.navigation = navigation))
             .add(this.nav.currentBurgerState.subscribe(burger => this.burger = burger))
-            .add(this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState));
-
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes.receiveHeaderState.currentValue);
-        switch (changes.receiveHeaderState.currentValue) {
-            case 'fadeInMainPage':
-                this.startHeader();
-                break;
-            case 'fadeOutMainPage':
-                this.fadeOutHeader();
-                break;
-            case 'fadeInFlowerPage':
-                this.fadeInHeader();
-                break;
-            default:
-                this.fadeOutInHeader();
-                break;
-        }
+            .add(this.fadeService.currentSectionState.subscribe(sectionState => {
+                switch (sectionState) {
+                    case 'fadeInMainPage':
+                        this.startHeader();
+                        break;
+                    case 'fadeOutMainPage':
+                        this.fadeOutHeader();
+                        break;
+                    case 'fadeInFlowerPage':
+                        this.fadeInHeader();
+                        break;
+                    default:
+                        this.fadeOutInHeader();
+                        break;
+                }
+                return this.sectionState = sectionState;
+            }));
     }
 
     ngOnDestroy(): void {
