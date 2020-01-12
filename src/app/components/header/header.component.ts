@@ -3,7 +3,7 @@ import {
     Component,
     ElementRef,
     Inject,
-    Input,
+    Input, NgZone,
     OnDestroy,
     OnInit,
     ViewChild,
@@ -12,9 +12,10 @@ import {
 import {NavigationService} from '../../services/navigation.service';
 import {DOCUMENT} from '@angular/common';
 import {LoaderService} from '../loader/loader.service';
-import { gsap } from 'gsap/all';
+import {gsap} from 'gsap/all';
 import {startHeader, fadeInHeader, fadeOutHeader, fadeOutInHeader} from './header.animation';
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
+
 gsap.registerPlugin(GSDevTools);
 import {FadeService} from '../../services/fade.service';
 import {Subscription} from 'rxjs';
@@ -39,6 +40,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     get logoEl() {
         return this._logoEl.nativeElement;
     }
+
     get burgerEl() {
         return this._burgerEl.nativeElement;
     }
@@ -46,7 +48,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     constructor(private nav: NavigationService,
                 @Inject(DOCUMENT) private document: Document,
                 private loaderService: LoaderService,
-                private fadeService: FadeService) {
+                private fadeService: FadeService,
+                private ngZone: NgZone) {
     }
 
     ngOnInit() {
@@ -93,26 +96,42 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     startHeader() {
-        const tl =  gsap.timeline()
-            .add(startHeader(this.logoEl, this.burgerEl));
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline()
+                    .add(startHeader(this.logoEl, this.burgerEl));
+            }
+        );
+
         // GSDevTools.create();
     }
 
     fadeInHeader() {
-        const tl =  gsap.timeline()
-            .add(fadeInHeader(this.logoEl, this.burgerEl));
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline()
+                    .add(fadeInHeader(this.logoEl, this.burgerEl));
+            }
+        );
+
         // GSDevTools.create();
     }
 
     fadeOutHeader() {
-        const tl =  gsap.timeline()
-            .add(fadeOutHeader(this.logoEl, this.burgerEl));
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline()
+                    .add(fadeOutHeader(this.logoEl, this.burgerEl));
+            }
+        );
+
         // GSDevTools.create();
     }
 
     fadeOutInHeader() {
-        const tl =  gsap.timeline()
-            .add(fadeOutInHeader(this.logoEl, this.burgerEl));
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline()
+                    .add(fadeOutInHeader(this.logoEl, this.burgerEl));
+            }
+        );
+
         // GSDevTools.create();
     }
 

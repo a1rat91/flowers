@@ -1,7 +1,7 @@
 import {
     ChangeDetectionStrategy,
     Component, ElementRef,
-    Input,
+    Input, NgZone,
     OnChanges, OnDestroy,
     OnInit,
     SimpleChanges, ViewChild
@@ -27,10 +27,12 @@ export class SocComponent implements OnInit, OnDestroy {
     get socElement() {
         return this._socElement.nativeElement;
     }
+
     private subscription = new Subscription();
 
     constructor(public socService: SocService,
-                private fadeService: FadeService) {
+                private fadeService: FadeService,
+                private ngZone: NgZone) {
     }
 
     ngOnInit() {
@@ -63,27 +65,39 @@ export class SocComponent implements OnInit, OnDestroy {
     }
 
     startSoc() {
-        const tl =  gsap.timeline()
-            .add(startSoc(this.socElement));
-        // GSDevTools.create();
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline()
+                    .add(startSoc(this.socElement));
+                // GSDevTools.create();
+            }
+        );
     }
 
     fadeInSoc() {
-        const tl =  gsap.timeline()
-            .add(fadeInSoc(this.socElement));
-        // GSDevTools.create();
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline()
+                    .add(fadeInSoc(this.socElement));
+                // GSDevTools.create();
+            }
+        );
     }
 
     fadeOutSoc() {
-        const tl =  gsap.timeline()
-            .add(fadeOutSoc(this.socElement));
-        // GSDevTools.create();
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline()
+                    .add(fadeOutSoc(this.socElement));
+                // GSDevTools.create();
+            }
+        );
     }
 
     fadeOutInSoc() {
-        const tl =  gsap.timeline()
-            .add(fadeOutInSoc(this.socElement));
-        // GSDevTools.create();
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline()
+                    .add(fadeOutInSoc(this.socElement));
+                // GSDevTools.create();
+            }
+        );
     }
 
 }

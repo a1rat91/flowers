@@ -1,7 +1,7 @@
 import {
     AfterViewInit, ChangeDetectionStrategy,
     Component,
-    ElementRef, Inject, OnDestroy,
+    ElementRef, Inject, NgZone, OnDestroy,
     OnInit,
     ViewChild,
     ViewEncapsulation
@@ -13,8 +13,9 @@ import {Observable, Subscription} from 'rxjs';
 import {switchMap} from 'rxjs/operators';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
 import {LoaderService} from '../../components/loader/loader.service';
-import { gsap } from 'gsap/all';
+import {gsap} from 'gsap/all';
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
+
 gsap.registerPlugin(GSDevTools);
 import {DOCUMENT} from '@angular/common';
 import {FadeService} from '../../services/fade.service';
@@ -48,7 +49,8 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
                 private distortionSliderService: DistortionSliderService,
                 private loaderService: LoaderService,
                 private fadeService: FadeService,
-                @Inject(DOCUMENT) private document: Document) {
+                @Inject(DOCUMENT) private document: Document,
+                private ngZone: NgZone) {
 
         this.subscription.add(
             this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader)
@@ -110,11 +112,14 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     fadeInFlowerPage(event) {
         if (event === 'loaded') {
-            const tl = gsap.timeline({id: 'fadeInFlowerPage'})
-                .to([this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl],
-                    { duration: 2, delay: 1, y: 0, opacity: 1, stagger: .3, ease: 'expo'});
+            this.ngZone.runOutsideAngular(() => {
+                    const tl = gsap.timeline({id: 'fadeInFlowerPage'})
+                        .to([this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl],
+                            {duration: 2, delay: 1, y: 0, opacity: 1, stagger: .3, ease: 'expo'});
 
-            // GSDevTools.create({animation: tl, container: '#fadeInFlowerPage'});
+                    // GSDevTools.create({animation: tl, container: '#fadeInFlowerPage'});
+                }
+            );
         }
         this.fadeService.changeSectionState('fadeInFlowerPage');
     }

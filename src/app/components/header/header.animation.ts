@@ -1,47 +1,44 @@
-import { gsap } from 'gsap/all';
+import {gsap} from 'gsap/all';
 
-const duration = 0.7;
+gsap.timeline({
+    defaults:
+        {
+            duration: 0.5,
+            ease: 'expo',
+            translateZ: 0
+        }
+});
+
+const startHeaderFrom = {translateY: 20, opacity: 0};
+const startHeaderTo = {translateY: 0, opacity: 1, delay: 2};
+
+const fadeInHeaderFrom = {translateY: 20, opacity: 0};
+const fadeInHeaderTo = {translateY: 0, opacity: 1};
+
+const fadeOutHeaderFrom = {translateY: 0, opacity: 1};
+const fadeOutHeaderTo = {translateY: 20, opacity: 0};
 
 export function startHeader(logo, burger) {
 
-    const logoConfig = { duration: 0.5, y: 0, opacity: 1, ease: 'expo'};
-    const burgerConfig = { duration: 0.5, y: 0, opacity: 1, ease: 'expo'};
-
     return gsap.timeline()
-        .to(logo, logoConfig)
-        .to(burger, burgerConfig, '-=0.5');
+        .fromTo([logo, burger], startHeaderFrom, startHeaderTo);
 }
 
 export function fadeInHeader(logo, burger) {
 
-    const logoConfig = { duration: 0.5, y: 0, opacity: 1, ease: 'expo'};
-    const burgerConfig = { duration: 0.5, y: 0, opacity: 1, ease: 'expo'};
-
     return gsap.timeline()
-        .to(logo, logoConfig)
-        .to(burger, burgerConfig, '-=0.5');
+        .fromTo([logo, burger], fadeInHeaderFrom, fadeInHeaderTo);
 }
 
 export function fadeOutHeader(logo, burger) {
 
-    const logoConfig = { duration: 0.5, y: 30, opacity: 0, ease: 'expo'};
-    const burgerConfig = { duration: 0.5, y: 30, opacity: 0, ease: 'expo'};
-
     return gsap.timeline()
-        .to(logo, logoConfig)
-        .to(burger, burgerConfig, '-=0.5');
+        .fromTo([logo, burger], fadeOutHeaderFrom, fadeOutHeaderTo);
 }
 
 export function fadeOutInHeader(logo, burger) {
 
-    const logoOutConfig = { duration: 0.5, y: 30, opacity: 0, ease: 'expo'};
-    const burgerOutConfig = { duration: 0.5, y: 30, opacity: 0, ease: 'expo'};
-    const logoInConfig = { duration: 0.5, y: 0, opacity: 1, ease: 'expo'};
-    const burgerInConfig = { duration: 0.5, y: 0, opacity: 1, ease: 'expo'};
-
     return gsap.timeline()
-        .to(logo, logoOutConfig)
-        .to(burger, burgerOutConfig, '-=0.5')
-        .to(logo, logoInConfig)
-        .to(burger, burgerInConfig, '-=0.5');
+        .fromTo([logo, burger], fadeOutHeaderFrom, fadeOutHeaderTo)
+        .to([logo, burger], startHeaderTo);
 }

@@ -1,35 +1,33 @@
 import { gsap } from 'gsap/all';
 
+const linkConfigFadeInFrom = {opacity: 0, x: 20};
+const linkConfigFadeInTo = {opacity: 1, x: 0, delay: 3};
+const linkConfigFadeOutFrom = {opacity: 1, x: 0};
+const linkConfigFadeOutTo = {opacity: 0, x: 20, delay: 3};
+
+gsap.timeline({defaults: {
+        ease: 'expo',
+        duration: 0.5
+    }
+});
+
 export function startNextSectionLink(link) {
-
-    const linkConfig = { duration: 0.5, opacity: 1, y: 0, delay: 3, ease: 'expo'};
-
     return gsap.timeline()
-        .to(link, linkConfig);
+        .fromTo(link, linkConfigFadeInFrom, linkConfigFadeInTo);
 }
 
 export function fadeInNextSectionLink(link) {
-
-    const linkConfig = { duration: 0.9, opacity: 1, y: 0, ease: 'expo'};
-
     return gsap.timeline()
-        .to(link, linkConfig);
+        .fromTo(link, linkConfigFadeInFrom, linkConfigFadeInTo);
 }
 
 export function fadeOutNextSectionLink(link) {
-
-    const linkConfig = { duration: 0.9, opacity: 0, y: -30, ease: 'expo'};
-
     return gsap.timeline()
-        .to(link, linkConfig);
+        .fromTo(link, linkConfigFadeOutFrom, linkConfigFadeOutTo);
 }
 
 export function fadeOutInNextSectionLink(link) {
-
-    const linkOutConfig = { duration: 0.9, opacity: 0, y: -30, ease: 'expo'};
-    const linkInConfig = { duration: 0.9, opacity: 1, y: 0, ease: 'expo'};
-
     return gsap.timeline()
-        .to(link, linkOutConfig)
-        .to(link, linkInConfig);
+        .fromTo(link, {opacity: 1, x: 0}, {opacity: 0, x: 20})
+        .to(link, { opacity: 1, x: 0, delay: 2});
 }

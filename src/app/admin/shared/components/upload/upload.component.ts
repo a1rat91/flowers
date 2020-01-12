@@ -1,10 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {UploadImgsService} from '../../services/uploadImgs.service';
 
 @Component({
     selector: 'app-upload',
     templateUrl: './upload.component.html',
-    styleUrls: ['./upload.component.scss']
+    styleUrls: ['./upload.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UploadComponent {
 

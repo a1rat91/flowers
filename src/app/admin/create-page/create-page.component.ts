@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Post} from '../shared/interfaces';
 import {PostsService} from '../../shared/posts.service';
@@ -8,7 +8,8 @@ import {UploadImgsService} from '../shared/services/uploadImgs.service';
 @Component({
     selector: 'app-create-page',
     templateUrl: './create-page.component.html',
-    styleUrls: ['./create-page.component.scss']
+    styleUrls: ['./create-page.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreatePageComponent implements OnInit {
 
@@ -16,7 +17,7 @@ export class CreatePageComponent implements OnInit {
     constructor(
         private postsService: PostsService,
         private alert: AlertService,
-        private uploadImgsService: UploadImgsService
+        private uploadImgsService: UploadImgsService,
     ) {
     }
 

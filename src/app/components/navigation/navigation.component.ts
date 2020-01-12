@@ -4,7 +4,7 @@ import {
     Component,
     DoCheck,
     ElementRef,
-    Input,
+    Input, NgZone,
     OnDestroy,
     OnInit,
     QueryList,
@@ -16,7 +16,7 @@ import {NavigationService} from '../../services/navigation.service';
 import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
 import {Observable, Subscription} from 'rxjs';
-import { gsap } from 'gsap/all';
+import {gsap} from 'gsap/all';
 import {
     fadeInNavigation,
     fadeOutNavigation
@@ -45,7 +45,8 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(
         private postsService: PostsService,
         private nav: NavigationService,
-        private loaderService: LoaderService) {
+        private loaderService: LoaderService,
+        private ngZone: NgZone) {
         this.burger = false;
         this.navigation = false;
     }
@@ -88,23 +89,23 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
     get navigationEl() {
         return this._navigationSections.nativeElement;
     }
+
     get navigationMenu() {
         return this._navMenuItems.map((element) => element.nativeElement);
     }
 
     fadeInNav() {
-        const tl =  gsap.timeline().add(fadeInNavigation(this.navigationEl, this.navigationMenu));
-
-
-        // gsAnimationTools(tl, 0.1, 0.1);
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline().add(fadeInNavigation(this.navigationEl, this.navigationMenu));
+            }
+        );
     }
 
     fadeOutNav() {
-        // const tl = new TimelineMax({delay: 0.5})
-        //     .add(fadeOutNavigation(this.navigationEl, this.navigationMenu));
-        const tl = gsap.timeline({delay: 0.5})
-            .add(fadeOutNavigation(this.navigationEl, this.navigationMenu));
-
-        // gsapAnimationDebugTools(tl, 0.1, 0.1);
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline({delay: 0.5})
+                    .add(fadeOutNavigation(this.navigationEl, this.navigationMenu));
+            }
+        );
     }
 }

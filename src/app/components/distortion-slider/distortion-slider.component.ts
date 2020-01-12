@@ -1,17 +1,18 @@
 import {
     ChangeDetectionStrategy,
-    Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild,
+    Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild,
     ViewEncapsulation
 } from '@angular/core';
 
 import {
     Scene, WebGLRenderer, OrthographicCamera, TextureLoader, LinearFilter, RepeatWrapping, ShaderMaterial,
-    PlaneBufferGeometry, Mesh, Vector2, Camera } from 'three';
+    PlaneBufferGeometry, Mesh, Vector2, Camera
+} from 'three';
 import {vertex as vertex} from './shader';
 import {fragment as fragment} from './shader';
 import {mod} from './utils';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
-import { gsap } from 'gsap/all';
+import {gsap} from 'gsap/all';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -53,7 +54,8 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     newImagesArr;
     private subscription = new Subscription();
 
-    constructor(private distortionSliderService: DistortionSliderService) {
+    constructor(private distortionSliderService: DistortionSliderService,
+                private ngZone: NgZone) {
         this.displacement = 'assets/images/displacement/4.png';
         this.intensity = 0.2;
         this.speedIn = 1;
@@ -80,24 +82,26 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     ngOnInit() {
+        this.ngZone.runOutsideAngular(() => {
+                this.cameraInit();
+                this.animate();
 
-        this.cameraInit();
-        this.animate();
+                window.addEventListener('resize', this.onResize);
+                window.addEventListener('mousemove', this.onMouseMove);
 
-        window.addEventListener('resize', this.onResize);
-        window.addEventListener('mousemove', this.onMouseMove);
+                setInterval(() => {
+                    if (!this.slideIndex) {
+                        this.next();
+                    }
+                }, 4000);
 
-        setInterval(() => {
-            if (!this.slideIndex) {
-                this.next();
+                this.subscription.add(
+                    this.distortionSliderService.currentIndex.subscribe(slideIndex => {
+                        this.goTo(slideIndex);
+                        return this.slideIndex = slideIndex;
+                    })
+                );
             }
-        }, 4000);
-
-        this.subscription.add(
-            this.distortionSliderService.currentIndex.subscribe(slideIndex => {
-                this.goTo(slideIndex);
-                return this.slideIndex = slideIndex;
-            })
         );
     }
 
@@ -292,7 +296,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
             this.onLoadEnd.emit('loaded');
 
             gsap.timeline()
-                .to(this.distortionSliderCurtain.nativeElement, {duration: 1.5, x: '100%', ease: 'expo' });
+                .to(this.distortionSliderCurtain.nativeElement, {duration: 1.5, x: '100%', ease: 'expo'});
 
             this.render();
         });

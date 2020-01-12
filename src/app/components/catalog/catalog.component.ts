@@ -1,6 +1,6 @@
 import {
     AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef,
-    Component, DoCheck,
+    Component,
     ElementRef,
     Inject,
     Input,
@@ -141,60 +141,60 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
 
-        // gsap.ticker.lagSmoothing(1000, 16);
-        // gsap.ticker.fps(35);
-
         const itemsWrapper = this.wrappers;
         const thumbs = this.thumbsItems;
         const fullviewItems = this.fullviewItems;
         const transitionEffectDuration = 1.2;
-        const transitionEffect = this.createTransitionEffect({
-            activation: {type: 'mouse'},
-            timing: {
-                duration: transitionEffectDuration
-            },
-            transformation: {
-                type: 'simplex',
-                props: {
-                    seed: '1000',
-                    frequencyX: 0.2,
-                    frequencyY: 0.2,
-                    amplitudeX: 0.3,
-                    amplitudeY: 0.3
-                }
-            },
-            onToFullscreenStart: ({index}) => {
-                this.currentIndex = index;
-                transitionEffect.uniforms.uSeed.value = index * 10;
-                toggleFullview();
-            },
-            seed: 80
-        });
-        transitionEffect.init();
-        const toggleFullview = () => {
-            fullviewItems[this.currentIndex].classList.add('fullview__item--current');
-        };
-        imagesLoaded(document.querySelectorAll('.grid__item-img'), instance => {
-            // Make Images sets for the transition effect
-            const images = [];
-            for (let i = 0, imageSet = {}; i < instance.elements.length; i++) {
-                const image = {
-                    element: instance.elements[i],
-                    image: instance.images[i].isLoaded ? instance.images[i].img : null
+        this.ngZone.runOutsideAngular(() => {
+                const transitionEffect = this.createTransitionEffect({
+                    activation: {type: 'mouse'},
+                    timing: {
+                        duration: transitionEffectDuration
+                    },
+                    transformation: {
+                        type: 'simplex',
+                        props: {
+                            seed: '1000',
+                            frequencyX: 0.2,
+                            frequencyY: 0.2,
+                            amplitudeX: 0.3,
+                            amplitudeY: 0.3
+                        }
+                    },
+                    onToFullscreenStart: ({index}) => {
+                        this.currentIndex = index;
+                        transitionEffect.uniforms.uSeed.value = index * 10;
+                        toggleFullview();
+                    },
+                    seed: 80
+                });
+                transitionEffect.init();
+                const toggleFullview = () => {
+                    fullviewItems[this.currentIndex].classList.add('fullview__item--current');
                 };
-                if (i % 2 === 0) {
-                    imageSet = {};
-                    // @ts-ignore
-                    imageSet.small = image;
-                }
-                if (i % 2 === 1) {
-                    // @ts-ignore
-                    imageSet.large = image;
-                    images.push(imageSet);
-                }
+                imagesLoaded(document.querySelectorAll('.grid__item-img'), instance => {
+                    // Make Images sets for the transition effect
+                    const images = [];
+                    for (let i = 0, imageSet = {}; i < instance.elements.length; i++) {
+                        const image = {
+                            element: instance.elements[i],
+                            image: instance.images[i].isLoaded ? instance.images[i].img : null
+                        };
+                        if (i % 2 === 0) {
+                            imageSet = {};
+                            // @ts-ignore
+                            imageSet.small = image;
+                        }
+                        if (i % 2 === 1) {
+                            // @ts-ignore
+                            imageSet.large = image;
+                            images.push(imageSet);
+                        }
+                    }
+                    transitionEffect.createTextures(images);
+                });
             }
-            transitionEffect.createTextures(images);
-        });
+        );
     }
 
     ngOnDestroy(): void {
@@ -215,12 +215,15 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
     nextPage(id) {
         this.fadeService.changeSectionState('fadeOutMainPage');
         this.loaderService.changeLoaderState(true);
-        let tl = gsap.timeline()
-            .to(window, {duration: 0.5, scrollTo: '#js-catalog', ease: 'Expo.inOut'})
-            .add(catalogNextPageTransition(this.catalogTitle, this.catalogTransitionCurtain))
-            .add(() => this.ngZone.run(() => {
-                this.router.navigate([`/post/${id}`], {queryParams: {loader: false}});
-            }));
+        this.ngZone.runOutsideAngular(() => {
+                let tl = gsap.timeline()
+                    .to(window, {duration: 0.5, scrollTo: '#js-catalog', ease: 'Expo.inOut'})
+                    .add(catalogNextPageTransition(this.catalogTitle, this.catalogTransitionCurtain))
+                    .add(() => this.ngZone.run(() => {
+                        this.router.navigate([`/post/${id}`], {queryParams: {loader: false}});
+                    }));
+            }
+        );
     }
 
     createTransitionEffect(options) {

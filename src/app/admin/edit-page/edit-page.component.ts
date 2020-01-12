@@ -1,4 +1,12 @@
-import {Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+    QueryList,
+    ViewChildren
+} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {PostsService} from '../../shared/posts.service';
 import {switchMap} from 'rxjs/operators';
@@ -10,7 +18,8 @@ import {AlertService} from '../shared/services/alert.service';
 @Component({
     selector: 'app-edit-page',
     templateUrl: './edit-page.component.html',
-    styleUrls: ['./edit-page.component.scss']
+    styleUrls: ['./edit-page.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditPageComponent implements OnInit, OnDestroy {
 

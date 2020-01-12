@@ -1,7 +1,7 @@
 import {
     AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef,
     Component,
-    ElementRef, Inject, OnDestroy,
+    ElementRef, Inject, NgZone, OnDestroy,
     OnInit,
     ViewChild,
     ViewEncapsulation
@@ -65,6 +65,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
                 private loaderService: LoaderService,
                 private fadeService: FadeService,
                 private cdr: ChangeDetectorRef,
+                private ngZone: NgZone,
                 @Inject(DOCUMENT) private document: Document) {
 
         this.isDesctop();
@@ -137,12 +138,12 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
             this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader)
         );
         setTimeout(() => {
-            this.fadeService.changeSectionState('fadeInMainPage');
             this.startMainSection();
+            this.fadeService.changeSectionState('fadeInMainPage');
         }, 500);
-        this.fadeService.changeSectionState('fadeInMainPage');
+        // this.fadeService.changeSectionState('fadeInMainPage');
 
-        this.fullpage_api.setScrollingSpeed(2000);
+        this.fullpage_api.setScrollingSpeed(3000);
 
         if (!this.isDesctop()) {
             this.fullpage_api.destroy('all');
@@ -178,30 +179,49 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     startMainSection() {
-        const tl = gsap.timeline({id: 'fadeInMainSection'})
-            .add(startMainSection(this.mainTitle, this.mainBtn, this.mouse));
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline({id: 'fadeInMainSection'})
+                    .add(startMainSection(this.mainTitle, this.mainBtn, this.mouse));
+            }
+        );
+
     }
 
     fadeInMainSection() {
-        const tl = gsap.timeline({id: 'fadeInMainSection'})
-            .add(fadeOutCatalogSection(this.catalogSection))
-            .add(fadeInMainSection(this.mainSectionCurtain, this.mainTitle, this.mainBtn, this.mouse));
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline({id: 'fadeInMainSection'})
+                    .add(fadeOutCatalogSection(this.catalogSection))
+                    .add(fadeInMainSection(this.mainSectionCurtain, this.mainTitle, this.mainBtn, this.mouse));
+            }
+        );
     }
 
     fadeOutMainSection() {
-        const tl = gsap.timeline({id: 'fadeOutMainSection'})
-            .add(fadeOutMainSection(this.mainSectionCurtain))
-            .add(fadeInCatalogSection(this.catalogSection));
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline({id: 'fadeOutMainSection'})
+                    .add(fadeOutMainSection(this.mainSectionCurtain))
+                    .add(fadeInCatalogSection(this.catalogSection));
+            }
+        );
+
     }
 
     fadeInCatalogSection() {
-        const tl = gsap.timeline({id: 'fadeInCatalogSection'})
-            .add(fadeInCatalogSection(this.catalogSection));
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline({id: 'fadeInCatalogSection'})
+                    .add(fadeInCatalogSection(this.catalogSection));
+            }
+        );
+
     }
 
     fadeOutCatalogSection() {
-        const tl = gsap.timeline({id: 'fadeOutCatalogSection'})
-            .add(fadeOutCatalogSection(this.catalogSection));
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline({id: 'fadeOutCatalogSection'})
+                    .add(fadeOutCatalogSection(this.catalogSection));
+            }
+        );
+
     }
 
 

@@ -1,35 +1,35 @@
 import { gsap } from 'gsap/all';
 
+const socItemConfigFadeInFrom = {opacity: 0, y: 20};
+const socItemConfigFadeInTo = {opacity: 1, y: 0, delay: 3};
+const socItemConfigFadeOutFrom = {opacity: 1, y: 0};
+const socItemConfigFadeOutTo = {opacity: 0, y: 20, delay: 3};
+
+gsap.timeline({defaults: {
+        ease: 'expo',
+        duration: 0.5
+    }
+});
+
 export function startSoc(socItem) {
-
-    const socConfig = { duration: 0.9, opacity: 1, x: 0, delay: 3, ease: 'expo'};
-
     return gsap.timeline()
-        .to(socItem, socConfig);
+        .fromTo(socItem, socItemConfigFadeInFrom, socItemConfigFadeInTo);
 }
 
 export function fadeInSoc(socItem) {
 
-    const socConfig = { duration: 0.9, opacity: 1, x: 0, ease: 'expo'};
-
     return gsap.timeline()
-        .to(socItem, socConfig);
+        .fromTo(socItem, socItemConfigFadeInFrom, socItemConfigFadeInTo);
 }
 
 export function fadeOutSoc(socItem) {
 
-    const socConfig = { duration: 0.9, opacity: 0, x: -30, ease: 'expo'};
-
     return gsap.timeline()
-        .to(socItem, socConfig);
+        .fromTo(socItem, socItemConfigFadeOutFrom, socItemConfigFadeOutTo);
 }
 
 export function fadeOutInSoc(socItem) {
-
-    const socOutConfig = { duration: 0.9, opacity: 0, x: -30, ease: 'expo'};
-    const socInConfig = { duration: 0.9, opacity: 1, x: 0, ease: 'expo'};
-
     return gsap.timeline()
-        .to(socItem, socOutConfig)
-        .to(socItem, socInConfig);
+        .fromTo(socItem, {opacity: 1, y: 0}, {opacity: 0, y: 20})
+        .to(socItem, { opacity: 1, y: 0, delay: 2});
 }

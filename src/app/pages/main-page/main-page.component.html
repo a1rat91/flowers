@@ -14,7 +14,7 @@
 	<div fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
 		<div class="section fp-auto-height-responsive">
 			
-			<div class="main-section__curtain" style="transform: translateX(-100%)" #mainSectionCurtain></div>
+			<div class="main-section__curtain" style="transform: translateX(-100%) translateZ(0)" #mainSectionCurtain></div>
 			
 			<div class="main-section__bg">
 				<app-fake3d
@@ -27,11 +27,11 @@
 			</div>
 			
 			<div class="main-section">
-				<div class="main-section__title text-center" style="transform: scale(2); opacity: 0" #mainTitle>
+				<div class="main-section__title text-center" style="transform: scale(2) translateZ(0); opacity: 0" #mainTitle>
 					Флористика<br>
 					с душой
 				</div>
-				<button class="btn main-section__btn" #mainBtn style="transform: translate(0, 20px); opacity: 0;">
+				<button class="btn main-section__btn" #mainBtn style="transform: translate3d(0, 20px, 0); opacity: 0;">
 					Cмотреть работы
 				</button>
 				
@@ -39,7 +39,7 @@
 					<app-soc></app-soc>
 				</div>
 				
-				<div class="main-section__mouse" #mouse style="transform: translate(-50%, 20px); opacity: 0;">
+				<div class="main-section__mouse" #mouse style="transform: translate3d(-50%, 20px, 0); opacity: 0;">
 					<app-mouse></app-mouse>
 				</div>
 			</div>

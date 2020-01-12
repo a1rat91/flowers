@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, Input, NgZone, OnInit, ViewChild} from '@angular/core';
 
 import {fragmentGlsl as fragment} from './shaders/fragment';
 import {vertexGlsl as vertex} from './shaders/vertex';
@@ -56,42 +56,45 @@ export class Fake3dComponent implements OnInit {
     @Input() verticalThreshold;
     @Input() horizontalThreshold;
 
-    constructor() {
+    constructor(private ngZone: NgZone) {
     }
 
     public ngOnInit() {
-        this.container = this.fake3d.nativeElement;
-        this.canvas = document.createElement('canvas');
-        this.container.appendChild(this.canvas);
-        this.gl = this.canvas.getContext('webgl');
-        this.ratio = window.devicePixelRatio;
-        this.windowWidth = window.innerWidth;
-        this.windowHeight = window.innerHeight;
-        this.mouseX = 0;
-        this.mouseY = 0;
+        this.ngZone.runOutsideAngular(() => {
+            this.container = this.fake3d.nativeElement;
+            this.canvas = document.createElement('canvas');
+            this.container.appendChild(this.canvas);
+            this.gl = this.canvas.getContext('webgl');
+            this.ratio = window.devicePixelRatio;
+            this.windowWidth = window.innerWidth;
+            this.windowHeight = window.innerHeight;
+            this.mouseX = 0;
+            this.mouseY = 0;
 
-        this.mouseTargetX = 0;
-        this.mouseTargetY = 0;
+            this.mouseTargetX = 0;
+            this.mouseTargetY = 0;
 
-        this.imageOriginal = this.image;
-        this.imageDepth = this.depf;
-        this.vth = this.verticalThreshold;
-        this.hth = this.horizontalThreshold;
+            this.imageOriginal = this.image;
+            this.imageDepth = this.depf;
+            this.vth = this.verticalThreshold;
+            this.hth = this.horizontalThreshold;
 
-        this.imageURLs = [
-            this.imageOriginal,
-            this.imageDepth
-        ];
-        this.textures = [];
+            this.imageURLs = [
+                this.imageOriginal,
+                this.imageDepth
+            ];
+            this.textures = [];
 
 
-        this.startTime = new Date().getTime(); // Get start time for animating
+            this.startTime = new Date().getTime(); // Get start time for animating
 
-        this.createScene();
-        this.addTexture();
-        this.mouseMove();
-        this.gyro();
-        this.resize();
+            this.createScene();
+            this.addTexture();
+            this.mouseMove();
+            this.gyro();
+            this.resize();
+            }
+        );
     }
 
     addShader(source, type) {

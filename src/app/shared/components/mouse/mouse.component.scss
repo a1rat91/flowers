@@ -7,8 +7,9 @@
 	background-size: contain;
 	opacity: 1;
 	cursor: pointer;
-	transition: all 1s ease 1.7s;
 	z-index: 3;
+	position: relative;
+	display: block;
 	
 	
 	&:after {

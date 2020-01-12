@@ -2,15 +2,20 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
-    Input,
+    Input, NgZone,
     OnDestroy,
     OnInit,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
 import {FadeService} from '../../../services/fade.service';
-import { gsap } from 'gsap/all';
-import {startNextSectionLink, fadeInNextSectionLink, fadeOutNextSectionLink, fadeOutInNextSectionLink} from './next-section-link.animation';
+import {gsap} from 'gsap/all';
+import {
+    startNextSectionLink,
+    fadeInNextSectionLink,
+    fadeOutNextSectionLink,
+    fadeOutInNextSectionLink
+} from './next-section-link.animation';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -32,7 +37,8 @@ export class NextSectionLinkComponent implements OnInit, OnDestroy {
         return this._nextSectionLink.nativeElement;
     }
 
-    constructor(private fadeService: FadeService) {
+    constructor(private fadeService: FadeService,
+                private ngZone: NgZone) {
     }
 
     ngOnInit() {
@@ -67,23 +73,38 @@ export class NextSectionLinkComponent implements OnInit, OnDestroy {
     }
 
     startNextSectionLink() {
-        gsap.timeline()
-            .add(startNextSectionLink(this.nextSectionLink));
+        this.ngZone.runOutsideAngular(() => {
+                gsap.timeline()
+                    .add(startNextSectionLink(this.nextSectionLink));
+            }
+        );
+
     }
 
     fadeInNextSectionLink() {
-        gsap.timeline()
-            .add(fadeInNextSectionLink(this.nextSectionLink));
+        this.ngZone.runOutsideAngular(() => {
+                gsap.timeline()
+                    .add(fadeInNextSectionLink(this.nextSectionLink));
+            }
+        );
+
     }
 
     fadeOutNextSectionLink() {
-        gsap.timeline()
-            .add(fadeOutNextSectionLink(this.nextSectionLink));
+        this.ngZone.runOutsideAngular(() => {
+                gsap.timeline()
+                    .add(fadeOutNextSectionLink(this.nextSectionLink));
+            }
+        );
+
     }
 
     fadeOutInNextSectionLink() {
-        gsap.timeline()
-            .add(fadeOutInNextSectionLink(this.nextSectionLink));
+        this.ngZone.runOutsideAngular(() => {
+                gsap.timeline()
+                    .add(fadeOutInNextSectionLink(this.nextSectionLink));
+            }
+        );
     }
 
 }
