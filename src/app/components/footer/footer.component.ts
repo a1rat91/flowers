@@ -7,16 +7,7 @@ import {SocService} from '../../shared/soc.service';
 @Component({
     selector: 'app-footer',
     templateUrl: './footer.component.html',
-    styles: [
-        `
-        .footer {
-            position: relative;
-            z-index: 200;
-        }
-      `
-    ],
     styleUrls: ['./footer.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent implements OnInit {
 
