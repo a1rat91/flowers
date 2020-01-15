@@ -47,18 +47,12 @@
 		
 		<div class="section is-catalog fp-auto-height-responsive" id="js-catalog">
 			
-			<div style="opacity: 0; z-index: 2;" #catalogSection> <!-- position: relative нельзя;-->
-
-				<div class="section__title text-center">
-					Каталог услуг
-				</div>
-				<app-catalog *ngIf="posts$ | async as posts; else loading" [posts]="posts"></app-catalog>
-				
-				<ng-template #loading>
-					<app-loader></app-loader>
-				</ng-template>
-			</div>
+			<app-catalog *ngIf="posts$ | async as posts; else loading" [posts]="posts"></app-catalog>
 			
+			<ng-template #loading>
+				<app-loader></app-loader>
+			</ng-template>
+		
 		</div>
 		
 		<div class="section is-actions">

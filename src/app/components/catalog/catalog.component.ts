@@ -8,7 +8,7 @@ import {
     OnInit,
     QueryList,
     ViewChild,
-    ViewChildren
+    ViewChildren, ViewEncapsulation
 } from '@angular/core';
 import {Router} from '@angular/router';
 
@@ -31,6 +31,7 @@ declare var imagesLoaded: any;
     selector: 'app-catalog',
     templateUrl: './catalog.component.html',
     styleUrls: ['./catalog.component.scss', './catalog-item.scss'],
+    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -48,6 +49,9 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('catalogTransition', {static: true}) private _catalogTransition: ElementRef;
     @ViewChild('catalogTransitionCurtain', {static: true}) private _catalogTransitionCurtain: ElementRef;
     @ViewChild('catalogProgressbar', {static: true}) private _catalogProgressbar: ElementRef;
+    @ViewChild('catalogShadow', {static: true}) private _catalogShadow: ElementRef;
+    @ViewChildren('catalogPic') private _catalogPic: QueryList<ElementRef>;
+    @ViewChildren('catalogBtns') private _catalogBtns: QueryList<ElementRef>;
     @Input() postImage;
     currentIndex;
     sectionState: string;
@@ -98,6 +102,18 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
 
     get catalogProgressbar() {
         return this._catalogProgressbar.nativeElement;
+    }
+
+    get catalogPic() {
+        return this._catalogPic.map((element) => element.nativeElement);
+    }
+
+    get catalogShadow() {
+        return this._catalogShadow.nativeElement;
+    }
+
+    get catalogBtns() {
+        return this._catalogBtns.map((element) => element.nativeElement);
     }
 
     ngOnInit() {
@@ -204,8 +220,6 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
     customProgressBar(current: number, total: number) {
         const ratio: number = (current / total) * 100;
 
-        total === 1 ? this.isPaginationDisable = true : this.isPaginationDisable = false;
-
         this.curentProgress = current;
         this.totalProgress = total;
         this.cdr.detectChanges();
@@ -218,7 +232,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
         this.ngZone.runOutsideAngular(() => {
                 let tl = gsap.timeline()
                     .to(window, {duration: 0.5, scrollTo: '#js-catalog', ease: 'Expo.inOut'})
-                    .add(catalogNextPageTransition(this.catalogTitle, this.catalogTransitionCurtain))
+                    .add(catalogNextPageTransition(this.catalogTitle, this.catalogPic, this.catalogTransitionCurtain))
                     .add(() => this.ngZone.run(() => {
                         this.router.navigate([`/post/${id}`], {queryParams: {loader: false}});
                     }));
@@ -247,17 +261,6 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
         );
 
         return transitionEffect;
-    }
-
-    enter(event, index) {
-        // gsap.timeline()
-        //     .to(this.catalogItemBtns[index].parentNode.childNodes[0], {duration: 0.8, delay: 0.3, x: '100%', ease: 'expo'});
-    }
-
-    leave(event, index) {
-        // console.log('leave', event);
-        // gsap.timeline()
-        //     .to(this.catalogItemBtns[index].parentNode.childNodes[0], {duration: 0.5, x: '-100%', ease: 'expo'});
     }
 
 }

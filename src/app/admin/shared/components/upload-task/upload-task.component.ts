@@ -2,10 +2,8 @@ import {
     Component,
     OnInit,
     Input,
-    ChangeDetectorRef,
     Output,
-    EventEmitter,
-    ChangeDetectionStrategy
+    EventEmitter
 } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -15,8 +13,7 @@ import { finalize, tap } from 'rxjs/operators';
 @Component({
     selector: 'app-upload-task',
     templateUrl: './upload-task.component.html',
-    styleUrls: ['./upload-task.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./upload-task.component.scss']
 })
 export class UploadTaskComponent implements OnInit {
 

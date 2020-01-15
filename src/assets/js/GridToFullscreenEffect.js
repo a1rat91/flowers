@@ -249,7 +249,7 @@ export class GridToFullscreenEffect {
             });
         }
         for (let i = 0; i < this.itemsWrapper.length; i++) {
-            const btn = this.itemsWrapper[i].parentNode.parentNode.querySelector('.btn');
+            const btn = this.itemsWrapper[i].parentNode.parentNode;
 	        btn.addEventListener("click", this.createOnMouseDown(i));
         }
     }
@@ -373,8 +373,8 @@ export class GridToFullscreenEffect {
             this.uniforms.uImageLargeRes.value.y =
                 textureSet.large.texture.image.naturalHeight;
         }
-        this.itemsWrapper[this.currentImageIndex].style.zIndex = 2;
-        this.container.style.zIndex = 2;
+        this.itemsWrapper[this.currentImageIndex].style.zIndex = 11;
+        this.container.style.zIndex = 11;
 
         if (this.options.onToFullscreenStart)
             this.options.onToFullscreenStart({ index: this.currentImageIndex });

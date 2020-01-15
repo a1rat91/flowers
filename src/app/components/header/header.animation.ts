@@ -18,6 +18,8 @@ const fadeInHeaderTo = {translateY: 0, opacity: 1};
 const fadeOutHeaderFrom = {translateY: 0, opacity: 1};
 const fadeOutHeaderTo = {translateY: 20, opacity: 0};
 
+const fadeOutInHeaderTo = {translateY: 0, opacity: 1, delay: 4};
+
 export function startHeader(logo, burger) {
 
     return gsap.timeline()
@@ -40,5 +42,5 @@ export function fadeOutInHeader(logo, burger) {
 
     return gsap.timeline()
         .fromTo([logo, burger], fadeOutHeaderFrom, fadeOutHeaderTo)
-        .to([logo, burger], startHeaderTo);
+        .to([logo, burger], fadeOutInHeaderTo);
 }

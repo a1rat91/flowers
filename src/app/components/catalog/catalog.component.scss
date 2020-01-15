@@ -3,7 +3,7 @@
 
 .catalog-transition {
 	position: absolute;
-	z-index: 2;
+	z-index: 11;
 	top: 0;
 	pointer-events: none;
 
@@ -30,6 +30,11 @@
 	padding-top: 65px;
 	position: relative;
 	transition: .5s;
+	z-index: 10;
+
+	.fp-viewing-firstSection & {
+		pointer-events: none;
+	}
 
 	&.go-to-next-page {
 		padding-top: 0;
@@ -40,13 +45,13 @@
 	}
 
 	&__shadow {
-		@include title($fsz: 200px, $ls: 0.02em, $lh: 1, $fw: 700);
-		opacity: .03;
+		@include title($fsz: 200px, $color: rgba(#fff, .03), $ls: 0.02em, $lh: 1, $fw: 700);
 		position: absolute;
 		top: -20px;
 		left: 50%;
 		transform: translateX(-50%);
 		white-space: nowrap;
+		will-change: transform;
 	}
 
 	&__container {
@@ -56,6 +61,7 @@
 		padding-left: 100px;
 		padding-right: 100px;
 		transition: .5s;
+		position: relative;
 
 		.go-to-next-page & {
 			padding-left: 0;
@@ -64,13 +70,13 @@
 	}
 
 	&__button-next {
-		transform: translateX(33px);
+		transform: translateX(100%) translateY(-50%);
 		margin-right: calc(100% / 10);
 		z-index: 1;
 	}
 
 	&__button-prev {
-		transform: translateX(-33px);
+		transform: translateX(-100%) translateY(-50%);
 		margin-left: calc(100% / 10);
 		z-index: 1;
 	}

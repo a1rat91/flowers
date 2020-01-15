@@ -1,20 +1,23 @@
 import {
-    AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
-    ElementRef, Inject, NgZone, OnDestroy,
+    ElementRef,
+    Inject,
+    NgZone,
+    OnDestroy,
     OnInit,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
 import {Observable, Subscription} from 'rxjs/index';
-
 import {environment} from '../../../environments/environment';
 import {PostsService} from '../../shared/posts.service';
 import {Post} from '../../admin/shared/interfaces';
 import {NavigationService} from '../../services/navigation.service';
 import {LoaderService} from '../../components/loader/loader.service';
-
-import {gsap} from 'gsap/all';
+import {gsap} from 'gsap';
 
 // TODO Удалить GSDevTools
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
@@ -34,6 +37,7 @@ import {
 
 import {FadeService} from '../../services/fade.service';
 import {DOCUMENT} from '@angular/common';
+import {CatalogComponent} from '../../components/catalog/catalog.component';
 
 @Component({
     selector: 'app-main-page',
@@ -52,7 +56,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('mainSectionCurtain', {static: true}) private _mainSectionCurtain: ElementRef;
     @ViewChild('mainBtn', {static: true}) private _mainBtn: ElementRef;
     @ViewChild('mouse', {static: true}) private _mouse: ElementRef;
-    @ViewChild('catalogSection', {static: true}) private _catalogSection: ElementRef;
+    @ViewChild(CatalogComponent, {static: false}) catalogComponent: CatalogComponent;
     loader: boolean;
     desctopMediaQuery: boolean;
     mainSectionActive: boolean;
@@ -174,10 +178,6 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
         return this._mainSectionCurtain.nativeElement;
     }
 
-    get catalogSection() {
-        return this._catalogSection.nativeElement;
-    }
-
     startMainSection() {
         this.ngZone.runOutsideAngular(() => {
                 const tl = gsap.timeline({id: 'fadeInMainSection'})
@@ -190,8 +190,17 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     fadeInMainSection() {
         this.ngZone.runOutsideAngular(() => {
                 const tl = gsap.timeline({id: 'fadeInMainSection'})
-                    .add(fadeOutCatalogSection(this.catalogSection))
+                    .add(fadeOutCatalogSection(document.querySelector('.catalog-title'),
+                        document.querySelectorAll('.catalog-item__pic'),
+                        document.querySelectorAll('.catalog-item__curtain'),
+                        document.querySelectorAll('.catalog-item__index'),
+                        document.querySelectorAll('.catalog-item__title'),
+                        document.querySelectorAll('.catalog__btn'),
+                        document.querySelector('.catalog__shadow'),
+                        document.querySelector('.catalog__pagination')))
                     .add(fadeInMainSection(this.mainSectionCurtain, this.mainTitle, this.mainBtn, this.mouse));
+
+                GSDevTools.create({animation: tl});
             }
         );
     }
@@ -200,7 +209,14 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
         this.ngZone.runOutsideAngular(() => {
                 const tl = gsap.timeline({id: 'fadeOutMainSection'})
                     .add(fadeOutMainSection(this.mainSectionCurtain))
-                    .add(fadeInCatalogSection(this.catalogSection));
+                    .add(fadeInCatalogSection(document.querySelector('.catalog-title'),
+                        document.querySelectorAll('.catalog-item__pic'),
+                        document.querySelectorAll('.catalog-item__curtain'),
+                        document.querySelectorAll('.catalog-item__index'),
+                        document.querySelectorAll('.catalog-item__title'),
+                        document.querySelectorAll('.catalog__btn'),
+                        document.querySelector('.catalog__shadow'),
+                        document.querySelector('.catalog__pagination')));
             }
         );
 
@@ -209,7 +225,14 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     fadeInCatalogSection() {
         this.ngZone.runOutsideAngular(() => {
                 const tl = gsap.timeline({id: 'fadeInCatalogSection'})
-                    .add(fadeInCatalogSection(this.catalogSection));
+                    .add(fadeInCatalogSection(document.querySelector('.catalog-title'),
+                        document.querySelectorAll('.catalog-item__pic'),
+                        document.querySelectorAll('.catalog-item__curtain'),
+                        document.querySelectorAll('.catalog-item__index'),
+                        document.querySelectorAll('.catalog-item__title'),
+                        document.querySelectorAll('.catalog__btn'),
+                        document.querySelector('.catalog__shadow'),
+                        document.querySelector('.catalog__pagination')));
             }
         );
 
@@ -218,7 +241,14 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     fadeOutCatalogSection() {
         this.ngZone.runOutsideAngular(() => {
                 const tl = gsap.timeline({id: 'fadeOutCatalogSection'})
-                    .add(fadeOutCatalogSection(this.catalogSection));
+                    .add(fadeOutCatalogSection(document.querySelector('.catalog-title'),
+                        document.querySelectorAll('.catalog-item__pic'),
+                        document.querySelectorAll('.catalog-item__curtain'),
+                        document.querySelectorAll('.catalog-item__index'),
+                        document.querySelectorAll('.catalog-item__title'),
+                        document.querySelectorAll('.catalog__btn'),
+                        document.querySelector('.catalog__shadow'),
+                        document.querySelector('.catalog__pagination')));
             }
         );
 

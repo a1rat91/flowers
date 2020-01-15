@@ -1,5 +1,4 @@
 import {
-    ChangeDetectionStrategy,
     Component,
     ElementRef,
     OnDestroy,
@@ -18,8 +17,7 @@ import {AlertService} from '../shared/services/alert.service';
 @Component({
     selector: 'app-edit-page',
     templateUrl: './edit-page.component.html',
-    styleUrls: ['./edit-page.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./edit-page.component.scss']
 })
 export class EditPageComponent implements OnInit, OnDestroy {
 

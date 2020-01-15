@@ -1,71 +1,88 @@
+<div class="section__title catalog-title text-center" #catalogTitle>
+	Каталог услуг
+</div>
 <div class="catalog-transition" #catalogTransition>
-    <span style="transform: scaleX(0)" #catalogTransitionCurtain></span>
+	<span style="transform: scaleX(0)"
+	      #catalogTransitionCurtain></span>
 </div>
 <div class="catalog" #catalog>
-    <div class="catalog__shadow" #catalogTitle>
-        Каталог услуг
-    </div>
-
-    <div class="catalog__container">
-        <div class="swiper-container" [swiper]="config">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" *ngFor="let post of posts; let i = index" style="position: relative;">
-
-                    <div class="catalog-item" (mouseenter)="enter($event, i)" (mouseleave)="leave($event, i)">
-                        <div class="catalog-item__index-wrap">
-                            <div class="catalog-item__index">
-                                0{{i + 1 }}
-                            </div>
-                        </div>
-
-                        <div class="catalog-item__pic">
-                            <div #wrapper>
-                                <figure>
-                                    <img class="grid__item-img catalog-item__img" [src]="post.catalogImg[0]"
-                                         [lazyLoad]="post.catalogImg[0]" crossorigin="anonymous"/>
-                                    <img class="grid__item-img grid__item-img--large" style="display: none;"
-                                         #thumbsItems [lazyLoad]
-                                         [src]="post.catalogTransitionImg[0]" crossorigin="anonymous"/>
-                                </figure>
-                            </div>
-                        </div>
-                        <div class="catalog-item__heading">
-
-                            <div class="catalog-item__title">
-                                {{post.title}}
-                            </div>
-
-                            <button (click)="nextPage(post.id)"
-                                    #catalogItemBtns
-                                    class="btn btn-dark catalog-item__btn">
-                                смотреть работы
-                            </button>
-
-                            <div class="fullview">
-                                <div class="fullview__item" #fullviewItems></div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="swiper-button-prev catalog__button-prev"></div>
-        <div class="swiper-button-next catalog__button-next"></div>
-    </div>
-
-    <div class="catalog__container">
-        <div class="slider__pagination catalog__pagination" [ngClass]="{'disable' : isPaginationDisable}">
-            <div class="slider__active-index">
-                0{{curentProgress}}
-            </div>
-            <div class="swiper-catalog-progressbar catalog__progressbar">
-                <span #catalogProgressbar></span>
-            </div>
-            <div class="slider__next-index">
-                0{{totalProgress}}
-            </div>
-        </div>
-    </div>
+	<div class="catalog__shadow" #catalogShadow>
+		Каталог услуг
+	</div>
+	
+	<div class="catalog__container">
+		<div class="swiper-container" [swiper]="config">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide"
+				     *ngFor="let post of posts; let i = index"
+				     style="position: relative;">
+					
+					<div class="catalog-item">
+						<a (click)="nextPage(post.id)"
+						   class="catalog-item__transition-link">
+							<div class="catalog-item__curtain"
+							style="opacity: 0;"></div>
+							<div class="catalog-item__index-wrap">
+								<div class="catalog-item__index" style="opacity: 0;">
+									0{{i + 1 }}
+								</div>
+							</div>
+							
+							<div class="catalog-item__pic" style="opacity: 0;" #catalogPic>
+								<div #wrapper>
+									<figure>
+										<img class="grid__item-img catalog-item__img"
+										     [src]="post.catalogImg[0]"
+										     [lazyLoad]="post.catalogImg[0]"
+										     crossorigin="anonymous"/>
+										<img class="grid__item-img grid__item-img--large"
+										     style="display: none;"
+										     [lazyLoad]
+										     [src]="post.catalogTransitionImg[0]"
+										     crossorigin="anonymous"/>
+									</figure>
+								</div>
+							</div>
+							
+							<div class="catalog-item__heading">
+								
+								<div class="catalog-item__title" style="opacity: 0;">
+									{{post.title}}
+								</div>
+								<a #catalogItemLink
+								   class="catalog-item__link" >
+									Показать подробнее
+								</a>
+								
+								<div class="fullview">
+									<div class="fullview__item" #fullviewItems></div>
+								</div>
+							
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="swiper-button-prev catalog__button-prev catalog__btn" #catalogBtns
+		     style="opacity: 0;"></div>
+		<div class="swiper-button-next catalog__button-next catalog__btn" #catalogBtns
+		     style="opacity: 0;"></div>
+	</div>
+	
+	<div class="catalog__container">
+		<div class="slider__pagination catalog__pagination"
+		     style="opacity: 0;">
+			<div class="slider__active-index">
+				0{{curentProgress}}
+			</div>
+			<div class="swiper-catalog-progressbar catalog__progressbar">
+				<span #catalogProgressbar></span>
+			</div>
+			<div class="slider__next-index">
+				0{{totalProgress}}
+			</div>
+		</div>
+	</div>
 
 </div>

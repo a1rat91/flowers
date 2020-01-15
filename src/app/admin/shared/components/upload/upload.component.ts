@@ -4,8 +4,7 @@ import {UploadImgsService} from '../../services/uploadImgs.service';
 @Component({
     selector: 'app-upload',
     templateUrl: './upload.component.html',
-    styleUrls: ['./upload.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent {
 
