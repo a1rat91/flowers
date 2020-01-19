@@ -1,0 +1,50 @@
+.nav-burger {
+	width: 26px;
+	height: 18px;
+	top: 110px;
+	right: 90px;
+	position: fixed;
+	cursor: pointer;
+	pointer-events: none;
+
+	span {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		height: 2px;
+		width: 100%;
+		background: #fff;
+		transition: .7s cubic-bezier(.87,-.41,.19,1.44);
+		will-change: transform;
+		opacity: 0;
+		display: block;
+
+		&:first-child {
+			transform: rotate(45deg) translate3d(300%,0,0);
+			transition-delay: 0s;
+		}
+
+		&:last-child {
+			transform: rotate(-45deg) translate3d(300%,0,0);
+			transition-delay: .1s;
+		}
+	}
+
+	&.active {
+		pointer-events: all;
+
+		span {
+			opacity: 1;
+
+			&:first-child {
+				transform: rotate(45deg);
+				transition-delay: .7s;
+			}
+
+			&:last-child {
+				transform: rotate(-45deg);
+				transition-delay: .7s;
+			}
+		}
+	}
+}

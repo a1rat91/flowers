@@ -27,7 +27,7 @@ import {LoaderService} from '../loader/loader.service';
 @Component({
     selector: 'app-navigation',
     templateUrl: './navigation.component.html',
-    styleUrls: ['./navigation.component.scss'],
+    styleUrls: ['./navigation.component.scss', 'nav-burger.scss'],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -35,6 +35,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('navigation', {static: true}) private _navigationSections: ElementRef;
     @ViewChildren('navMenuItems') private _navMenuItems: QueryList<ElementRef>;
+    @ViewChild('navBurger', {static: true}) private _navBurger: ElementRef;
     @Input() index;
     public navigation: boolean;
     public burger: boolean;
@@ -57,9 +58,6 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
 
-        // gsap.ticker.lagSmoothing(1000, 16);
-        // gsap.ticker.fps(35);
-
         this.subscription.add(
             this.nav.currentNavigationState.subscribe(navigation => {
                 if (!this.navigation) {
@@ -81,9 +79,6 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
     closeNav() {
         this.nav.changeBurgerState(!this.burger);
         this.nav.changeNavigationState(!this.navigation);
-        if (this.loaderService.currentLoaderState) {
-            // this.loaderService.changeLoaderState(false);
-        }
     }
 
     get navigationEl() {
@@ -94,9 +89,13 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
         return this._navMenuItems.map((element) => element.nativeElement);
     }
 
+    get navBurger() {
+        return this._navBurger.nativeElement;
+    }
+
     fadeInNav() {
         this.ngZone.runOutsideAngular(() => {
-                const tl = gsap.timeline().add(fadeInNavigation(this.navigationEl, this.navigationMenu));
+                const tl = gsap.timeline().add(fadeInNavigation(this.navigationEl, this.navigationMenu, this.navBurger));
             }
         );
     }
@@ -104,7 +103,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
     fadeOutNav() {
         this.ngZone.runOutsideAngular(() => {
                 const tl = gsap.timeline({delay: 0.5})
-                    .add(fadeOutNavigation(this.navigationEl, this.navigationMenu));
+                    .add(fadeOutNavigation(this.navigationEl, this.navigationMenu, this.navBurger));
             }
         );
     }

@@ -38,6 +38,7 @@ import {
 import {FadeService} from '../../services/fade.service';
 import {DOCUMENT} from '@angular/common';
 import {CatalogComponent} from '../../components/catalog/catalog.component';
+import {fadeInActions, fadeOutActions} from '../../components/actions/actions.animation';
 
 @Component({
     selector: 'app-main-page',
@@ -101,14 +102,13 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
                     this.fadeService.changeSectionState('fadeInMainSection');
                     this.fadeInMainSection();
                     this.mainSectionActive = true;
+                } else if (origin.index === 1 && direction === 'down') {
+                    this.fadeService.changeSectionState('fadeOutCatalogSection');
+                    this.fadeOutCatalogSection();
+                } else if (origin.index === 2 && direction === 'up') {
+                    this.fadeService.changeSectionState('fadeInCatalogSection');
+                    this.fadeInCatalogSection();
                 }
-                // else if (origin.index === 1 && direction === 'down') {
-                //     this.fadeService.changeSectionState('fadeOutCatalogSection');
-                //     this.fadeOutCatalogSection();
-                // } else if (origin.index === 2 && direction === 'up') {
-                //     this.fadeService.changeSectionState('fadeInCatalogSection');
-                //     this.fadeInCatalogSection();
-                // }
             },
             afterLoad: (origin, destination, direction) => {
                 // console.group('afterLoad', [origin, destination, direction]);
@@ -197,10 +197,11 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
                         document.querySelectorAll('.catalog-item__title'),
                         document.querySelectorAll('.catalog__btn'),
                         document.querySelector('.catalog__shadow'),
-                        document.querySelector('.catalog__pagination')))
+                        document.querySelector('.catalog__pagination'),
+                        document.querySelectorAll('.catalog-item__link')))
                     .add(fadeInMainSection(this.mainSectionCurtain, this.mainTitle, this.mainBtn, this.mouse));
 
-                GSDevTools.create({animation: tl});
+                // GSDevTools.create({animation: tl});
             }
         );
     }
@@ -216,7 +217,8 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
                         document.querySelectorAll('.catalog-item__title'),
                         document.querySelectorAll('.catalog__btn'),
                         document.querySelector('.catalog__shadow'),
-                        document.querySelector('.catalog__pagination')));
+                        document.querySelector('.catalog__pagination'),
+                        document.querySelectorAll('.catalog-item__link')));
             }
         );
 
@@ -225,6 +227,12 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     fadeInCatalogSection() {
         this.ngZone.runOutsideAngular(() => {
                 const tl = gsap.timeline({id: 'fadeInCatalogSection'})
+                    .add(fadeOutActions(document.querySelector('.actions__curtain'),
+                        document.querySelector('.actions__pic'),
+                        document.querySelector('.actions__title'),
+                        document.querySelector('.actions__desc'),
+                        document.querySelector('.actions__btn'),
+                        document.querySelector('.footer')))
                     .add(fadeInCatalogSection(document.querySelector('.catalog-title'),
                         document.querySelectorAll('.catalog-item__pic'),
                         document.querySelectorAll('.catalog-item__curtain'),
@@ -232,7 +240,8 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
                         document.querySelectorAll('.catalog-item__title'),
                         document.querySelectorAll('.catalog__btn'),
                         document.querySelector('.catalog__shadow'),
-                        document.querySelector('.catalog__pagination')));
+                        document.querySelector('.catalog__pagination'),
+                        document.querySelectorAll('.catalog-item__link')));
             }
         );
 
@@ -241,6 +250,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     fadeOutCatalogSection() {
         this.ngZone.runOutsideAngular(() => {
                 const tl = gsap.timeline({id: 'fadeOutCatalogSection'})
+                    .set(document.querySelector('.actions__curtain'), {opacity: 0})
                     .add(fadeOutCatalogSection(document.querySelector('.catalog-title'),
                         document.querySelectorAll('.catalog-item__pic'),
                         document.querySelectorAll('.catalog-item__curtain'),
@@ -248,7 +258,14 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
                         document.querySelectorAll('.catalog-item__title'),
                         document.querySelectorAll('.catalog__btn'),
                         document.querySelector('.catalog__shadow'),
-                        document.querySelector('.catalog__pagination')));
+                        document.querySelector('.catalog__pagination'),
+                        document.querySelectorAll('.catalog-item__link')))
+                    .add(fadeInActions(document.querySelector('.actions__curtain'),
+                        document.querySelector('.actions__pic'),
+                        document.querySelector('.actions__title'),
+                        document.querySelector('.actions__desc'),
+                        document.querySelector('.actions__btn'),
+                        document.querySelector('.footer')));
             }
         );
 

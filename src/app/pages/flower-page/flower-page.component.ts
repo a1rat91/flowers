@@ -1,8 +1,8 @@
 import {
     AfterViewInit, ChangeDetectionStrategy,
     Component,
-    ElementRef, Inject, NgZone, OnDestroy,
-    OnInit,
+    ElementRef, Inject, NgZone, OnChanges, OnDestroy,
+    OnInit, SimpleChanges,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -28,7 +28,7 @@ import {FadeService} from '../../services/fade.service';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
+export class FlowerPageComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
     post$: Observable<Post>;
     slideIndex;
@@ -72,6 +72,21 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
             }));
 
         this.subscription.add(
+            this.route.url.subscribe((url) => {
+                console.log(url, 'url');
+                this.ngZone.runOutsideAngular(() => {
+                        const tl = gsap.timeline({id: 'fadeInFlowerPage'})
+                            .fromTo([this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl],
+                                {y: 20, opacity: 0},
+                                {duration: 2, delay: 2, y: 0, opacity: 1, stagger: .3, ease: 'expo'});
+
+                        // GSDevTools.create({animation: tl, container: '#fadeInFlowerPage'});
+                    }
+                );
+            })
+        );
+
+        this.subscription.add(
             this.distortionSliderService.currentIndex.subscribe(slideIndex => this.slideIndex = slideIndex)
         );
         this.subscription.add(
@@ -84,6 +99,10 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
         setTimeout(() => {
             this.loaderService.changeLoaderState(true);
         }, 500);
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(changes, '===================');
     }
 
     ngOnDestroy(): void {
@@ -111,16 +130,16 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     fadeInFlowerPage(event) {
-        if (event === 'loaded') {
-            this.ngZone.runOutsideAngular(() => {
-                    const tl = gsap.timeline({id: 'fadeInFlowerPage'})
-                        .to([this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl],
-                            {duration: 2, delay: 1, y: 0, opacity: 1, stagger: .3, ease: 'expo'});
-
-                    // GSDevTools.create({animation: tl, container: '#fadeInFlowerPage'});
-                }
-            );
-        }
+        // if (event === 'loaded') {
+        //     this.ngZone.runOutsideAngular(() => {
+        //             const tl = gsap.timeline({id: 'fadeInFlowerPage'})
+        //                 .to([this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl],
+        //                     {duration: 2, delay: 1, y: 0, opacity: 1, stagger: .3, ease: 'expo'});
+        //
+        //             // GSDevTools.create({animation: tl, container: '#fadeInFlowerPage'});
+        //         }
+        //     );
+        // }
         this.fadeService.changeSectionState('fadeInFlowerPage');
     }
 

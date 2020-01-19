@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import {SocService} from '../../soc.service';
 import {FadeService} from '../../../services/fade.service';
-import {startSoc, fadeInSoc, fadeOutInSoc, fadeOutSoc} from './soc.animation';
+import {startSoc, fadeInSoc, fadeInMainSectionSoc, fadeOutInSoc, fadeOutSoc} from './soc.animation';
 import {gsap} from 'gsap/all';
 import {Subscription} from 'rxjs';
 
@@ -45,10 +45,15 @@ export class SocComponent implements OnInit, OnDestroy {
                         this.startSoc();
                         break;
                     case 'fadeOutMainPage':
+                    case 'fadeOutCatalogSection':
                         this.fadeOutSoc();
                         break;
+                    case 'fadeInCatalogSection':
                     case 'fadeInFlowerPage':
                         this.fadeInSoc();
+                        break;
+                    case 'fadeInMainSection':
+                        this.fadeInMainSectionSoc();
                         break;
                     default:
                         this.fadeOutInSoc();
@@ -77,6 +82,15 @@ export class SocComponent implements OnInit, OnDestroy {
         this.ngZone.runOutsideAngular(() => {
                 const tl = gsap.timeline()
                     .add(fadeInSoc(this.socElement));
+                // GSDevTools.create();
+            }
+        );
+    }
+
+    fadeInMainSectionSoc() {
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline()
+                    .add(fadeInMainSectionSoc(this.socElement));
                 // GSDevTools.create();
             }
         );

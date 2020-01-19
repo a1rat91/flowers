@@ -1,5 +1,12 @@
 <div class="navigation" #navigation style="transform: translateY(-130%) translateZ(0)">
+	
 	<app-navigation-logo routerLink="/" (click)="closeNav()"></app-navigation-logo>
+	
+	<a class="nav-burger" (click)="closeNav()" #navBurger>
+		<span></span>
+		<span></span>
+	</a>
+	
 	<div *ngIf="posts$ | async as posts; else loading">
 		<nav class="navigation__menu">
 			<div class="navigation__item-wrap"

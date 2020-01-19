@@ -14,7 +14,8 @@ import {
     startNextSectionLink,
     fadeInNextSectionLink,
     fadeOutNextSectionLink,
-    fadeOutInNextSectionLink
+    fadeOutInNextSectionLink,
+    fadeInMainSectionNextSectionLink,
 } from './next-section-link.animation';
 import {Subscription} from 'rxjs';
 
@@ -45,6 +46,7 @@ export class NextSectionLinkComponent implements OnInit, OnDestroy {
 
         this.subscription.add(
             this.fadeService.currentSectionState.subscribe(sectionState => {
+                console.log(sectionState);
                 switch (sectionState) {
                     case 'fadeInMainPage':
                         this.startNextSectionLink();
@@ -55,8 +57,12 @@ export class NextSectionLinkComponent implements OnInit, OnDestroy {
                     case 'fadeOutCatalogSection':
                         this.fadeOutNextSectionLink();
                         break;
+                    case 'fadeInCatalogSection':
                     case 'fadeInFlowerPage':
                         this.fadeInNextSectionLink();
+                        break;
+                    case 'fadeInMainSection':
+                        this.fadeInMainSectionNextSectionLink();
                         break;
                     default:
                         this.fadeOutInNextSectionLink();
@@ -85,6 +91,15 @@ export class NextSectionLinkComponent implements OnInit, OnDestroy {
         this.ngZone.runOutsideAngular(() => {
                 gsap.timeline()
                     .add(fadeInNextSectionLink(this.nextSectionLink));
+            }
+        );
+
+    }
+
+    fadeInMainSectionNextSectionLink() {
+        this.ngZone.runOutsideAngular(() => {
+                gsap.timeline()
+                    .add(fadeInMainSectionNextSectionLink(this.nextSectionLink));
             }
         );
 

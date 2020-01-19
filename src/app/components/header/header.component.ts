@@ -13,7 +13,7 @@ import {NavigationService} from '../../services/navigation.service';
 import {DOCUMENT} from '@angular/common';
 import {LoaderService} from '../loader/loader.service';
 import {gsap} from 'gsap/all';
-import {startHeader, fadeInHeader, fadeOutHeader, fadeOutInHeader} from './header.animation';
+import {startHeader, fadeInHeader, fadeInMainSectionHeader, fadeOutHeader, fadeOutInHeader} from './header.animation';
 import {GSDevTools} from '../../shared/plugins/GSDevTools';
 
 gsap.registerPlugin(GSDevTools);
@@ -68,6 +68,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
                     case 'fadeInFlowerPage':
                         this.fadeInHeader();
                         break;
+                    case 'fadeInMainSection':
+                        this.fadeInMainSectionHeader();
+                        break;
                     default:
                         this.fadeOutInHeader();
                         break;
@@ -109,6 +112,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.ngZone.runOutsideAngular(() => {
                 const tl = gsap.timeline()
                     .add(fadeInHeader(this.logoEl, this.burgerEl));
+            }
+        );
+
+        // GSDevTools.create();
+    }
+
+    fadeInMainSectionHeader() {
+        this.ngZone.runOutsideAngular(() => {
+                const tl = gsap.timeline()
+                    .add(fadeInMainSectionHeader(this.logoEl, this.burgerEl));
             }
         );
 

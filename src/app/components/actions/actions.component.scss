@@ -3,6 +3,12 @@
 .actions {
 	margin-top: 90px;
 	position: relative;
+	z-index: 12;
+
+	.fp-viewing-firstSection &,
+	.fp-viewing-secondSection & {
+		pointer-events: none;
+	}
 	
 	&__button-next {
 		transform: translateX(20px) translateY(-25%);
@@ -28,6 +34,9 @@
 	
 	&__right {
 		width: 59%;
+		position: relative;
+		overflow: hidden;
+		z-index: 11;
 	}
 	
 	&__pagination-wrap {
@@ -44,6 +53,7 @@
 		margin-bottom: 45px;
 		max-width: 352px;
 		font-size: 14px;
+		will-change: any;
 	}
 	
 	&__btn {
@@ -51,6 +61,17 @@
 		padding-left: 18px;
 		padding-right: 18px;
 		white-space: nowrap;
+		will-change: any;
+	}
+
+	&__curtain {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: darken($body-bg, 2);
+		will-change: any;
 	}
 	
 	@media all and (max-width: 1400px) {

@@ -191,9 +191,9 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
 
     previous() {
         // console.log('prev');
-        // if (this.isAnimating) {
-        //     return;
-        // }
+        if (this.isAnimating) {
+            return;
+        }
         // Skip animation if the materials are not ready
         if (this.mat === null) {
             this.currentImage = mod((this.currentImage - 1), (this.textures.length));
@@ -209,9 +209,9 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     next(nextImage = null) {
-        // if (this.isAnimating) {
-        //     return;
-        // }
+        if (this.isAnimating) {
+            return;
+        }
         // Skip animation if the materials are not ready
         if (this.mat === null) {
             this.currentImage = mod((this.currentImage + 1), (this.textures.length));
@@ -296,7 +296,7 @@ export class DistortionSliderComponent implements OnInit, OnChanges, OnDestroy {
             this.onLoadEnd.emit('loaded');
 
             gsap.timeline()
-                .to(this.distortionSliderCurtain.nativeElement, {duration: 1.5, x: '100%', ease: 'expo'});
+                .fromTo(this.distortionSliderCurtain.nativeElement, {x: 0}, {duration: 1.5, x: '100%', ease: 'expo'});
 
             this.render();
         });

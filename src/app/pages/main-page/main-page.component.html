@@ -6,7 +6,7 @@
 			<div class="main-page__soc-xl">
 				<app-soc></app-soc>
 			</div>
-			<app-next-section-link></app-next-section-link>
+			<app-next-section-link (click)="fullpage_api.moveSectionDown()"></app-next-section-link>
 		</div>
 	</div>
 	
@@ -31,7 +31,9 @@
 					Флористика<br>
 					с душой
 				</div>
-				<button class="btn main-section__btn" #mainBtn style="transform: translate3d(0, 20px, 0); opacity: 0;">
+				<button class="btn main-section__btn" #mainBtn
+				        style="transform: translate3d(0, 20px, 0); opacity: 0;"
+				        (click)="fullpage_api.moveSectionDown()">
 					Cмотреть работы
 				</button>
 				
@@ -56,7 +58,7 @@
 		</div>
 		
 		<div class="section is-actions">
-			<div style="opacity: 0;">
+			<div>
 				<app-actions></app-actions>
 				<app-footer></app-footer>
 			</div>

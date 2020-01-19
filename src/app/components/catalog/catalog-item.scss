@@ -3,10 +3,7 @@
 .catalog-item {
 	position: relative;
 	overflow: hidden;
-
-	//.fp-viewing-firstSection & {
-	//	opacity: 0;
-	//}
+	cursor: pointer;
 
 	&.active {
 		opacity: 1;
@@ -102,6 +99,10 @@
 		.catalog-item.active & {
 			opacity: 0;
 		}
+
+		.fullview {
+			height: 0;
+		}
 	}
 
 	&__title {
@@ -138,6 +139,18 @@
 		transform: translateX(-15px);
 		transition: all .5s;
 		display: block;
+		position: relative;
+		z-index: 0;
+		vertical-align: middle;
+
+		&:after {
+			content: '';
+			display: inline-block;
+			height: 12px;
+			width: 8px;
+			margin-left: 5px;
+			background: url("../../../assets/images/more-link-arrow.svg") no-repeat center center;
+		}
 
 		.catalog-item:hover & {
 			opacity: 1;

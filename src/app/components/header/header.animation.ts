@@ -15,10 +15,13 @@ const startHeaderTo = {translateY: 0, opacity: 1, delay: 2};
 const fadeInHeaderFrom = {translateY: 20, opacity: 0};
 const fadeInHeaderTo = {translateY: 0, opacity: 1};
 
+const fadeInMainSectionHeaderFrom = {translateY: 20, opacity: 0};
+const fadeInMainSectionHeaderTo = {translateY: 0, opacity: 1, delay: 6};
+
 const fadeOutHeaderFrom = {translateY: 0, opacity: 1};
 const fadeOutHeaderTo = {translateY: 20, opacity: 0};
 
-const fadeOutInHeaderTo = {translateY: 0, opacity: 1, delay: 4};
+const fadeOutInHeaderTo = {translateY: 0, opacity: 1, delay: 2};
 
 export function startHeader(logo, burger) {
 
@@ -31,6 +34,14 @@ export function fadeInHeader(logo, burger) {
     return gsap.timeline()
         .fromTo([logo, burger], fadeInHeaderFrom, fadeInHeaderTo);
 }
+
+export function fadeInMainSectionHeader(logo, burger) {
+
+    return gsap.timeline()
+        .fromTo([logo, burger], fadeOutHeaderFrom, fadeOutHeaderTo)
+        .fromTo([logo, burger], fadeInMainSectionHeaderFrom, fadeInMainSectionHeaderTo);
+}
+
 
 export function fadeOutHeader(logo, burger) {
 

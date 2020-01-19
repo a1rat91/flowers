@@ -32,7 +32,8 @@
 	transition: .5s;
 	z-index: 10;
 
-	.fp-viewing-firstSection & {
+	.fp-viewing-firstSection &,
+	.fp-viewing-lastSection & {
 		pointer-events: none;
 	}
 
@@ -89,6 +90,10 @@
 		}
 	}
 
+	&__pagination-wrap {
+		display: none; //TODO: костыль
+	}
+
 	&__progressbar {
 		height: 2px;
 		width: 100%;
@@ -121,6 +126,10 @@
 		&__container {
 			max-width: 1150px;
 			margin: 0 auto;
+		}
+
+		&__pagination-wrap {
+			display: block; //TODO: Костыль
 		}
 	}
 

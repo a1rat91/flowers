@@ -1,9 +1,13 @@
 import { gsap } from 'gsap/all';
 
 const linkConfigFadeInFrom = {opacity: 0, x: 20};
-const linkConfigFadeInTo = {opacity: 1, x: 0, delay: 3};
+const linkConfigFadeInTo = {opacity: 1, x: 0, delay: 2.5};
+
+const linkConfigFadeInMainSectionFrom = {opacity: 0, x: 20};
+const linkConfigFadeInMainSectionTo = {opacity: 1, x: 0, delay: 6};
+
 const linkConfigFadeOutFrom = {opacity: 1, x: 0};
-const linkConfigFadeOutTo = {opacity: 0, x: 20, delay: 3};
+const linkConfigFadeOutTo = {opacity: 0, x: 20};
 
 gsap.timeline({defaults: {
         ease: 'expo',
@@ -19,6 +23,12 @@ export function startNextSectionLink(link) {
 export function fadeInNextSectionLink(link) {
     return gsap.timeline()
         .fromTo(link, linkConfigFadeInFrom, linkConfigFadeInTo);
+}
+
+export function fadeInMainSectionNextSectionLink(link) {
+    return gsap.timeline()
+        .fromTo(link, {opacity: 1, x: 0}, {opacity: 0, x: 20})
+        .fromTo(link, linkConfigFadeInMainSectionFrom, linkConfigFadeInMainSectionTo);
 }
 
 export function fadeOutNextSectionLink(link) {

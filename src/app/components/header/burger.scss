@@ -49,22 +49,22 @@
 				margin-bottom: -4px;
 			}
 		}
-		
+
 		.burger_close & {
 			span {
 				transition: background .3s 0s;
 				background: 0 0;
-				
+
 				&:before,
 				&:after {
 					transition: .5s;
 				}
-				
+
 				&:before {
 					transform: translateY(-50%) rotate(45deg);;
 					margin: 0;
 				}
-				
+
 				&:after {
 					transform: translateY(-50%) rotate(-45deg);
 					margin: 0;
@@ -80,7 +80,7 @@
 		margin-left: 15px;
 		transition: .5s;
 		letter-spacing: 0.06em;
-		
+
 		.burger_close & {
 			opacity: 0;
 		}

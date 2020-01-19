@@ -6,7 +6,7 @@
 	      #catalogTransitionCurtain></span>
 </div>
 <div class="catalog" #catalog>
-	<div class="catalog__shadow" #catalogShadow>
+	<div class="catalog__shadow" #catalogShadow style="opacity: 0;">
 		Каталог услуг
 	</div>
 	
@@ -49,8 +49,8 @@
 								<div class="catalog-item__title" style="opacity: 0;">
 									{{post.title}}
 								</div>
-								<a #catalogItemLink
-								   class="catalog-item__link" >
+								
+								<a class="catalog-item__link" style="display: none;">
 									Показать подробнее
 								</a>
 								
@@ -70,7 +70,7 @@
 		     style="opacity: 0;"></div>
 	</div>
 	
-	<div class="catalog__container">
+	<div class="catalog__container catalog__pagination-wrap" [ngClass]="{'hidden': totalProgress === 1}">
 		<div class="slider__pagination catalog__pagination"
 		     style="opacity: 0;">
 			<div class="slider__active-index">

@@ -8,7 +8,7 @@ export function catalogNextPageTransition(title, pic, curtain) {
         .to(curtain, catalogCurtainConfig);
 }
 
-export function fadeInCatalogSection(title, pic, curtain, index, itemTitle, btns, shadow, pagination) {
+export function fadeInCatalogSection(title, pic, curtain, index, itemTitle, btns, shadow, pagination, link) {
     return gsap.timeline()
         .set(curtain,
             {opacity: 1})
@@ -17,6 +17,7 @@ export function fadeInCatalogSection(title, pic, curtain, index, itemTitle, btns
             {duration: 1, translateX: 0, ease: 'expo.in'})
         .set([pic, index, itemTitle],
             {opacity: 1})
+        .set(link, {display: 'block'})
         .fromTo(curtain,
             {translateX: 0},
             {duration: 1, translateX: '100%', ease: 'expo.out'})
@@ -33,7 +34,7 @@ export function fadeInCatalogSection(title, pic, curtain, index, itemTitle, btns
             {opacity: 0});
 }
 
-export function fadeOutCatalogSection(title, pic, curtain, index, itemTitle, btns, shadow, pagination) {
+export function fadeOutCatalogSection(title, pic, curtain, index, itemTitle, btns, shadow, pagination, link) {
     return gsap.timeline()
         .set(curtain, {opacity: 0})
         .fromTo(btns,
@@ -44,6 +45,7 @@ export function fadeOutCatalogSection(title, pic, curtain, index, itemTitle, btn
             {duration: 1, translateX: 0, opacity: 1, ease: 'expo.inOut'})
         .set([pic, index, itemTitle],
             {opacity: 0})
+        .set(link, {display: 'none'})
         .fromTo(curtain,
             {translateX: 0},
             {duration: 1, translateX: '-100%', ease: 'expo.inOut'})

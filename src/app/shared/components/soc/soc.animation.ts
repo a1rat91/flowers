@@ -1,9 +1,13 @@
 import { gsap } from 'gsap/all';
 
 const socItemConfigFadeInFrom = {opacity: 0, y: 20};
-const socItemConfigFadeInTo = {opacity: 1, y: 0, delay: 3};
+const socItemConfigFadeInTo = {opacity: 1, y: 0, delay: 2.5};
+
+const socItemConfigFadeInMainSectionFrom = {opacity: 0, y: 20};
+const socItemConfigFadeInMainSectionTo = {opacity: 1, y: 0, delay: 6};
+
 const socItemConfigFadeOutFrom = {opacity: 1, y: 0};
-const socItemConfigFadeOutTo = {opacity: 0, y: 20, delay: 3};
+const socItemConfigFadeOutTo = {opacity: 0, y: 20};
 
 gsap.timeline({defaults: {
         ease: 'expo',
@@ -14,6 +18,13 @@ gsap.timeline({defaults: {
 export function startSoc(socItem) {
     return gsap.timeline()
         .fromTo(socItem, socItemConfigFadeInFrom, socItemConfigFadeInTo);
+}
+
+export function fadeInMainSectionSoc(socItem) {
+
+    return gsap.timeline()
+        .fromTo(socItem, {opacity: 1, y: 0}, {opacity: 0, y: 20})
+        .fromTo(socItem, socItemConfigFadeInMainSectionFrom, socItemConfigFadeInMainSectionTo);
 }
 
 export function fadeInSoc(socItem) {

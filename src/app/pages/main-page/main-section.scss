@@ -5,6 +5,10 @@
   height: 100%;
   width: 100%;
   padding-bottom: 150px;
+
+  .fp-viewing-firstSection & {
+    z-index: 10;
+  }
   
   &:after {
     content: '';
