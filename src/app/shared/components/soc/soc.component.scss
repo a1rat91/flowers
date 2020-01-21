@@ -22,7 +22,7 @@
 	@media all and (max-width: $screen-lg) {
 		bottom: 131px;
 		left: 50%;
-		transform: translateX(-50%);
+		transform: translateX(-50%) !important;
 		
 		&__list {
 			display: flex;
