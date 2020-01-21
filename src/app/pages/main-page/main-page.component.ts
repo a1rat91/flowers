@@ -58,7 +58,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('mainBtn', {static: true}) private _mainBtn: ElementRef;
     @ViewChild('mouse', {static: true}) private _mouse: ElementRef;
     @ViewChild(CatalogComponent, {static: false}) catalogComponent: CatalogComponent;
-    loader: boolean;
+    loaderStatus: string;
     desctopMediaQuery: boolean;
     mainSectionActive: boolean;
     sectionState: string;
@@ -77,43 +77,64 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
         window.addEventListener('resize', () => this.isDesctop());
 
-        this.config = {
-            licenseKey: environment.fullpage.apiKey,
-            anchors: ['firstSection', 'secondSection', 'lastSection'],
-            menu: '#menu',
-            fadingEffectKey: environment.fullpage.fadingEffectKey,
-            fadingEffect: true,
-            responsiveHeight: 800,
-            responsiveWidth: 992,
-            afterResponsive: (isResponsive) => {
-                // console.info(isResponsive, 'Fullpage responsive mode');
-            },
-            afterResize: () => {
-                // console.log("After resize");
-            },
-            onLeave: (origin, destination, direction) => {
-                // console.log(origin, destination, direction, 'onLeave');
-                if (origin.index === 0 && destination.index === 1) {
-                    // Если не первая секция, не отыгрываем анимацию
-                    this.fadeService.changeSectionState('fadeOutMainSection');
-                    this.fadeOutMainSection();
-                    this.mainSectionActive = false;
-                } else if (origin.index === 1 && destination.index === 0) {
-                    this.fadeService.changeSectionState('fadeInMainSection');
-                    this.fadeInMainSection();
-                    this.mainSectionActive = true;
-                } else if (origin.index === 1 && direction === 'down') {
-                    this.fadeService.changeSectionState('fadeOutCatalogSection');
-                    this.fadeOutCatalogSection();
-                } else if (origin.index === 2 && direction === 'up') {
-                    this.fadeService.changeSectionState('fadeInCatalogSection');
-                    this.fadeInCatalogSection();
+        if (this.isDesctop()) {
+            this.config = {
+                licenseKey: environment.fullpage.apiKey,
+                anchors: ['firstSection', 'secondSection', 'lastSection'],
+                menu: '#menu',
+                fadingEffectKey: environment.fullpage.fadingEffectKey,
+                fadingEffect: true,
+                responsiveHeight: 800,
+                responsiveWidth: 992,
+                afterResponsive: (isResponsive) => {
+                    // console.info(isResponsive, 'Fullpage responsive mode');
+                },
+                afterResize: () => {
+                    // console.log("After resize");
+                },
+                onLeave: (origin, destination, direction) => {
+                    // console.log(origin, destination, direction, 'onLeave');
+                    if (origin.index === 0 && destination.index === 1) {
+                        // Если не первая секция, не отыгрываем анимацию
+                        this.fadeService.changeSectionState('fadeOutMainSection');
+                        this.fadeOutMainSection();
+                        this.mainSectionActive = false;
+                    } else if (origin.index === 1 && destination.index === 0) {
+                        this.fadeService.changeSectionState('fadeInMainSection');
+                        this.fadeInMainSection();
+                        this.mainSectionActive = true;
+                    } else if (origin.index === 1 && direction === 'down') {
+                        this.fadeService.changeSectionState('fadeOutCatalogSection');
+                        this.fadeOutCatalogSection();
+                    } else if (origin.index === 2 && direction === 'up') {
+                        this.fadeService.changeSectionState('fadeInCatalogSection');
+                        this.fadeInCatalogSection();
+                    }
+                },
+                afterLoad: (origin, destination, direction) => {
+                    // console.group('afterLoad', [origin, destination, direction]);
                 }
-            },
-            afterLoad: (origin, destination, direction) => {
-                // console.group('afterLoad', [origin, destination, direction]);
-            }
-        };
+            };
+        } else {
+            this.config = {
+                licenseKey: environment.fullpage.apiKey,
+                anchors: ['firstSection', 'secondSection', 'lastSection'],
+                menu: '#menu',
+                responsiveHeight: 800,
+                responsiveWidth: 992,
+                afterResponsive: (isResponsive) => {
+                    // console.info(isResponsive, 'Fullpage responsive mode');
+                },
+                afterResize: () => {
+                    // console.log("After resize");
+                },
+                onLeave: (origin, destination, direction) => {
+                },
+                afterLoad: (origin, destination, direction) => {
+                    // console.group('afterLoad', [origin, destination, direction]);
+                }
+            };
+        }
     }
 
     ngOnInit() {
@@ -139,8 +160,10 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     ngAfterViewInit(): void {
         this.mainSectionActive = true;
         this.subscription.add(
-            this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader)
+            this.loaderService.currentLoaderState.subscribe(status => this.loaderStatus = status)
         );
+        console.log(this.loaderStatus, 'this.loaderStatus 123');
+        this.loaderService.changeLoaderState('enable');
         setTimeout(() => {
             this.startMainSection();
             this.fadeService.changeSectionState('fadeInMainPage');
@@ -150,7 +173,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
         this.fullpage_api.setScrollingSpeed(3000);
 
         if (!this.isDesctop()) {
-            this.fullpage_api.destroy('all');
+            // this.fullpage_api.destroy('all');
         }
     }
 

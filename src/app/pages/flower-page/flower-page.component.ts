@@ -28,16 +28,17 @@ import {FadeService} from '../../services/fade.service';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FlowerPageComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     post$: Observable<Post>;
     slideIndex;
-    loader: boolean;
+    loaderStatus: string;
     @ViewChild('titleEl', {static: true}) private _titleEl: ElementRef;
     @ViewChild('textEl', {static: true}) private _textEl: ElementRef;
     @ViewChild('btnEl', {static: true}) private _btnEl: ElementRef;
     @ViewChild('paginationEl', {static: true}) private _paginationEl: ElementRef;
     @ViewChild('footerEl', {static: true}) private _footerEl: ElementRef;
+    @ViewChild('border', {static: true}) private _border: ElementRef;
     isFirstTimeCalled: boolean;
     private routeSubscription: Subscription;
     sectionState;
@@ -53,14 +54,14 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnChanges, On
                 private ngZone: NgZone) {
 
         this.subscription.add(
-            this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader)
+            this.loaderService.currentLoaderState.subscribe(status => this.loaderStatus = status)
         ).add(
             this.routeSubscription = route.queryParams.subscribe((queryParam: any) => {
-                // if (queryParam['loader'] === 'false') {
-                //     this.loaderService.changeLoaderState(true);
-                // } else {
-                //     this.loaderService.changeLoaderState(false);
-                // }
+                if (queryParam['status'] === 'disable') {
+                    this.loaderService.changeLoaderState(queryParam['status']);
+                } else {
+                    this.loaderService.changeLoaderState('enable');
+                }
             })
         );
     }
@@ -73,14 +74,11 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnChanges, On
 
         this.subscription.add(
             this.route.url.subscribe((url) => {
-                console.log(url, 'url');
                 this.ngZone.runOutsideAngular(() => {
                         const tl = gsap.timeline({id: 'fadeInFlowerPage'})
-                            .fromTo([this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl],
+                            .fromTo([this.border, this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl],
                                 {y: 20, opacity: 0},
                                 {duration: 2, delay: 2, y: 0, opacity: 1, stagger: .3, ease: 'expo'});
-
-                        // GSDevTools.create({animation: tl, container: '#fadeInFlowerPage'});
                     }
                 );
             })
@@ -96,13 +94,9 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnChanges, On
     }
 
     ngAfterViewInit(): void {
-        setTimeout(() => {
-            this.loaderService.changeLoaderState(true);
-        }, 500);
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes, '===================');
+        // setTimeout(() => {
+        //     this.loaderService.changeLoaderState(true);
+        // }, 500);
     }
 
     ngOnDestroy(): void {
@@ -127,6 +121,10 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnChanges, On
 
     get footerEl() {
         return this._footerEl.nativeElement;
+    }
+
+    get border() {
+        return this._border.nativeElement;
     }
 
     fadeInFlowerPage(event) {

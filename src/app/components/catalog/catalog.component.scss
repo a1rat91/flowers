@@ -160,6 +160,10 @@
 		&__button-next {
 			display: none;
 		}
+
+		&__pagination {
+			opacity: 1 !important;
+		}
 	}
 
 	@media all and (max-width: $screen-md - 1) {

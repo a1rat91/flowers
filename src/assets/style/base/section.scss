@@ -43,7 +43,7 @@
 
 	&.is-actions {
 		.fp-tableCell {
-			padding-bottom: 125px;
+			//padding-bottom: 125px;
 		}
 	}
 	
@@ -55,23 +55,27 @@
 		}
 
 		&.is-actions {
-			padding-bottom: 100px;
+			padding-bottom: 0;
 		}
 
 		&__title {
 			font-size: 30px;
 			letter-spacing: 0.06em;
 			padding-bottom: 20px;
+			opacity: 1;
 		}
 	}
 
 	@media all and (max-width: $screen-md) {
-		-webkit-transform: translate3d(0,0,0)!important;
 		transform: translate3d(0,0,0)!important;
 
 		&.is-catalog,
 		&.is-actions {
 			padding: 50px 0;
+		}
+
+		&.is-actions {
+			padding-bottom: 0;
 		}
 
 		&__title {

@@ -56,7 +56,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
     currentIndex;
     sectionState: string;
     isPaginationDisable: boolean;
-    loader: boolean;
+    loaderStatus: string;
 
     private subscription = new Subscription();
 
@@ -120,7 +120,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
         this.subscription.add(
             this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
         ).add(
-            this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader)
+            this.loaderService.currentLoaderState.subscribe(status => this.loaderStatus = status)
         );
 
         this.config = {
@@ -228,13 +228,13 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
 
     nextPage(id) {
         this.fadeService.changeSectionState('fadeOutMainPage');
-        this.loaderService.changeLoaderState(true);
+        this.loaderService.changeLoaderState('disable');
         this.ngZone.runOutsideAngular(() => {
                 let tl = gsap.timeline()
                     .to(window, {duration: 0.5, scrollTo: '#js-catalog', ease: 'Expo.inOut'})
                     .add(catalogNextPageTransition(this.catalogTitle, this.catalogPic, this.catalogTransitionCurtain))
                     .add(() => this.ngZone.run(() => {
-                        this.router.navigate([`/post/${id}`], {queryParams: {loader: false}});
+                        this.router.navigate([`/post/${id}`], {queryParams: {status: 'disable'}});
                     }));
             }
         );

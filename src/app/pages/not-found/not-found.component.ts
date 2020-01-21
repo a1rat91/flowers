@@ -12,13 +12,13 @@ import {Subscription} from 'rxjs';
 export class NotFoundComponent implements OnInit, OnDestroy {
 
   private subscription = new Subscription();
-  loader: boolean;
+  loaderStatus: string;
   sectionState;
 
   constructor(private loaderService: LoaderService,
               private fadeService: FadeService) {
     this.subscription.add(
-        this.loaderService.currentLoaderState.subscribe(loader => this.loader = loader)
+        this.loaderService.currentLoaderState.subscribe(status => this.loaderStatus = status)
     ).add(
         this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
     );
@@ -32,7 +32,7 @@ export class NotFoundComponent implements OnInit, OnDestroy {
   }
 
   goToMainPage() {
-    this.loaderService.changeLoaderState(false);
+    this.loaderService.changeLoaderState('disable');
     this.fadeService.changeSectionState('startMainPage');
   }
 

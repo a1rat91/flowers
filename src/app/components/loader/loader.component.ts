@@ -2,14 +2,13 @@ import {
     AfterViewInit,
     ChangeDetectionStrategy,
     Component,
-    ElementRef,
-    Input, NgZone, OnChanges, OnDestroy,
-    OnInit, SimpleChanges,
-    ViewChild
+    NgZone,
+    OnDestroy,
+    OnInit
 } from '@angular/core';
 import {gsap} from 'gsap/all';
-import {LoaderService} from "./loader.service";
-import {Subscription} from "rxjs";
+import {LoaderService} from './loader.service';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-loader',
@@ -18,42 +17,36 @@ import {Subscription} from "rxjs";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoaderComponent implements OnInit, AfterViewInit, OnDestroy {
-    @ViewChild('loaderEl', {static: false}) private _loaderEl: ElementRef;
     private subscription = new Subscription();
-    public loader;
+    private loaderStatus;
 
     constructor(private loaderService: LoaderService,
                 private ngZone: NgZone) {
-        this.loader = false;
     }
 
     ngOnInit() {
-        this.subscription.add(this.loaderService.currentLoaderState.subscribe(loader => {
-            console.log(this.loader, 'qwe');
-            if (loader) {
-                this.fadeOut();
-            }
-            return this.loader = loader;
-        }));
+        this.loaderService.currentLoaderState.subscribe(status => this.loaderStatus = status);
+        if (this.loaderStatus === 'enable') {
+            this.fadeOut();
+        }
     }
 
     ngAfterViewInit(): void {
-        setTimeout(() => {
-            this.loaderService.changeLoaderState(true);
-        }, 500);
     }
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
     }
 
-    get loaderEl() {
-        return this._loaderEl.nativeElement;
-    }
-
     fadeOut() {
         this.ngZone.runOutsideAngular(() => {
-                gsap.to(this.loaderEl, {duration: 1, opacity: 0, ease: 'expo'});
+                if (document.querySelector('.loader')) {
+                    gsap.timeline({
+                        onComplete: () => {
+                            this.loaderService.changeLoaderState('disable');
+                        }
+                    }).to('.loader', {duration: 1, delay: 1.5, opacity: 0, ease: 'expo'});
+                }
             }
         );
 

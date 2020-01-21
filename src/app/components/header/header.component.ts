@@ -94,8 +94,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     goToMainPage() {
-        this.loaderService.changeLoaderState(false);
-        this.fadeService.changeSectionState('startMainPage');
+        this.loaderService.changeLoaderState('disable');
     }
 
     startHeader() {

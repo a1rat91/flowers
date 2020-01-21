@@ -1,7 +1,7 @@
 import { gsap } from 'gsap/all';
 
 const titleConfigFrom = {scale: 2, opacity: 0};
-const titleConfigTo = {duration: 2, scale: 1, opacity: 1};
+const titleConfigTo = {duration: 2, delay: 1, scale: 1, opacity: 1};
 const btnAndMouseConfigFrom = { y: 20, opacity: 0};
 const btnAndMouseConfigTo = { duration: 0.3, y: 0, opacity: 1, stagger: 0.5, ease: 'ease'};
 

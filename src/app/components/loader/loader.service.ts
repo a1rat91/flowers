@@ -4,15 +4,14 @@ import {BehaviorSubject, Subject} from 'rxjs';
 @Injectable()
 export class LoaderService {
 
-    private loaderSource = new Subject<boolean>();
+    private loaderSource = new BehaviorSubject<string>('enable');
     currentLoaderState = this.loaderSource.asObservable();
 
     constructor() {
     }
 
-    changeLoaderState(loader: boolean) {
-        console.log(loader, 'changeLoaderState');
-        this.loaderSource.next(loader);
+    changeLoaderState(status: string) {
+        this.loaderSource.next(status);
     }
 
 

@@ -1,7 +1,7 @@
 @import "../../../assets/style/base/variables";
 
 .actions {
-	margin-top: 90px;
+	//margin-top: 90px;
 	position: relative;
 	z-index: 12;
 
@@ -93,6 +93,8 @@
 		}
 		
 		&__title {
+			opacity: 1!important;
+
 			&:after {
 				left: 50%;
 				transform: translateX(-50%);
@@ -114,15 +116,18 @@
 			margin-bottom: 40px;
 			text-align: center;
 			max-width: 100%;
+			opacity: 1 !important;
 		}
 		
 		&__btn {
 			margin: 0 auto;
+			opacity: 1 !important;
 		}
 		
 		&__pic {
 			max-width: 453px;
 			margin: 0 auto 30px;
+			opacity: 1 !important;
 		}
 	}
 	

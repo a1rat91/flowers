@@ -1,4 +1,4 @@
-<div class="loader" #loaderEl *ngIf="!loader">
+<div class="loader" *ngIf="loaderStatus !== 'disable'">
 	<div class="loader-wrapper" >
 		<div class="circle-loader-wrapper">
 			<svg height="100" width="100" viewBox="0 0 100 100" class="circle-loader">

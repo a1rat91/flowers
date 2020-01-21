@@ -162,9 +162,8 @@
 	@media all and (max-width: $screen-lg) {
 		
 		&__heading {
-			height: 100%;
 			display: flex;
-			align-items: flex-end;
+			//align-items: flex-end;
 		}
 		
 		&__btn {
@@ -186,6 +185,18 @@
 
 		&__title {
 			font-size: 14px;
+		}
+
+		&__index,
+		&__pic,
+		&__title {
+			opacity: 1!important;
+		}
+
+		&__link {
+			display: block!important;
+			transform: translateX(0)!important;
+			opacity: 1!important;
 		}
 	}
 	

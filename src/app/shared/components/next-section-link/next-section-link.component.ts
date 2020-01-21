@@ -46,7 +46,6 @@ export class NextSectionLinkComponent implements OnInit, OnDestroy {
 
         this.subscription.add(
             this.fadeService.currentSectionState.subscribe(sectionState => {
-                console.log(sectionState);
                 switch (sectionState) {
                     case 'fadeInMainPage':
                         this.startNextSectionLink();

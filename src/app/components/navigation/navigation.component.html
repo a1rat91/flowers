@@ -1,6 +1,8 @@
 <div class="navigation" #navigation style="transform: translateY(-130%) translateZ(0)">
 	
-	<app-navigation-logo routerLink="/" (click)="closeNav()"></app-navigation-logo>
+	<app-navigation-logo routerLink="/" (click)="closeNav()"
+	                     [queryParams]="{status: 'disable'}"
+	></app-navigation-logo>
 	
 	<a class="nav-burger" (click)="closeNav()" #navBurger>
 		<span></span>
@@ -16,7 +18,7 @@
 				     [routerLinkActiveOptions]="{exact: true}">
 					<a (click)="closeNav()"
 					   [routerLink]="['/post', post.id]"
-					   [queryParams]="{loader: false}">
+					   [queryParams]="{status: 'disable'}">
 						{{post.title}}
 					</a>
 				</div>
