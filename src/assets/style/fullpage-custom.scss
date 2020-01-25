@@ -14,8 +14,8 @@
 	transition: 0ms!important;
 }
 
-@media all and (min-width: $screen-lg) {
-	.fp-section {
+@media all and (min-width: $screen-lg) and (min-height: 700px){
+	.fp-section:not(.fp-responsive) {
 		opacity: 1!important;
 		visibility: visible!important;
 	}

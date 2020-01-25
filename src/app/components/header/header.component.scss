@@ -42,6 +42,14 @@
 		z-index: 2;
 		will-change: auto;
 	}
+
+	@media all and (max-height: 800px) {
+		height: 112px;
+
+		&__inner {
+			padding: 35px 40px 0;
+		}
+	}
 	
 	@media all and (max-width: $screen-lg - 1) {
 		height: 112px;

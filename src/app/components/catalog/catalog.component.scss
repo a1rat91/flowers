@@ -112,6 +112,12 @@
 		}
 	}
 
+	.fp-responsive & {
+		&__pagination {
+			opacity: 1 !important;
+		}
+	}
+
 	@media all and (max-width: $screen-xxl) {
 		&__container {
 			max-width: 1430px;

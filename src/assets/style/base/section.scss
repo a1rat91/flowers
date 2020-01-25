@@ -46,6 +46,27 @@
 			//padding-bottom: 125px;
 		}
 	}
+
+	.fp-responsive & {
+		display: block!important;
+
+		&.is-catalog,
+		&.is-actions {
+			padding: 80px 0;
+			opacity: 0;
+		}
+
+		&.is-actions {
+			padding-bottom: 0;
+		}
+
+		&__title {
+			font-size: 30px;
+			letter-spacing: 0.06em;
+			padding-bottom: 20px;
+			opacity: 1;
+		}
+	}
 	
 	@media all and (max-width: $screen-lg) {
 

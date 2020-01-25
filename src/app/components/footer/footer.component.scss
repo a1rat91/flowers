@@ -11,6 +11,12 @@
   right: 0;
   max-width: 1850px;
   opacity: 0;
+
+  .fp-responsive & {
+    position: static;
+    margin-top: 90px;
+    opacity: 1;
+  }
   
   &__nav,
   &__list {
@@ -37,6 +43,10 @@
     &:last-child {
       margin-right: 0;
     }
+  }
+
+  &__item {
+    text-align: center;
   }
   
   &__link {

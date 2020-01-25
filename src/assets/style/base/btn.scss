@@ -1,6 +1,7 @@
 .btn {
   @include btn();
   transition: .5s;
+  min-height: 50px;
   
   &_black {
     background: #000000;

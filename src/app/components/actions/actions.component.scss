@@ -73,6 +73,15 @@
 		background: darken($body-bg, 2);
 		will-change: any;
 	}
+
+	.fp-responsive & {
+		&__title,
+		&__desc,
+		&__btn,
+		&__pic {
+			opacity: 1!important;
+		}
+	}
 	
 	@media all and (max-width: 1400px) {
 		&__inner {

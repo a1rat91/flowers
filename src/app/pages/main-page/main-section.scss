@@ -65,6 +65,15 @@
     transform: translateX(-50%) translateY(0);
     will-change: auto;
   }
+
+  .fp-responsive & {
+    padding-bottom: 180px;
+    height: 100vh;
+
+    &__title {
+      font-size: 80px;
+    }
+  }
   
   @media all and (max-width: $screen-xl){
     &__title {
@@ -86,10 +95,6 @@
       display: none;
     }
     
-    &__title {
-      font-size: 70px;
-    }
-    
     &__btn {
       height: 60px;
       max-width: 260px;
@@ -98,6 +103,13 @@
     
     &__mouse {
       bottom: 65px;
+    }
+
+    .fp-responsive & {
+
+      &__title {
+        font-size: 70px;
+      }
     }
   }
   
@@ -110,9 +122,12 @@
   @media all and (max-width: $screen-sm - 1) {
   
     padding-bottom: 100px;
-    
-    &__title {
-      font-size: 45px;
+
+    .fp-responsive & {
+
+      &__title {
+        font-size: 45px;
+      }
     }
     
     &__btn {
@@ -124,15 +139,11 @@
   }
   
   @media all and (min-width: $screen-xs) and (max-width: 400px) {
-    &__title {
-      font-size: 30px;
+    .fp-responsive & {
+
+      &__title {
+        font-size: 30px;
+      }
     }
   }
 }
-//
-//$screen-xs:                   0;
-//$screen-sm:                   480px;
-//$screen-md:                   768px;
-//$screen-lg:                   992px;
-//$screen-xl:                   1200px;
-//$screen-xxl:                  1800px;

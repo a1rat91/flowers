@@ -158,6 +158,18 @@
 			transition: all .5s;
 		}
 	}
+
+	.fp-responsive & {
+		&__index,
+		&__pic,
+		&__title {
+			opacity: 1!important;
+		}
+
+		&__heading {
+			min-height: auto;
+		}
+	}
 	
 	@media all and (max-width: $screen-lg) {
 		

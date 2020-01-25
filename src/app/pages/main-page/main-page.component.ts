@@ -67,6 +67,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
     sectionState: string;
     catalogVisible = false;
     actionsVisible = false;
+    isResponsive = false;
 
     private subscription = new Subscription();
 
@@ -82,25 +83,24 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
         window.addEventListener('resize', () => this.isDesctop());
 
-        if (this.isDesctop()) {
-            this.config = {
-                licenseKey: environment.fullpage.apiKey,
-                anchors: ['firstSection', 'secondSection', 'lastSection'],
-                menu: '#menu',
-                fadingEffectKey: environment.fullpage.fadingEffectKey,
-                fadingEffect: true,
-                responsiveHeight: 800,
-                responsiveWidth: 992,
-                afterResponsive: (isResponsive) => {
-                    // console.info(isResponsive, 'Fullpage responsive mode');
-                },
-                afterResize: () => {
-                    // console.log("After resize");
-                },
-                onLeave: (origin, destination, direction) => {
-                    // console.log(origin, destination, direction, 'onLeave');
+        this.config = {
+            licenseKey: environment.fullpage.apiKey,
+            anchors: ['firstSection', 'secondSection', 'lastSection'],
+            menu: '#menu',
+            fadingEffectKey: environment.fullpage.fadingEffectKey,
+            fadingEffect: true,
+            responsiveHeight: 700,
+            responsiveWidth: 1024,
+            afterResponsive: (isResponsive) => {
+                this.isResponsive = isResponsive;
+            },
+            afterResize: () => {
+                // console.log("After resize");
+            },
+            onLeave: (origin, destination, direction) => {
+                // console.log(origin, destination, direction, 'onLeave');
+                if (!this.isResponsive) {
                     if (origin.index === 0 && destination.index === 1) {
-                        // Если не первая секция, не отыгрываем анимацию
                         this.fadeService.changeSectionState('fadeOutMainSection');
                         this.fadeOutMainSection();
                         this.mainSectionActive = false;
@@ -115,40 +115,24 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
                         this.fadeService.changeSectionState('fadeInCatalogSection');
                         this.fadeInCatalogSection();
                     }
-                },
-                afterLoad: (origin, destination, direction) => {
-                    // console.group('afterLoad', [origin, destination, direction]);
-                }
-            };
-        } else {
-            this.config = {
-                licenseKey: environment.fullpage.apiKey,
-                anchors: ['firstSection', 'secondSection', 'lastSection'],
-                menu: '#menu',
-                responsiveHeight: 800,
-                responsiveWidth: 992,
-                afterResponsive: (isResponsive) => {
-                },
-                afterResize: () => {
-                },
-                onLeave: (origin, destination, direction) => {
-                    if (origin.index === 0 && destination.index === 1 && !this.catalogVisible) {
-                        // Если не первая секция, не отыгрываем анимацию
-                        this.mobFadeInCatalogSection();
-                    } else if (origin.index === 1 && direction === 'down' && !this.actionsVisible) {
-                        this.mobFadeInActionsSection();
-                    }
-                },
-                afterLoad: (origin, destination, direction) => {
+                } else {
                     if (destination.index === 1 && !this.catalogVisible) {
-                        // Если не первая секция, не отыгрываем анимацию
                         this.mobFadeInCatalogSection();
                     } else if (destination.index === 2 && !this.actionsVisible) {
                         this.mobFadeInActionsSection();
                     }
                 }
-            };
-        }
+            },
+            afterLoad: (origin, destination, direction) => {
+                if (this.isResponsive) {
+                    if (destination.index === 1 && !this.catalogVisible) {
+                        this.mobFadeInCatalogSection();
+                    } else if (destination.index === 2 && !this.actionsVisible) {
+                        this.mobFadeInActionsSection();
+                    }
+                }
+            }
+        };
     }
 
     ngOnInit() {
@@ -325,7 +309,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     isDesctop() {
-        (window.innerWidth >= 992) ? this.desctopMediaQuery = true : this.desctopMediaQuery = false;
+        (window.innerWidth >= 1300) ? this.desctopMediaQuery = true : this.desctopMediaQuery = false;
         return this.desctopMediaQuery;
     }
 
