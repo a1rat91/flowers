@@ -19,6 +19,8 @@ import {GSDevTools} from '../../shared/plugins/GSDevTools';
 gsap.registerPlugin(GSDevTools);
 import {DOCUMENT} from '@angular/common';
 import {FadeService} from '../../services/fade.service';
+import {NgxSmartModalService} from "ngx-smart-modal";
+import {PopupComponent} from "../../components/popup/popup.component";
 
 
 @Component({
@@ -51,7 +53,8 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
                 private loaderService: LoaderService,
                 private fadeService: FadeService,
                 @Inject(DOCUMENT) private document: Document,
-                private ngZone: NgZone) {
+                private ngZone: NgZone,
+                private ngxSmartModalService: NgxSmartModalService) {
 
         this.subscription.add(
             this.loaderService.currentLoaderState.subscribe(status => this.loaderStatus = status)
@@ -139,6 +142,10 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
         //     );
         // }
         this.fadeService.changeSectionState('fadeInFlowerPage');
+    }
+
+    getPopup() {
+        this.ngxSmartModalService.create('myModal1', PopupComponent, {customClass: 'nsm-centered'}).open();
     }
 
 }

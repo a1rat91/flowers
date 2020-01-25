@@ -8,19 +8,19 @@ export class SocService {
     getSocialLinks() {
         return this.soc = [
             {
-                link: '#',
+                link: 'https://instagram.com/guzel_akmaeva?igshid=8lr8riubfq9r',
                 icon: 'inst.svg'
             },
             {
-                link: '#',
+                link: 'https://www.facebook.com/profile.php?id=100046001351260',
                 icon: 'fb.svg'
             },
             {
-                link: '#',
+                link: 'whatsapp://+79178847912',
                 icon: 'whatsapp.svg'
             },
             {
-                link: '#',
+                link: 'https://vk.com/fleurdelyse',
                 icon: 'vk.svg'
             }
         ];

@@ -49,9 +49,13 @@
 	
 	@media all and (max-width: $screen-lg) {
 
+		display: block!important;
+		//overflow-x: hidden;
+
 		&.is-catalog,
 		&.is-actions {
 			padding: 80px 0;
+			opacity: 0;
 		}
 
 		&.is-actions {
@@ -67,7 +71,7 @@
 	}
 
 	@media all and (max-width: $screen-md) {
-		transform: translate3d(0,0,0)!important;
+		//transform: translate3d(0,0,0)!important;
 
 		&.is-catalog,
 		&.is-actions {

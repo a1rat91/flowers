@@ -16,4 +16,9 @@
 		padding-left: 30px;
 		padding-right: 30px;
 	}
+
+	@media all and (max-width: $screen-sm) {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
 }

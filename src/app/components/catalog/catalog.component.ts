@@ -116,6 +116,10 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
         return this._catalogBtns.map((element) => element.nativeElement);
     }
 
+    get catalog() {
+        return this._catalog.nativeElement;
+    }
+
     ngOnInit() {
         this.subscription.add(
             this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
@@ -232,7 +236,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
         this.ngZone.runOutsideAngular(() => {
                 let tl = gsap.timeline()
                     .to(window, {duration: 0.5, scrollTo: '#js-catalog', ease: 'Expo.inOut'})
-                    .add(catalogNextPageTransition(this.catalogTitle, this.catalogPic, this.catalogTransitionCurtain))
+                    .add(catalogNextPageTransition(this.catalog, this.catalogTransitionCurtain))
                     .add(() => this.ngZone.run(() => {
                         this.router.navigate([`/post/${id}`], {queryParams: {status: 'disable'}});
                     }));

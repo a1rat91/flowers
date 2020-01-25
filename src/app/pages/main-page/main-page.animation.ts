@@ -36,3 +36,15 @@ export function fadeOutMainSection(curtain) {
         .to(curtain, mainSectionCurtainConfig);
 
 }
+
+export function mobFadeInCatalogSection(section) {
+    return gsap
+        .fromTo(section, {translateY: 20, opacity: 0}, {duration: 2, translateY: 0, opacity: 1, ease: 'expo.inOut'});
+
+}
+
+export function mobFadeInActionsSection(section) {
+    return gsap
+        .fromTo(section, {translateY: 20, opacity: 0}, {duration: 2, translateY: 0, opacity: 1, ease: 'expo.inOut'});
+
+}

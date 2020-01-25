@@ -3,6 +3,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {QuillModule} from 'ngx-quill';
 import {LoaderModule} from '../components/loader/loader.module';
 import {LazyLoadImageModule, scrollPreset} from 'ng-lazyload-image';
+import {PopupComponent} from '../components/popup/popup.component';
+import {NgxSmartModalModule} from 'ngx-smart-modal';
 
 @NgModule({
     imports: [
@@ -11,15 +13,18 @@ import {LazyLoadImageModule, scrollPreset} from 'ng-lazyload-image';
         LoaderModule,
         LazyLoadImageModule.forRoot({
             preset: scrollPreset
-        })
+        }),
+        NgxSmartModalModule.forRoot()
     ],
     exports: [
         HttpClientModule,
         QuillModule,
         LoaderModule,
-        LazyLoadImageModule
+        LazyLoadImageModule,
+        PopupComponent,
+        NgxSmartModalModule
     ],
-    declarations: []
+    declarations: [PopupComponent]
 })
 export class SharedModule {
 }

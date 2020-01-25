@@ -79,6 +79,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
     closeNav() {
         this.nav.changeBurgerState(!this.burger);
         this.nav.changeNavigationState(!this.navigation);
+        this.loaderService.changeLoaderState('disable');
     }
 
     get navigationEl() {

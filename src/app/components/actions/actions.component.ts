@@ -1,4 +1,6 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {NgxSmartModalComponent, NgxSmartModalService} from 'ngx-smart-modal';
+import {PopupComponent} from '../popup/popup.component';
 
 @Component({
     selector: 'app-actions',
@@ -6,14 +8,12 @@ import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
     styleUrls: ['./actions.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class ActionsComponent implements OnInit {
-    @Input() posts;
+export class ActionsComponent {
 
-    constructor() {
-
+    constructor(private ngxSmartModalService: NgxSmartModalService) {
     }
 
-    ngOnInit() {
+    getPopup() {
+        this.ngxSmartModalService.create('myModal1', PopupComponent, {customClass: 'nsm-centered'}).open();
     }
-
 }

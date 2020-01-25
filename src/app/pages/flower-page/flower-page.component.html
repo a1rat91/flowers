@@ -4,7 +4,7 @@
     <div class="flower-page__container">
         <div class="flower-page__left">
             <div class="flower-page__left-inner">
-                <div class="flower-page__border" #border></div>
+                <div class="flower-page__border" #border style="opacity: 0;"></div>
                 <div class="flower-page__left-inner" *ngIf="post$ | async as post;">
                     <app-distortion-slider [images]="post.distortionSliderImg"
                                            (onLoadEnd)="fadeInFlowerPage($event)"></app-distortion-slider>
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="flower-page__btn-wrap">
-                        <button class="btn flower-page__btn" #btnEl>Заказать</button>
+                        <button (click)="getPopup()" class="btn flower-page__btn" #btnEl>Заказать</button>
                     </div>
 
                 </div>
@@ -43,7 +43,7 @@
 
             <div class="flower-page__footer-wrap">
                 <div class="flower-page__footer" #footerEl>
-                    <a href="" target="_blank" class="flower-page__more">
+                    <a href="https://instagram.com/guzel_akmaeva?igshid=8lr8riubfq9r" target="_blank" class="flower-page__more">
                         Больше фотографий в профиле
                     </a>
                 </div>

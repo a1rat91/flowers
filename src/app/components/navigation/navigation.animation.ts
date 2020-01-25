@@ -12,8 +12,8 @@ export function fadeInNavigation(nav, navItems, burger) {
 
     return gsap.timeline()
         .to(nav, navConfig)
-        .set(burger, {classList: 'nav-burger active'}, '-=0.4')
-        .fromTo(navItems, positionConfigFadeInFrom, positionConfigFadeInTo);
+        .fromTo(navItems, positionConfigFadeInFrom, positionConfigFadeInTo)
+        .fromTo(burger, {translateY: 20, opacity: 0}, { duration: 1, translateY: 0, opacity: 1}, '-=0.2');
 }
 
 export function fadeOutNavigation(nav, navItems, burger) {
@@ -21,7 +21,7 @@ export function fadeOutNavigation(nav, navItems, burger) {
     const navConfig = { duration: 1, y: '-130%', z: 0, ease: 'expo.inOut'};
 
     return gsap.timeline()
-        .set(burger, {classList: 'nav-burger'})
-        .fromTo(navItems, positionConfigFadeOutFrom, positionConfigFadeOutTo)
+        .fromTo(burger, {translateY: 0, opacity: 1}, { duration: 1, translateY: 20, opacity: 0})
+        .fromTo(navItems, positionConfigFadeOutFrom, positionConfigFadeOutTo, '-=0.6')
         .to(nav, navConfig);
 }

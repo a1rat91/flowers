@@ -1,3 +1,5 @@
+@import "../../../assets/style/base/variables";
+
 .nav-burger {
 	width: 26px;
 	height: 18px;
@@ -5,7 +7,8 @@
 	right: 90px;
 	position: fixed;
 	cursor: pointer;
-	pointer-events: none;
+	will-change: transform;
+	display: block;
 
 	span {
 		position: absolute;
@@ -14,37 +17,19 @@
 		height: 2px;
 		width: 100%;
 		background: #fff;
-		transition: .7s cubic-bezier(.87,-.41,.19,1.44);
-		will-change: transform;
-		opacity: 0;
 		display: block;
 
 		&:first-child {
-			transform: rotate(45deg) translate3d(300%,0,0);
-			transition-delay: 0s;
+			transform: rotate(45deg);
 		}
 
 		&:last-child {
-			transform: rotate(-45deg) translate3d(300%,0,0);
-			transition-delay: .1s;
+			transform: rotate(-45deg) ;
 		}
 	}
 
-	&.active {
-		pointer-events: all;
-
-		span {
-			opacity: 1;
-
-			&:first-child {
-				transform: rotate(45deg);
-				transition-delay: .7s;
-			}
-
-			&:last-child {
-				transform: rotate(-45deg);
-				transition-delay: .7s;
-			}
-		}
+	@media all and (max-width: $screen-sm) {
+		top: 33px;
+		right: 30px;
 	}
 }

@@ -33,4 +33,13 @@
 			margin-top: 10px;
 		}
 	}
+
+	@media all and (max-width: $screen-sm) {
+		&__pagination {
+			.catalog & {
+				left: 10px;
+				right: 10px;
+			}
+		}
+	}
 }

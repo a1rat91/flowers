@@ -18,7 +18,7 @@ import {Subscription} from 'rxjs';
 })
 export class LoaderComponent implements OnInit, AfterViewInit, OnDestroy {
     private subscription = new Subscription();
-    private loaderStatus;
+    public loaderStatus;
 
     constructor(private loaderService: LoaderService,
                 private ngZone: NgZone) {

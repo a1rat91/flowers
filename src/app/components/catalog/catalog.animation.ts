@@ -1,10 +1,11 @@
 import { gsap } from 'gsap/all';
 
-export function catalogNextPageTransition(title, pic, curtain) {
+export function catalogNextPageTransition(catalog, curtain) {
 
     const catalogCurtainConfig = { duration: 2, scaleX: 2, delay: 1, ease: 'expo.inOut'};
 
     return gsap.timeline()
+        .set(catalog, {zIndex: 2})
         .to(curtain, catalogCurtainConfig);
 }
 

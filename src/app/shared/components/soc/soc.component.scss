@@ -18,6 +18,11 @@
 		list-style-type: none;
 		margin-bottom: 22px;
 	}
+
+	&__link {
+		display: block;
+		cursor: pointer;
+	}
 	
 	@media all and (max-width: $screen-lg) {
 		bottom: 131px;

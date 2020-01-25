@@ -19,6 +19,8 @@ import {GSDevTools} from '../../shared/plugins/GSDevTools';
 gsap.registerPlugin(GSDevTools);
 import {FadeService} from '../../services/fade.service';
 import {Subscription} from 'rxjs';
+import {catalogNextPageTransition} from "../catalog/catalog.animation";
+import {Route, Router} from "@angular/router";
 
 @Component({
     selector: 'app-header',
@@ -49,7 +51,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 @Inject(DOCUMENT) private document: Document,
                 private loaderService: LoaderService,
                 private fadeService: FadeService,
-                private ngZone: NgZone) {
+                private ngZone: NgZone,
+                private router: Router) {
     }
 
     ngOnInit() {
@@ -63,6 +66,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
                         this.startHeader();
                         break;
                     case 'fadeOutMainPage':
+                    case 'fadeOutFlowerPage':
                         this.fadeOutHeader();
                         break;
                     case 'fadeInFlowerPage':
@@ -95,6 +99,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     goToMainPage() {
         this.loaderService.changeLoaderState('disable');
+        this.ngZone.runOutsideAngular(() => {
+                if (document.querySelector('.flower-page')) {
+                    this.fadeService.changeSectionState('fadeOutFlowerPage');
+                    gsap.timeline()
+                        .fromTo(['.flower-page__footer', '.flower-page__pagination', '.flower-page__btn',
+                                '.flower-page__text', '.flower-page__title', '.flower-page__border'],
+                            {y: 0, opacity: 1},
+                            {duration: 1.5, y: 20, opacity: 0, stagger: .3, ease: 'expo'})
+                        .fromTo('.distortion-slider__curtain', {x: '100%'}, {duration: 1, x: 0, ease: 'expo'}, '-=1')
+                        .add(() => this.ngZone.run(() => {
+                            this.router.navigate(['/']);
+                        }));
+                }
+            }
+        );
     }
 
     startHeader() {
@@ -103,8 +122,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
                     .add(startHeader(this.logoEl, this.burgerEl));
             }
         );
-
-        // GSDevTools.create();
     }
 
     fadeInHeader() {

@@ -24,6 +24,7 @@ body {
 @media all and (max-width: $screen-lg) {
 	body {
 		font-size: 14px;
+		overflow: hidden!important;
 	}
 }
 

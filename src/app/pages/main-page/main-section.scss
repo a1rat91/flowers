@@ -75,8 +75,14 @@
   @media all and (max-width: $screen-lg - 1){
     padding-bottom: 180px;
     height: 100vh;
+    background: url("../../../assets/images/main.jpg") no-repeat center center;
+    background-size: cover;
 
     &:after {
+      display: none;
+    }
+
+    &__bg {
       display: none;
     }
     
