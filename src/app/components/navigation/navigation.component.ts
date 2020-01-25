@@ -22,6 +22,7 @@ import {
     fadeOutNavigation
 } from './navigation.animation';
 import {LoaderService} from '../loader/loader.service';
+import {lockyOn} from 'dom-locky';
 
 
 @Component({
@@ -65,6 +66,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
                 } else {
                     this.fadeInNav();
                 }
+
                 return this.navigation = navigation;
             })
         ).add(

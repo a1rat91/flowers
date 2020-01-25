@@ -5,9 +5,9 @@ import {
     Component,
     ElementRef,
     Inject,
-    NgZone,
+    NgZone, OnChanges,
     OnDestroy,
-    OnInit,
+    OnInit, SimpleChanges,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -143,10 +143,12 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
             ).add(
             this.navigationService.currentNavigationState.subscribe(navigation => {
-                // this.fullpage_api.setAutoScrolling(true);
-                if (!this.navigation) {
-                    // this.fullpage_api.setAutoScrolling(false);
-                }
+
+                // if (this.navigation) {
+                //     this.fullpage_api.setAutoScrolling(false);
+                // } else {
+                //     this.fullpage_api.setAutoScrolling(true);
+                // }
 
                 return this.navigation = navigation;
             }));
@@ -165,13 +167,8 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
             this.startMainSection();
             this.fadeService.changeSectionState('fadeInMainPage');
         }, 500);
-        // this.fadeService.changeSectionState('fadeInMainPage');
 
         this.fullpage_api.setScrollingSpeed(3000);
-
-        if (!this.isDesctop()) {
-            // this.fullpage_api.destroy('all');
-        }
     }
 
     ngOnDestroy(): void {
@@ -220,8 +217,6 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
                         '.catalog__pagination',
                         '.catalog-item__link'))
                     .add(fadeInMainSection(this.mainSectionCurtain, this.mainTitle, this.mainBtn, this.mouse));
-
-                // GSDevTools.create({animation: tl});
             }
         );
     }
