@@ -22,7 +22,6 @@ import {
     fadeOutNavigation
 } from './navigation.animation';
 import {LoaderService} from '../loader/loader.service';
-import {lockyOn} from 'dom-locky';
 
 
 @Component({

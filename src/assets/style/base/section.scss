@@ -2,7 +2,7 @@
 
 .section {
 	&__title {
-		@include title($fw:700);
+		@include title($fw:400);
 		position: relative;
 		padding-bottom: 15px;
 		z-index: 10;
@@ -84,15 +84,16 @@
 		}
 
 		&__title {
-			font-size: 30px;
-			letter-spacing: 0.06em;
-			padding-bottom: 20px;
-			opacity: 1;
+			.fp-responsive & {
+				font-size: 30px;
+				letter-spacing: 0.06em;
+				padding-bottom: 20px;
+				opacity: 1;
+			}
 		}
 	}
 
 	@media all and (max-width: $screen-md) {
-		//transform: translate3d(0,0,0)!important;
 
 		&.is-catalog,
 		&.is-actions {
@@ -104,7 +105,9 @@
 		}
 
 		&__title {
-			font-size: 20px;
+			.fp-responsive & {
+				font-size: 25px;
+			}
 		}
 	}
 }

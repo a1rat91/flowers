@@ -18,23 +18,8 @@
 	padding: 0;
 	top: 22px;
 	right: 22px;
-
-	&:before,
-	&:after {
-		content: '';
-		height: 1px;
-		width: 100%;
-		background: #fff;
-		display: block;
-	}
-
-	&:before {
-		transform: rotate(45deg);
-	}
-
-	&:after {
-		transform: rotate(-45deg);
-	}
+	background: url("../../../assets/images/close.svg") no-repeat center center;
+	background-size: cover;
 
 	&:focus {
 		outline: none;
