@@ -1,8 +1,6 @@
 import {
-    AfterViewChecked,
     AfterViewInit, ChangeDetectionStrategy,
     Component,
-    DoCheck,
     ElementRef,
     Input, NgZone,
     OnDestroy,
@@ -97,14 +95,14 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
 
     fadeInNav() {
         this.ngZone.runOutsideAngular(() => {
-                const tl = gsap.timeline().add(fadeInNavigation(this.navigationEl, this.navigationMenu, this.navBurger));
+                gsap.timeline().add(fadeInNavigation(this.navigationEl, this.navigationMenu, this.navBurger));
             }
         );
     }
 
     fadeOutNav() {
         this.ngZone.runOutsideAngular(() => {
-                const tl = gsap.timeline({delay: 0.5})
+                gsap.timeline({delay: 0.5})
                     .add(fadeOutNavigation(this.navigationEl, this.navigationMenu, this.navBurger));
             }
         );

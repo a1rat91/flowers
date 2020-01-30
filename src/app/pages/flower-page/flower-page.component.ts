@@ -1,8 +1,8 @@
 import {
     AfterViewInit, ChangeDetectionStrategy,
     Component,
-    ElementRef, Inject, NgZone, OnChanges, OnDestroy,
-    OnInit, SimpleChanges,
+    ElementRef, Inject, NgZone, OnDestroy,
+    OnInit,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -14,13 +14,10 @@ import {switchMap} from 'rxjs/operators';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
 import {LoaderService} from '../../components/loader/loader.service';
 import {gsap} from 'gsap/all';
-import {GSDevTools} from '../../shared/plugins/GSDevTools';
-
-gsap.registerPlugin(GSDevTools);
 import {DOCUMENT} from '@angular/common';
 import {FadeService} from '../../services/fade.service';
-import {NgxSmartModalService} from "ngx-smart-modal";
-import {PopupComponent} from "../../components/popup/popup.component";
+import {NgxSmartModalService} from 'ngx-smart-modal';
+import {PopupComponent} from '../../components/popup/popup.component';
 
 
 @Component({
@@ -30,7 +27,7 @@ import {PopupComponent} from "../../components/popup/popup.component";
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
+export class FlowerPageComponent implements OnInit,OnDestroy {
 
     post$: Observable<Post>;
     slideIndex;
@@ -41,7 +38,6 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('paginationEl', {static: true}) private _paginationEl: ElementRef;
     @ViewChild('footerEl', {static: true}) private _footerEl: ElementRef;
     @ViewChild('border', {static: true}) private _border: ElementRef;
-    isFirstTimeCalled: boolean;
     private routeSubscription: Subscription;
     sectionState;
 
@@ -96,12 +92,6 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
         this.document.body.classList.remove('hidden');
     }
 
-    ngAfterViewInit(): void {
-        // setTimeout(() => {
-        //     this.loaderService.changeLoaderState(true);
-        // }, 500);
-    }
-
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
     }
@@ -130,17 +120,7 @@ export class FlowerPageComponent implements OnInit, AfterViewInit, OnDestroy {
         return this._border.nativeElement;
     }
 
-    fadeInFlowerPage(event) {
-        // if (event === 'loaded') {
-        //     this.ngZone.runOutsideAngular(() => {
-        //             const tl = gsap.timeline({id: 'fadeInFlowerPage'})
-        //                 .to([this.titleEl, this.textEl, this.btnEl, this.paginationEl, this.footerEl],
-        //                     {duration: 2, delay: 1, y: 0, opacity: 1, stagger: .3, ease: 'expo'});
-        //
-        //             // GSDevTools.create({animation: tl, container: '#fadeInFlowerPage'});
-        //         }
-        //     );
-        // }
+    fadeInFlowerPage() {
         this.fadeService.changeSectionState('fadeInFlowerPage');
     }
 

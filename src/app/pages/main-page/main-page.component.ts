@@ -5,9 +5,9 @@ import {
     Component,
     ElementRef,
     Inject,
-    NgZone, OnChanges,
+    NgZone,
     OnDestroy,
-    OnInit, SimpleChanges,
+    OnInit,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -18,12 +18,6 @@ import {Post} from '../../admin/shared/interfaces';
 import {NavigationService} from '../../services/navigation.service';
 import {LoaderService} from '../../components/loader/loader.service';
 import {gsap} from 'gsap';
-
-// TODO Удалить GSDevTools
-import {GSDevTools} from '../../shared/plugins/GSDevTools';
-
-gsap.registerPlugin(GSDevTools);
-
 import {
     fadeInMainSection,
     fadeOutMainSection,
@@ -41,7 +35,6 @@ import {FadeService} from '../../services/fade.service';
 import {DOCUMENT} from '@angular/common';
 import {CatalogComponent} from '../../components/catalog/catalog.component';
 import {fadeInActions, fadeOutActions} from '../../components/actions/actions.animation';
-import {NgxSmartModalService} from "ngx-smart-modal";
 
 @Component({
     selector: 'app-main-page',
@@ -94,11 +87,7 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
             afterResponsive: (isResponsive) => {
                 this.isResponsive = isResponsive;
             },
-            afterResize: () => {
-                // console.log("After resize");
-            },
             onLeave: (origin, destination, direction) => {
-                // console.log(origin, destination, direction, 'onLeave');
                 if (!this.isResponsive) {
                     if (origin.index === 0 && destination.index === 1) {
                         this.fadeService.changeSectionState('fadeOutMainSection');
@@ -143,13 +132,6 @@ export class MainPageComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
             ).add(
             this.navigationService.currentNavigationState.subscribe(navigation => {
-
-                // if (this.navigation) {
-                //     this.fullpage_api.setAutoScrolling(false);
-                // } else {
-                //     this.fullpage_api.setAutoScrolling(true);
-                // }
-
                 return this.navigation = navigation;
             }));
 

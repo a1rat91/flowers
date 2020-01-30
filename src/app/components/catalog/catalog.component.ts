@@ -11,20 +11,15 @@ import {
     ViewChildren, ViewEncapsulation
 } from '@angular/core';
 import {Router} from '@angular/router';
-
 import {gsap} from 'gsap/all';
-
 import {ScrollToPlugin} from 'gsap/ScrollToPlugin';
-
 gsap.registerPlugin(ScrollToPlugin);
-
 import {catalogNextPageTransition, sliderProgrees} from './catalog.animation';
 import {DOCUMENT} from '@angular/common';
 import {GridToFullscreenEffect as GridToFullscreenEffect} from '../../../assets/js/GridToFullscreenEffect.js';
 import {LoaderService} from '../loader/loader.service';
 import {FadeService} from '../../services/fade.service';
 import {Subscription} from 'rxjs';
-
 declare var imagesLoaded: any;
 
 @Component({
@@ -72,10 +67,6 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
         return this._catalogItems.map((element) => element.nativeElement);
     }
 
-    get catalogTitle() {
-        return this._catalogTitle.nativeElement;
-    }
-
     get thumbsItems() {
         return this._thumbsItems.map((element) => element.nativeElement);
     }
@@ -106,10 +97,6 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
 
     get catalogPic() {
         return this._catalogPic.map((element) => element.nativeElement);
-    }
-
-    get catalogShadow() {
-        return this._catalogShadow.nativeElement;
     }
 
     get catalogBtns() {
@@ -160,9 +147,6 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-
-        const itemsWrapper = this.wrappers;
-        const thumbs = this.thumbsItems;
         const fullviewItems = this.fullviewItems;
         const transitionEffectDuration = 1.2;
         this.ngZone.runOutsideAngular(() => {
@@ -234,7 +218,7 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
         this.fadeService.changeSectionState('fadeOutMainPage');
         this.loaderService.changeLoaderState('disable');
         this.ngZone.runOutsideAngular(() => {
-                let tl = gsap.timeline()
+                gsap.timeline()
                     .to(window, {duration: 0.5, scrollTo: '#js-catalog', ease: 'Expo.inOut'})
                     .add(catalogNextPageTransition(this.catalog, this.catalogTransitionCurtain))
                     .add(() => this.ngZone.run(() => {

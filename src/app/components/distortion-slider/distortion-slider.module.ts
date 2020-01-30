@@ -4,7 +4,7 @@ import {DistortionSliderPaginationComponent} from './distortion-slider-paginatio
 import {SwiperModule} from 'ngx-swiper-wrapper';
 import {DistortionSliderComponent} from './distortion-slider.component';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
-import {SharedModule} from "../../shared/shared.module";
+import {SharedModule} from '../../shared/shared.module';
 
 
 @NgModule({

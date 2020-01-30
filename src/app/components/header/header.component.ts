@@ -14,13 +14,9 @@ import {DOCUMENT} from '@angular/common';
 import {LoaderService} from '../loader/loader.service';
 import {gsap} from 'gsap/all';
 import {startHeader, fadeInHeader, fadeInMainSectionHeader, fadeOutHeader, fadeOutInHeader} from './header.animation';
-import {GSDevTools} from '../../shared/plugins/GSDevTools';
-
-gsap.registerPlugin(GSDevTools);
 import {FadeService} from '../../services/fade.service';
 import {Subscription} from 'rxjs';
-import {catalogNextPageTransition} from "../catalog/catalog.animation";
-import {Route, Router} from "@angular/router";
+import {Route, Router} from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -118,7 +114,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     startHeader() {
         this.ngZone.runOutsideAngular(() => {
-                const tl = gsap.timeline()
+                gsap.timeline()
                     .add(startHeader(this.logoEl, this.burgerEl));
             }
         );
@@ -126,45 +122,33 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     fadeInHeader() {
         this.ngZone.runOutsideAngular(() => {
-                const tl = gsap.timeline()
+                gsap.timeline()
                     .add(fadeInHeader(this.logoEl, this.burgerEl));
             }
         );
-
-        // GSDevTools.create();
     }
 
     fadeInMainSectionHeader() {
         this.ngZone.runOutsideAngular(() => {
-                const tl = gsap.timeline()
+                gsap.timeline()
                     .add(fadeInMainSectionHeader(this.logoEl, this.burgerEl));
             }
         );
-
-        // GSDevTools.create();
     }
 
     fadeOutHeader() {
         this.ngZone.runOutsideAngular(() => {
-                const tl = gsap.timeline()
+                gsap.timeline()
                     .add(fadeOutHeader(this.logoEl, this.burgerEl));
             }
         );
-
-        // GSDevTools.create();
     }
 
     fadeOutInHeader() {
         this.ngZone.runOutsideAngular(() => {
-                const tl = gsap.timeline()
+                gsap.timeline()
                     .add(fadeOutInHeader(this.logoEl, this.burgerEl));
             }
         );
-
-        // GSDevTools.create();
     }
-
-    // receiveHeaderState(event) {
-    //     console.log(event, 'receiveHeaderState');
-    // }
 }

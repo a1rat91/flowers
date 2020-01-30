@@ -1,5 +1,5 @@
-import {AfterViewChecked, AfterViewInit, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {NgxSmartModalComponent, NgxSmartModalService} from 'ngx-smart-modal';
+import {Component, ViewEncapsulation} from '@angular/core';
+import {NgxSmartModalService} from 'ngx-smart-modal';
 import {PopupComponent} from '../popup/popup.component';
 
 @Component({

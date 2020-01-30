@@ -2,9 +2,9 @@ import {
     ChangeDetectionStrategy,
     Component, ElementRef,
     Input, NgZone,
-    OnChanges, OnDestroy,
+    OnDestroy,
     OnInit,
-    SimpleChanges, ViewChild
+    ViewChild
 } from '@angular/core';
 import {SocService} from '../../soc.service';
 import {FadeService} from '../../../services/fade.service';
@@ -71,45 +71,40 @@ export class SocComponent implements OnInit, OnDestroy {
 
     startSoc() {
         this.ngZone.runOutsideAngular(() => {
-                const tl = gsap.timeline()
+                gsap.timeline()
                     .add(startSoc(this.socElement));
-                // GSDevTools.create();
             }
         );
     }
 
     fadeInSoc() {
         this.ngZone.runOutsideAngular(() => {
-                const tl = gsap.timeline()
+                gsap.timeline()
                     .add(fadeInSoc(this.socElement));
-                // GSDevTools.create();
             }
         );
     }
 
     fadeInMainSectionSoc() {
         this.ngZone.runOutsideAngular(() => {
-                const tl = gsap.timeline()
+                gsap.timeline()
                     .add(fadeInMainSectionSoc(this.socElement));
-                // GSDevTools.create();
             }
         );
     }
 
     fadeOutSoc() {
         this.ngZone.runOutsideAngular(() => {
-                const tl = gsap.timeline()
+                gsap.timeline()
                     .add(fadeOutSoc(this.socElement));
-                // GSDevTools.create();
             }
         );
     }
 
     fadeOutInSoc() {
         this.ngZone.runOutsideAngular(() => {
-                const tl = gsap.timeline()
+                gsap.timeline()
                     .add(fadeOutInSoc(this.socElement));
-                // GSDevTools.create();
             }
         );
     }
