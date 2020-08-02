@@ -20,6 +20,7 @@ import {GridToFullscreenEffect as GridToFullscreenEffect} from '../../../assets/
 import {LoaderService} from '../loader/loader.service';
 import {FadeService} from '../../services/fade.service';
 import {Subscription} from 'rxjs';
+import {PostsService} from '../../shared/posts.service';
 declare var imagesLoaded: any;
 
 @Component({
@@ -30,7 +31,6 @@ declare var imagesLoaded: any;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
-    @Input() posts;
     config;
     curentProgress;
     totalProgress;
@@ -50,8 +50,8 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() postImage;
     currentIndex;
     sectionState: string;
-    isPaginationDisable: boolean;
     loaderStatus: string;
+    public posts;
 
     private subscription = new Subscription();
 
@@ -60,7 +60,8 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
                 @Inject(DOCUMENT) private document: Document,
                 private loaderService: LoaderService,
                 private fadeService: FadeService,
-                private cdr: ChangeDetectorRef) {
+                private cdr: ChangeDetectorRef,
+                private postsService: PostsService) {
     }
 
     get catalogItems() {
@@ -108,6 +109,8 @@ export class CatalogComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.posts = this.postsService.flowers;
+
         this.subscription.add(
             this.fadeService.currentSectionState.subscribe(sectionState => this.sectionState = sectionState)
         ).add(

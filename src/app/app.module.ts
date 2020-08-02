@@ -3,7 +3,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
-import {AngularFullpageModule} from '@fullpage/angular-fullpage';
 import {LazyLoadImageModule} from 'ng-lazyload-image';
 import {SharedModule} from './shared/shared.module';
 import { Fake3dModule } from './components/fake3d/public-api';
@@ -23,17 +22,11 @@ import {SocComponent} from './shared/components/soc/soc.component';
 import {NextSectionLinkComponent} from './shared/components/next-section-link/next-section-link.component';
 
 import {NavigationService} from './services/navigation.service';
-import {AuthInterceptor} from './shared/auth.interceptor';
 import {NavigationLogoComponent} from './shared/components/navigation-logo/navigation-logo.component';
 import {ActionsComponent} from './components/actions/actions.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
-const INTERCEPTOR_PROVIDER: Provider = {
-    provide: HTTP_INTERCEPTORS,
-    multi: true,
-    useClass: AuthInterceptor
-};
+import { CustomFullpageComponent } from './components/custom-fullpage/custom-fullpage.component';
 
 @NgModule({
     declarations: [
@@ -49,12 +42,12 @@ const INTERCEPTOR_PROVIDER: Provider = {
         MouseComponent,
         SocComponent,
         NextSectionLinkComponent,
-        ActionsComponent
+        ActionsComponent,
+        CustomFullpageComponent
     ],
     imports: [
         BrowserModule,
         SharedModule,
-        AngularFullpageModule,
         LazyLoadImageModule,
         AppRoutingModule,
         Fake3dModule,
@@ -62,8 +55,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
     ],
     providers: [
-        NavigationService,
-        INTERCEPTOR_PROVIDER
+        NavigationService
     ],
     bootstrap: [AppComponent]
 })

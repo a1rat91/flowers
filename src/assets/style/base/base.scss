@@ -2,7 +2,7 @@
 
 html,
 body {
-	overflow-x: hidden!important;
+	//overflow-x: hidden!important;
 }
 
 body {
@@ -24,7 +24,7 @@ body {
 @media all and (max-width: $screen-lg) {
 	body {
 		font-size: 14px;
-		overflow: hidden!important;
+		overflow-x: hidden!important;
 	}
 }
 

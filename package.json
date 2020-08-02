@@ -24,6 +24,7 @@
     "@fullpage/angular-fullpage": "0.0.14",
     "angular-imagesloaded": "^1.0.0",
     "angularfire2": "^5.2.1",
+    "body-scroll-lock": "^3.0.1",
     "firebase": "^7.2.2",
     "gsap": "^3.0.4",
     "gyronorm": "^2.0.6",

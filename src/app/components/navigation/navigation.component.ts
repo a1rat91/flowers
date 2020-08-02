@@ -12,8 +12,7 @@ import {
 } from '@angular/core';
 import {NavigationService} from '../../services/navigation.service';
 import {PostsService} from '../../shared/posts.service';
-import {Post} from '../../admin/shared/interfaces';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {gsap} from 'gsap/all';
 import {
     fadeInNavigation,
@@ -38,7 +37,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
     public navigation: boolean;
     public burger: boolean;
     public flowers = [];
-    public posts$: Observable<Post[]>;
+    public posts;
     private subscription = new Subscription();
 
     constructor(
@@ -51,7 +50,7 @@ export class NavigationComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.posts$ = this.postsService.getAll();
+        this.posts = this.postsService.flowers;
     }
 
     ngAfterViewInit() {

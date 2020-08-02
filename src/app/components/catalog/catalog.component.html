@@ -11,7 +11,7 @@
 	</div>
 	
 	<div class="catalog__container">
-		<div class="swiper-container" [swiper]="config">
+		<div class="swiper-container" [swiper]="config" (resize)="config.update">
 			<div class="swiper-wrapper">
 				<div class="swiper-slide"
 				     *ngFor="let post of posts; let i = index"

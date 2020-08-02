@@ -10,7 +10,6 @@ const appRoutes: Routes = [
         {path: '', component: MainPageComponent},
         {path: 'post', loadChildren: () => import('./pages/flower-page/flower-page.module').then(m => m.FlowerPageModule)},
     ]},
-    {path : 'admin', loadChildren: './admin/admin.module#AdminModule'},
     {path: 'not-found', component: NotFoundComponent},
     {path: '**', redirectTo: '/not-found'},
 ];

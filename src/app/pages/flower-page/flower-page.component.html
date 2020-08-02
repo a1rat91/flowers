@@ -1,11 +1,11 @@
-<app-loader></app-loader>
+<!--<app-loader></app-loader>-->
 
 <div class="flower-page">
     <div class="flower-page__container">
         <div class="flower-page__left">
             <div class="flower-page__left-inner">
                 <div class="flower-page__border" #border style="opacity: 0;"></div>
-                <div class="flower-page__left-inner" *ngIf="post$ | async as post;">
+                <div class="flower-page__left-inner">
                     <app-distortion-slider [images]="post.distortionSliderImg"
                                            (onLoadEnd)="fadeInFlowerPage($event)"></app-distortion-slider>
                 </div>
@@ -16,25 +16,22 @@
                 <div class="flower-page__content-inner">
                     <div class="flower-page__title-wrap">
                         <h2 class="flower-page__title text-left" #titleEl>
-                            <span *ngIf="post$ | async as post">{{post.title}}</span>
+                            <span>{{post.title}}</span>
                         </h2>
                     </div>
                     <div class="flower-page__text-wrap">
                         <div class="flower-page__text" #textEl>
-                            <quill-view-html *ngIf="post$ | async as post"
-                                             [content]="post.text"></quill-view-html>
+                            {{post.text}}
                         </div>
                     </div>
 
                     <div class="flower-page__btn-wrap">
                         <button (click)="getPopup()" class="btn flower-page__btn" #btnEl>Заказать</button>
                     </div>
-
                 </div>
                 <div class="flower-page__pagination-wrap">
                     <div class="flower-page__pagination" #paginationEl>
-                        <app-distortion-slider-pagination *ngIf="post$ | async as post"
-                                                          [postImages]="post.distortionSliderMinImg"
+                        <app-distortion-slider-pagination [postImages]="post.distortionSliderMinImg"
                         ></app-distortion-slider-pagination>
                     </div>
                 </div>

@@ -2,6 +2,10 @@
   @include btn();
   transition: .5s;
   min-height: 50px;
+
+  &:focus {
+    outline: none;
+  }
   
   &_black {
     background: #000000;

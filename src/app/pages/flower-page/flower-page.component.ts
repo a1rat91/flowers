@@ -1,16 +1,13 @@
 import {
-    AfterViewInit, ChangeDetectionStrategy,
     Component,
     ElementRef, Inject, NgZone, OnDestroy,
     OnInit,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {PostsService} from '../../shared/posts.service';
-import {Post} from '../../admin/shared/interfaces';
-import {Observable, Subscription} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
 import {DistortionSliderService} from '../../services/distortion-slider.service';
 import {LoaderService} from '../../components/loader/loader.service';
 import {gsap} from 'gsap/all';
@@ -25,11 +22,10 @@ import {PopupComponent} from '../../components/popup/popup.component';
     templateUrl: './flower-page.component.html',
     styleUrls: ['./flower-page.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FlowerPageComponent implements OnInit,OnDestroy {
+export class FlowerPageComponent implements OnInit, OnDestroy {
 
-    post$: Observable<Post>;
+    post;
     slideIndex;
     loaderStatus: string;
     @ViewChild('titleEl', {static: true}) private _titleEl: ElementRef;
@@ -66,10 +62,9 @@ export class FlowerPageComponent implements OnInit,OnDestroy {
     }
 
     ngOnInit() {
-        this.post$ = this.route.params
-            .pipe(switchMap((params: Params) => {
-                return this.postsService.getById(params['id']);
-            }));
+        this.route.params.subscribe((resp) => {
+            this.post =  this.postsService.getById(resp.id);
+        });
 
         this.subscription.add(
             this.route.url.subscribe((url) => {

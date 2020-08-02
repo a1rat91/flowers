@@ -1,4 +1,4 @@
-<app-loader></app-loader>
+<!--<app-loader></app-loader>-->
 
 <div class="main-page">
 	<div class="main-page__container">
@@ -6,19 +6,17 @@
 			<div class="main-page__soc-xl">
 				<app-soc></app-soc>
 			</div>
-			<app-next-section-link (click)="fullpage_api.moveSectionDown()"></app-next-section-link>
+			<app-next-section-link></app-next-section-link>
 		</div>
 	</div>
 	
-	
-	<div fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
-		<div class="section fp-auto-height-responsive">
-			
+	<app-custom-fullpage>
+		<section class="section is-active" #section>
 			<div class="main-section__curtain" style="transform: translateX(-100%) translateZ(0)" #mainSectionCurtain></div>
 			
 			<div class="main-section__bg">
 				<app-fake3d
-					*ngIf="desctopMediaQuery && mainSectionActive"
+					*ngIf="desktopMediaQuery"
 					[image]="'assets/images/main.jpg'"
 					[depf]="'assets/images/main-map.jpg'"
 					[horizontalThreshold]="35"
@@ -32,8 +30,7 @@
 					с душой
 				</div>
 				<button class="btn main-section__btn" #mainBtn
-				        style="transform: translate3d(0, 20px, 0); opacity: 0;"
-				        (click)="fullpage_api.moveSectionDown()">
+				        style="transform: translate3d(0, 20px, 0); opacity: 0;">
 					Cмотреть работы
 				</button>
 				
@@ -45,23 +42,15 @@
 					<app-mouse></app-mouse>
 				</div>
 			</div>
-		</div>
-		
-		<div class="section is-catalog fp-auto-height-responsive" id="js-catalog">
-			
-			<app-catalog *ngIf="posts$ | async as posts; else loading" [posts]="posts"></app-catalog>
-			
-			<ng-template #loading>
-				<app-loader></app-loader>
-			</ng-template>
-		
-		</div>
-		
-		<div class="section is-actions fp-auto-height-responsive">
+		</section>
+		<section class="section is-catalog" id="js-catalog" #section>
+			<app-catalog></app-catalog>
+		</section>
+		<section class="section is-actions" #section>
 			<div>
 				<app-actions></app-actions>
 				<app-footer></app-footer>
 			</div>
-		</div>
-	</div>
+		</section>
+	</app-custom-fullpage>
 </div>

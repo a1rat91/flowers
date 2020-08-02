@@ -1,6 +1,4 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Post} from '../../admin/shared/interfaces';
-import {Observable} from 'rxjs';
 import {PostsService} from '../../shared/posts.service';
 import {SocService} from '../../shared/soc.service';
 
@@ -12,14 +10,14 @@ import {SocService} from '../../shared/soc.service';
 })
 export class FooterComponent implements OnInit {
 
-    posts$: Observable<Post[]>;
+    posts;
     soc;
 
     constructor(private postsService: PostsService, public socService: SocService) {
     }
 
     ngOnInit() {
-        this.posts$ = this.postsService.getAll();
+        this.posts = this.postsService.flowers;
         this.soc = this.socService.getSocialLinks();
     }
 }
