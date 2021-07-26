@@ -7,7 +7,7 @@
                 <div class="flower-page__border" #border style="opacity: 0;"></div>
                 <div class="flower-page__left-inner" *ngIf="post$ | async as post;">
                     <app-distortion-slider [images]="post.distortionSliderImg"
-                                           (onLoadEnd)="fadeInFlowerPage($event)"></app-distortion-slider>
+                                           (onLoadEnd)="fadeInFlowerPage()"></app-distortion-slider>
                 </div>
             </div>
         </div>
